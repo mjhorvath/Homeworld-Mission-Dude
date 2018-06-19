@@ -17,3 +17,7 @@ Windows 8/8.1/10.
 I uploaded a video to YouTube describing how to install the program:
 
 https://www.youtube.com/watch?v=dQttG-z4Y8E
+
+You can find my homepage and other Homeworld mods and tools at:
+
+http://isometricland.net
