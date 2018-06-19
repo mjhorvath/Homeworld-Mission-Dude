@@ -5,6 +5,15 @@ on several very obsolete technologies, including:
 * HTML Applications (HTA)
 * Adobe SVG Viewer
 
-If I find the time to update it, I would like to make it run in a regular 
-browser Window, and output to the screen instead of a file. I also would like 
-to update it to work for Homeworld Remastered.
+If I find the time, I would like to update it to run in a regular browser 
+window instead of the desktop. I also would like to update it to work with 
+Homeworld Remastered.
+
+Further information can be found in "HW2_MissionDude_readme.txt". This includes 
+installation and usage instructions, as well as an update history. I have 
+confirmed the program works in Windows 7, but do not know if it works in 
+Windows 8/8.1/10.
+
+I uploaded a video to YouTube describing how to install the program:
+
+https://www.youtube.com/watch?v=dQttG-z4Y8E

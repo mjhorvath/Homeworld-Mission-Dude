@@ -79,7 +79,7 @@ INSTALLATION
   program, I created a YouTube video tutorial showing how to install it on that 
   operating system, here:
 
-	http://youtu.be/EJ-wz8Ppk_U
+	https://www.youtube.com/watch?v=dQttG-z4Y8E
 
 
 ================================================================================

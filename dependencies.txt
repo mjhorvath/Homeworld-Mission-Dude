@@ -3,10 +3,11 @@ In order for this program to work properly, it requires the following things:
 * Adobe SVG Viewer, latest version
   https://www.adobe.com/devnet/svg/adobe-svg-viewer-download-area.html
 * "cjDialogs.dll"
-  I can no longer find this on the Web, so I have included it with this program.
-  I do not have the source for this library. I do not remember what the license 
-  was originally. Some sort of "free for for noncommercial use" license 
-  presumably.
+  Created by cj at the Kixtart forums.
+  I can no longer find this library at the above forums. As a result I have 
+  included it with this program. I do not remember what the license was 
+  originally. Some sort of "free for noncommercial use" license presumably.
+  This file goes in the program's root directory.
 * "Lua4.exe" and "Luac4.exe"
   https://sourceforge.net/projects/luabinaries/
   These go into the "source/lua" directory.
