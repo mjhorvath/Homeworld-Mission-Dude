@@ -1,0 +1,1059 @@
+-- Created using MissionDude 1.7.0 by Mikail
+AppVersion = "1.7.0"
+LevelAuthor = "Mikail"
+CreatedDate = "04/23/2008 05:58:46"
+UpdatedDate = "10/06/2013 03:02:50"
+LevelComments = "This map is intended to demonstrate the different special functions.\\r\\n"
+levelDesc = "Special function test"
+maxPlayers = 2
+
+player = {}
+player[0] = {id = 0, name = "Player #1", resources = 3000, raceID = 1, startPos = 1,}
+player[1] = {id = 1, name = "Player #2", resources = 3000, raceID = 1, startPos = 1,}
+
+function DetermChunk()
+
+	SOBGroups =
+	{
+		["Sobgroup #1"] =
+		{
+			{"Rv. Squadron #1",1,0,1,},
+			{"Squadron #1",1,0,0,},
+		},
+	}
+
+	Distributions = {}
+	Distributions["Distribution #3"] =
+	{
+		{100,"Pebble #2","Pebble","Pebble_0",{0,0,0},0,0,0,},
+	}
+	Distributions["Distribution #2"] =
+	{
+		{10,"Pebble #1","Pebble","Pebble_0",{0,0,0},0,0,0,},
+		{1,"Point #1","Point","",{0,0,0},{0,0,0},},
+		{1,"Asteroid #1","Asteroid","Asteroid_1",{0,0,0},100,0,0,0,0,},
+		{1,"Camera #1","Camera","",{0,0,0},{0,0,0},},
+		{1,"Cloud #1","Cloud","","Cloud_0",{0,0,0},{1,1,1,1},0,1000,},
+		{1,"DustCloud #1","DustCloud","","DustCloud_0",{0,0,0},{1,1,1,1},0,1000,},
+		{1,"Nebula #1","Nebula","","M05_DustCloud_Nebula",{0,0,0},{1,1,1,1},0,1000,},
+		{1,"Salvage #1","Salvage","Slv_Chunk_Lrg01",{0,0,0},100,0,0,0,0,},
+		{1,"Sphere #1","Sphere","",{0,0,0},1000,},
+		{1,"Squadron #1","Squadron","","vgr_weaponplatform_missile",{0,0,0},0,{0,0,0},0,0,},
+		{1,"DirLight #1","DirLight","",{0,0,0},{1,1,1},{1,1,1},},
+		{1,"Rv. Squadron #1","RvSquadron","vgr_weaponplatform_missile",{0,0,0},0,0,0,0,0,},
+		{1,"Rv. Asteroid #1","RvResource","Asteroid_1",{0,0,0},0,0,0,},
+	}
+	Distributions["Main"] =
+	{
+		{1,"StartPoint #1","StartPoint",nil,{7000,0,-6500},{0,0,0},},
+		{1,"StartPoint #2","StartPoint",nil,{-4611,0,7778},{0,0,0},},
+		{1,"Branch #1","Function",branchAdd,{0,0,0},Distributions["Distribution #3"],{{2,2},{2,2},{6,6},{2,2},{2,2},{100,500},{5000,10000},{10,100},{0,30},2,},{0,45,0},},
+		{1,"Spline #1","Function",splineAdd,{0,0,0},Distributions["Distribution #3"],{{-5000,0,0},{-5000,0,5000},{5000,0,0},{5000,0,-5000},{1000,1000},{100,100},},{0,0,0},},
+		{1,"Ring #1","Function",ringAdd,{0,0,0},Distributions["Distribution #2"],{20000,50000,1000,100,{0,360},1,},{0,0,0},},
+		{1,"Globe #1","Function",globeAdd,{0,0,0},Distributions["Distribution #2"],{2000,6,6,100,100,{0,360},1,},{0,0,0},},
+		{1,"Shape #1","Function",shapeAdd,{0,0,0},Distributions["Distribution #2"],{"Cylinder",1000,1000,20000,100,0,},{0,0,0},},
+		{1,"Spiral #1","Function",spiralAdd,{0,0,0},Distributions["Distribution #2"],{"Nautilus",20000,4,2,15,100,1000,100,{0,1},1,},{0,0,0},},
+		{1,"EasyPatch #1","Function",easyPatch,{0,0,0},100,},
+		{1,"Literal #1","Function",literalAdd,Distributions["Distribution #3"],},
+	}
+
+	literalAdd(Distributions["Main"])
+	doAllSOBGroups(SOBGroups)
+	setWorldBoundsInner({0,0,0},{100000,100000,100000})
+	setWorldBoundsOuter({0,0,0},{100000,100000,100000})
+end
+
+function NonDetermChunk()
+	fogSetActive(0)
+	fogAddInterpolator("fogStart",1,1)
+	fogSetColour(0.427734,0.228516,0.136719,1)
+	fogSetDensity(0.15)
+	fogSetStart(10)
+	fogSetEnd(20000)
+	fogSetType("linear")
+	setFXWind({1,1,1})
+	loadBackground("m01")
+	setDefaultMusic("Data:sound\\music\\battle\\battle_01")
+	setDustCloudAmbient({0.5,0.5,0.5,1})
+	setNebulaAmbient({0.5,0.5,0.5,1})
+	setGlareIntensity(0)
+	setLevelShadowColour(0,0,0,1)
+	setSensorsManagerCameraDistances(1000,100000)
+	randomMusic(0)
+	randomBackground(0)
+end
+
+iStartPoints, iPoints, iSpheres, iCameras, iSquadrons, iAsteroids, iSalvage, iPebbles, iClouds, iDustClouds, iNebulas, iDirLights, iRvResources, iRvSquadrons = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+function appendShape(tPos, i, tPar, j, tCoo, tRot)
+	-- tPar[1] is the amount
+	-- tPar[2] is the unique label (new)
+	-- tPar[3] is the object type
+	tCoo = vaddV(vrotate(tCoo, tRot), tPos)
+	if (tPar[2+1] == "Point") then
+		--addPoint(<sPointName>, <tPosition>, <tRotation>)
+		addPoint(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1])
+		iPoints = iPoints + 1
+	elseif (tPar[2+1] == "StartPoint") then
+		--addPoint(<sPointName>, <tPosition>, <tRotation>)
+		addPoint("StartPos" .. iStartPoints, vaddV(tCoo, tPar[4+1]), tPar[5+1])
+		iStartPoints = iStartPoints + 1					
+	elseif (tPar[2+1] == "Sphere") then
+		--addSphere(<sSphereName>, <tPosition>, <fRadius>)
+		addSphere(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1])
+		iSpheres = iSpheres + 1
+	elseif (tPar[2+1] == "Camera") then
+		--addCamera(<sCameraName>, <tTarget>, <tOrigin>)
+		addCamera(tPar[3+1], tPar[5+1], vaddV(tCoo, tPar[4+1]))
+		iCameras = iCameras + 1
+	elseif (tPar[2+1] == "Squadron") then
+		--addSquadron(<sSquadronName>, <sSquadronType>, <tPosition>, <iPlayerIndex>, <tRotation>, <iNumberShips>, <bHyperspace>)
+		addSquadron(tPar[3+1], tPar[4+1], vaddV(tCoo, tPar[5+1]), tPar[6+1], tPar[7+1], tPar[8+1], tPar[9+1])
+		iSquadrons = iSquadrons + 1
+	elseif (tPar[2+1] == "Asteroid") then
+		--addAsteroid(<sAsteroidType>, <tPosition>, <fRU>, ?, ?, ?, ?)
+		addAsteroid(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1], tPar[6+1], tPar[7+1], tPar[8+1], tPar[9+1])
+		iAsteroids = iAsteroids + 1
+	elseif (tPar[2+1] == "Salvage") then
+		--addSalvage(<sChunkType>, <tPosition>, <fRU>, ?, ?, ?, ?)
+		addSalvage(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1], tPar[6+1], tPar[7+1], tPar[8+1], tPar[9+1])
+		iSalvage = iSalvage + 1
+	elseif (tPar[2+1] == "Pebble") then
+		--addPebble(<sPebbleType>, <tPosition>, ?, ?, ?)
+		addPebble(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1], tPar[6+1], tPar[7+1])
+		iPebbles = iPebbles + 1
+	elseif (tPar[2+1] == "Cloud") then
+		--addCloud(<sObjName>, <sCloudType>, <tPosition>, <tColor>, ?, <fSize>)
+		addCloud(tPar[3+1], tPar[4+1], vaddV(tCoo, tPar[5+1]), tPar[6+1], tPar[7+1], tPar[8+1])
+		iClouds = iClouds + 1
+	elseif (tPar[2+1] == "DustCloud") then
+		--addDustCloud(<sObjName>, <sDustCloudType>, <tPosition>, <tColor>, ?, <fSize>)
+		addDustCloud(tPar[3+1], tPar[4+1], vaddV(tCoo, tPar[5+1]), tPar[6+1], tPar[7+1], tPar[8+1])
+		iDustClouds = iDustClouds + 1
+	elseif (tPar[2+1] == "Nebula") then
+		--addNebula(<sNebulaName>, <sNebulaType>, <tPosition>, <tColor>, ?, <fSize>)
+		addNebula(tPar[3+1], tPar[4+1], vaddV(tCoo, tPar[5+1]), tPar[6+1], tPar[7+1], tPar[8+1])
+		iNebulas = iNebulas + 1
+	elseif (tPar[2+1] == "DirLight") then
+		--createDirLight(<sLightName>, <tPosition>, <tColour>)
+		createDirLight(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1])
+		--setLightSpecular(<sLightName>, <tSpecular>)
+		setLightSpecular(tPar[3+1], tPar[6+1])
+		iDirLights = iDirLights + 1
+	elseif (tPar[2+1] == "RvSquadron") then
+		local sobgroupname = ""
+		for i, iCount in SOBGroups do
+			for j = 1, getn(iCount) do
+				if (tPar[2] == iCount[j][1]) then
+					sobgroupname = i
+					break
+				end
+			end
+			if (sobgroupname ~= "") then
+				break
+			end
+		end
+		-- HW2 complains when I add this to a skirmish map. Is my syntax correct, or does it only work in singleplayer?
+		--addReactiveFleetSlot(<sSobGroupName>, <iPlayerIndex>, ?, <tPosition>, ?, ?, ?, <sShipType>)
+		addReactiveFleetSlot(sobgroupname, tPar[6+1], tPar[7+1], vaddV(tCoo, tPar[4+1]), tPar[8+1], tPar[9+1], tPar[10+1], tPar[3+1])
+		iRvSquadrons = iRvSquadrons + 1
+	elseif (tPar[2+1] == "RvResource") then
+		--addReactiveFleetResourceSlot(<sResourceType>, <tPos>, ?, ?, ?)
+		addReactiveFleetResourceSlot(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1], tPar[6+1], tPar[7+1])
+		iRvResources = iRvResources + 1
+	elseif (tPar[2+1] == "Coordinate") then
+		tinsert(tPar[3], tCoo)
+	elseif (tPar[2+1] == "Function") then
+		if (tPar[7+1] == nil) then
+			tPar[7+1] = {0,0,0,}
+		end
+		local nfour = tPar[4+1]
+		if tPar[3+1] ~= literalAdd then
+			nfour = vaddV(tCoo, tPar[4+1])
+		end
+		tPar[3+1](nfour, tPar[5+1], tPar[6+1], vaddV(tRot, tPar[7+1]))
+	end
+end
+
+function addSOBGroup(sSobName, ...)
+	createSOBGroup(sSobName)
+	for i = 1, getn(arg) do
+		addToSOBGroup(arg[i], sSobName)
+	end
+end
+
+function doAllSOBGroups(ttable)
+	for sobgname, sobgarray in ttable do
+		createSOBGroup(sobgname)
+		for j = 1, getn(sobgarray) do
+			local thisitem = sobgarray[j]
+			if (thisitem[4] == 0) then
+				addToSOBGroup(thisitem[0], sobgname)
+			end
+		end
+	end
+end
+
+-- Damn. Can't use the "call" or "dostring" functions here... Useless.
+function doAllPaths(ttable)
+	for pathname, patharray in ttable do
+		for j = 1, getn(patharray) do
+			local thispoint = patharray[j]
+			if thispoint[2] == 1 then
+--				addToSOBGroup(thisship[1], sobgname)
+			else
+				for k = 1, thispoint[2] do
+--					addToSOBGroup(thisship[1] .. "_" .. k, sobgname)
+				end
+			end
+		end
+	end
+end
+
+function literalAdd(tDst)
+	for i, tTab in tDst do
+		for j = 1, tTab[1] do
+			appendShape({0, 0, 0,}, i, tTab, j, {0, 0, 0,}, {0, 0, 0,})
+		end
+	end
+end
+
+function randomMusic(iMod, tTab, iLen, sDir)
+	local ranNum, musDir, musTrk = 0, "", ""
+	local musTab =
+	{
+		"amb_01", "amb_02", "amb_03", "amb_04", "amb_05", "amb_06", "amb_07", "amb_08", "amb_09", "amb_10", "amb_11", "amb_12", "amb_13", "amb_14",
+		"battle_01", "battle_04", "battle_04_alt", "battle_06", "battle_keeper", "battle_movers", "battle_planetkillers", "battle_sajuuk", "bentus_arrival",
+	}
+	if ((iMod == 4) or (iMod == 5)) then
+		for k = 1, iLen do
+			musTab[k + 23] = tTab[k]
+		end
+	end
+	if (iMod == 1) then
+		ranNum = random(1, 14)
+	elseif (iMod == 2) then
+		ranNum = random(15, 23)
+	elseif (iMod == 3) then
+		ranNum = random(1, 23)
+	elseif (iMod == 4) then
+		ranNum = random(24, 23 + iLen)
+	elseif (iMod == 5) then
+		ranNum = random(1, 23 + iLen)
+	end
+	if (ranNum <= 14) then
+		musDir = "data:sound\\music\\ambient\\"
+	elseif (ranNum <= 23) then
+		musDir = "data:sound\\music\\battle\\"
+	elseif (ranNum <= (23 + iLen)) then
+		musDir = sDir
+	end
+	if (iMod ~= 0) then
+		setDefaultMusic(musDir .. musTab[ranNum])
+	end
+end
+
+function randomBackground(iMod, tTab, iLen)
+	local ranNum = 0
+	local backgroundTable =
+	{
+		"m01", "m02", "m03", "m04", "m05", "m06", "m07", "m08", "m09", "m10", "m11", "m12", "m13", "m14", "m15",
+		"planet", "quick", "singlesun", "tanis", "taniswstars", "black", "white",
+	}
+	if ((iMod == 4) or (iMod == 5)) then
+		for k = 1, iLen do
+			backgroundTable[k + 22] = tTab[k]
+		end
+	end
+	if (iMod == 1) then
+		ranNum = random(1, 15)
+	elseif (iMod == 2) then
+		ranNum = random(16, 22)
+	elseif (iMod == 3) then
+		ranNum = random(1, 22)
+	elseif (iMod == 4) then
+		ranNum = random(23, 22 + iLen)
+	elseif (iMod == 5) then
+		ranNum = random(1, 23 + iLen)
+	end
+	if (iMod ~= 0) then
+		loadBackground(backgroundTable[ranNum])
+	end
+end
+
+function randomSign()
+	if (random() > 0.5) then
+		return 1
+	else
+		return -1
+	end
+end
+
+function randomBit()
+	if (random() > 0.5) then
+		return 1
+	else
+		return 0
+	end
+end
+
+function random2(fVal1, fVal2)
+	if (fVal2) then
+		if ((fVal2 - fVal1) == 0) then
+			return fVal2
+		else
+			return random(fVal1, fVal2)
+		end
+	elseif (fVal1) then
+		if (fVal1 == 0) then
+			return 0
+		else
+			return random(fVal1)
+		end
+	else
+		return random()
+	end
+end
+
+function random3(fVal1, fVal2)
+	if (fVal2) then
+		return fVal1 + random() * (fVal2 - fVal1)
+	elseif (fVal1) then
+		return random() * fVal1
+	else
+		return random()
+	end
+end
+
+function vaddV(tVec1, tVec2)
+	local tmpVec = {}
+	for i, tTab in tVec2 do
+		tmpVec[i] = tVec1[i] + tTab
+	end
+	return tmpVec
+end
+
+if not getn then
+	function getn(tTable)
+		local nCount = 0
+		for i, iCount in tTable do
+			if i ~= "n" then
+				nCount = nCount + 1
+			end
+		end
+		return nCount
+	end
+end
+
+if not tinsert then
+	function tinsert(tTable, Arg1, Arg2)
+		if (Arg2) then
+			local TempTable = {}
+			for i = Arg1, getn(tTable) do
+				TempTable[i + 1] = tTable[i]
+			end
+			for i = Arg1, getn(tTable) do
+				tTable[i + 1] = TempTable[i + 1]
+			end
+			tTable[Arg1] = Arg2
+		else
+			tTable[getn(tTable) + 1] = Arg1
+		end
+	end
+end
+
+function vrotate(tVec, tAng)
+	tVec =
+	{
+		tVec[1] * cos(tAng[3]) - tVec[2] * sin(tAng[3]),
+		tVec[1] * sin(tAng[3]) + tVec[2] * cos(tAng[3]),
+		tVec[3],
+	}
+	tVec =
+	{
+		tVec[1],
+		tVec[2] * cos(tAng[1]) - tVec[3] * sin(tAng[1]),
+		tVec[2] * sin(tAng[1]) + tVec[3] * cos(tAng[1]),
+	}
+	tVec =
+	{
+		tVec[1] * cos(tAng[2]) + tVec[3] * sin(tAng[2]),
+		tVec[2],
+		-1 * tVec[1] * sin(tAng[2]) + tVec[3] * cos(tAng[2]),
+	}
+	return tVec
+end
+
+function branchAdd(tPos, tDst, tPar, tRot, lastRad, countDiv, countFrq, lastPos, nextPos, tiltDeg, spinDeg)
+	local thisPos = {}
+	local tDiv, tInt, tFrq, tBeg, tEnd, tRad, tLen, tThk, tAng, iMod = tPar[1], tPar[2], tPar[3], tPar[4], tPar[5], tPar[6], tPar[7], tPar[8], tPar[9], tPar[10]
+	local minRad, maxRad, minDist, maxDist, minThck, maxThck = tRad[1], tRad[2], tLen[1], tLen[2], tThk[1]/100, tThk[2]/100
+	local minAng, maxAng, minBeg, maxBeg, minEnd, maxEnd = tAng[1], tAng[2], tBeg[1], tBeg[2], tEnd[1], tEnd[2]
+	local minDiv, maxDiv, minInt, maxInt, minFrq, maxFrq = tDiv[1], tDiv[2], tInt[1], tInt[2], tFrq[1], tFrq[2]
+	local numSeg, numInt, numDiv, numBeg, numEnd, numFrq = 0, 0, 0, 0, 0, 0
+	if (lastRad == nil) then
+		lastRad = maxRad
+		countDiv = 1
+		countFrq = minFrq
+	else
+		countFrq = countFrq - 1
+	end
+	if (lastPos == nil) then
+		lastPos = {0,0,0,}
+		nextPos = {0,0,0,}
+		tiltDeg, spinDeg = 0, 0
+	end
+	local thisRad = sqrt(lastRad^2/countDiv)
+	-- if set to non-random mode
+	if (iMod == 0) then
+		numInt, numDiv, numBeg, numEnd, numFrq = maxInt, minDiv, maxBeg, maxEnd, maxFrq
+	-- if set to random mode, or random mode with decreasing length and radius
+	else
+		numInt, numDiv, numBeg, numEnd, numFrq = random(minInt, maxInt), random(minDiv, maxDiv), random(minBeg, maxBeg), random(minEnd, maxEnd), random(minFrq, maxFrq)
+	end
+	if (numBeg > 0) then
+		numSeg = numBeg
+	elseif (numFrq > 0) then
+		numSeg = numInt
+	elseif (numEnd > 0) then
+		numSeg = numEnd
+	end
+	for k = 1, numSeg do
+		local rad, len, thk, angY, angZ = 0, 0, 0, 0, 0
+		-- if set to non-random mode
+		if (iMod == 0) then
+			local sign1, sign2 = randomSign(), randomSign()
+			rad, len, angY, angZ = maxRad, maxDist, sign1 * maxAng, sign2 * maxAng
+		-- if set to random mode with decreasing length and radius
+		elseif (iMod == 1) or (iMod == 3) then
+			local sign1, sign2, narrw = randomSign(), randomSign(), random3(0.9, 1)
+			thisRad = thisRad * narrw
+			thk, rad, len, angY, angZ = random3(minThck, maxThck) * narrw, thisRad, maxDist - (maxDist - minDist)/(numFrq + 1), random3(minAng, maxAng) * sign1, random3(minAng, maxAng) * sign2
+		-- if set to random mode
+		elseif (iMod == 2) then
+			local sign1, sign2 = randomSign(), randomSign()
+			thk, rad, len, angY, angZ = random3(minThck, maxThck), random3(minRad, maxRad), random3(minDist, maxDist), random3(minAng, maxAng) * sign1, random3(minAng, maxAng) * sign2
+		end
+		tiltDeg, spinDeg = tiltDeg + angZ, spinDeg + angY
+		thisPos = nextPos
+		nextPos = vaddV(nextPos, vrotate({len, 0, 0,}, {0, spinDeg, tiltDeg,}))
+		for i, tTab in tDst do
+			local Volume1, Volume2 = PI * maxRad^2 * maxDist, PI * rad^2 * len
+			local Density = Volume2/Volume1
+			local iNum, gradX = floor(tTab[1] * Density + 0.5), len
+			for j = 1, iNum do
+				-- if set to non-random mode
+				if (iMod == 0) then
+					local tCoo = {gradX, 0, 0,}
+					tCoo = vaddV(thisPos, vrotate(tCoo, {0, spinDeg, tiltDeg,}))
+					appendShape(tPos, i, tTab, j, tCoo, tRot)
+				-- if set to random mode with decreasing length and radius
+				elseif (iMod == 1) then
+					local r = sqrt(random()) * thk * rad + (1 - thk) * rad
+					local v, h = random3(360), random3(len)
+					local tCoo = {h, r * cos(v), r * sin(v),}
+					tCoo = vaddV(thisPos, vrotate(tCoo, {0, spinDeg, tiltDeg,}))
+					appendShape(tPos, i, tTab, j, tCoo, tRot)
+				-- if set to random mode
+				elseif (iMod == 2) then
+					local r = sqrt(random()) * thk * rad + (1 - thk) * rad
+					local v, h = random3(360), random3(len)
+					local tCoo = {h, r * cos(v), r * sin(v),}
+					tCoo = vaddV(thisPos, vrotate(tCoo, {0, spinDeg, tiltDeg,}))
+					appendShape(tPos, i, tTab, j, tCoo, tRot)
+				-- if set to random method using splines with decreasing length and radius
+				elseif (iMod == 3) then
+					local t = random()
+					local A = vmidpoint(lastPos, thisPos)
+					local B = thisPos
+					local C = vmidpoint(thisPos, nextPos)
+					local r = sqrt(random()) * thk * rad + (1 - thk) * rad
+					local v = random(360)
+					local tCirc =
+					{
+						r * cos(v),
+						r * sin(v),
+						0,
+					}
+					local tCoo =
+					{
+						(1 - t)^2 * A[1] + 2 * (1 - t) * t * B[1] + t^2 * C[1],
+						(1 - t)^2 * A[2] + 2 * (1 - t) * t * B[2] + t^2 * C[2],
+						(1 - t)^2 * A[3] + 2 * (1 - t) * t * B[3] + t^2 * C[3],
+					}
+					local tDerivatives =
+					{
+						2 * (1 - t) * (B[1] - A[1]) + 2 * t * (C[1] - B[1]),
+						2 * (1 - t) * (B[2] - A[2]) + 2 * t * (C[2] - B[2]),
+						2 * (1 - t) * (B[3] - A[3]) + 2 * t * (C[3] - B[3]),
+					}
+					local tNormedPos = vrotate(tCirc, vanglesXY(tDerivatives))
+					appendShape(tPos, i, tTab, j, vaddV(tCoo, tNormedPos), tRot)
+				end
+				gradX = gradX - len/iNum
+			end
+		end
+		lastPos = thisPos
+	end
+	if (numBeg > 0) then
+		tBeg = {0, 0,}
+		branchAdd(tPos, tDst, {tDiv, tInt, tFrq, tBeg, tEnd, tRad, tLen, tThk, tAng, iMod,}, tRot, nil, nil, nil, lastPos, nextPos, tiltDeg, spinDeg)
+	elseif (numFrq > 0) then
+		if (minFrq >= numFrq) then
+			minFrq = numFrq - 1
+		end
+		tFrq = {minFrq, numFrq - 1,}
+		for j = 1, numDiv do
+			branchAdd(tPos, tDst, {tDiv, tInt, tFrq, tBeg, tEnd, tRad, tLen, tThk, tAng, iMod,}, tRot, thisRad, numDiv, countFrq, lastPos, nextPos, tiltDeg, spinDeg)
+		end
+	elseif (numEnd > 0) then
+		tDiv, tInt, tFrq, tEnd = {0, 0,}, {0, 0,}, {0, 0,}, {0, 0,}
+		branchAdd(tPos, tDst, {tDiv, tInt, tFrq, tBeg, tEnd, tRad, tLen, tThk, tAng, iMod,}, tRot, thisRad, numDiv, countFrq, lastPos, nextPos, tiltDeg, spinDeg)
+	end
+end
+
+function splineAdd(tPos, tDst, tPar, tRot)
+	local tCoo, tDerivatives, X, Y, Z = {}, {}, 0, 0, 0
+	local tP1A, tP1B, tP2A, tP2B, tRad, tThk = tPar[1], tPar[2], tPar[3], tPar[4], tPar[5], tPar[6]
+	local minRad, maxRad, minThk, maxThk = tRad[1], tRad[2], 1 - tThk[1]/100, 1 - tThk[2]/100
+	local A1_x, A1_y, A1_z, A2_x, A2_y, A2_z = tP1A[1], tP1A[2], tP1A[3], tP1B[1], tP1B[2], tP1B[3]
+	local B1_x, B1_y, B1_z, B2_x, B2_y, B2_z = tP2A[1], tP2A[2], tP2A[3], tP2B[1], tP2B[2], tP2B[3]
+	for i, tTab in tDst do
+		for j = 1, tTab[1] do
+			local t, phi = random(), random(360)
+			local r = (minRad + (maxRad - minRad) * t) * random3(minThk, maxThk)
+			X, Y, Z = r * cos(phi), r * sin(phi), 0
+			tCoo =
+			{
+				(B1_x + 3 * A2_x - 3 * B2_x - A1_x) * t^3 + (3 * B2_x - 6 * A2_x + 3 * A1_x) * t^2 + (3 * A2_x - 3 * A1_x) * t + A1_x,
+				(B1_y + 3 * A2_y - 3 * B2_y - A1_y) * t^3 + (3 * B2_y - 6 * A2_y + 3 * A1_y) * t^2 + (3 * A2_y - 3 * A1_y) * t + A1_y,
+				(B1_z + 3 * A2_z - 3 * B2_z - A1_z) * t^3 + (3 * B2_z - 6 * A2_z + 3 * A1_z) * t^2 + (3 * A2_z - 3 * A1_z) * t + A1_z,
+			}
+			tDerivatives =
+			{
+				(B1_x + 3 * A2_x - 3 * B2_x - A1_x) * 3 * t^2 + (3 * B2_x - 6 * A2_x + 3 * A1_x) * 2 * t + (3 * A2_x - 3 * A1_x),
+				(B1_y + 3 * A2_y - 3 * B2_y - A1_y) * 3 * t^2 + (3 * B2_y - 6 * A2_y + 3 * A1_y) * 2 * t + (3 * A2_y - 3 * A1_y),
+				(B1_z + 3 * A2_z - 3 * B2_z - A1_z) * 3 * t^2 + (3 * B2_z - 6 * A2_z + 3 * A1_z) * 2 * t + (3 * A2_z - 3 * A1_z),
+			}
+			local tRotAng = vanglesXY(tDerivatives)
+			local tNormedPos = vrotate({X, Y, Z,}, vmultiply(tRotAng, -1))
+			appendShape(tPos, i, tTab, j, vaddV(tCoo, tNormedPos), tRot)
+		end
+	end
+end
+
+function vanglesXY(tVec2)
+	local fSgnX, fSgnY, tPrjB1 = 1, 1, vnormalize({tVec2[1], 0, tVec2[3],})
+	if (tPrjB1[1] ~= 0) then
+		fSgnX = tPrjB1[1]/abs(tPrjB1[1]) * -1
+	end
+	local fAngY = acos(tPrjB1[3]) * fSgnX
+	local tPrjB2 = vnormalize(vrotate(tVec2, {0, fAngY, 0,}))
+	if (tPrjB2[2] ~= 0) then
+		fSgnY = tPrjB2[2]/abs(tPrjB2[2])
+	end
+	local fAngX = acos(tPrjB2[3]) * fSgnY
+	return {fAngX, fAngY, 0,}
+end
+
+function vmultiply(tVec, fVal)
+	local tmpVec = {}
+	for i, tTab in tVec do
+		tmpVec[i] = tTab * fVal
+	end
+	return tmpVec
+end
+
+function vnormalize(tVec)
+	return vdivide(tVec, vlength(tVec))
+end
+
+function vlength(tVec)
+	return sqrt(vsum(vpower(tVec, 2)))
+end
+
+function vdivide(tVec, fVal)
+	local tmpVec = {}
+	for i, tTab in tVec do
+		tmpVec[i] = tTab/fVal
+	end
+	return tmpVec
+end
+
+function vpower(tVec, fVal)
+	local tmpVec = {}
+	for i, tTab in tVec do
+		tmpVec[i] = tTab^fVal
+	end
+	return tmpVec
+end
+
+function vsum(tVec1)
+	local tmpVal = 0
+	for i, tTab in tVec1 do
+		tmpVal = tmpVal + tTab
+	end
+	return tmpVal
+end
+
+function ringAdd(tPos, tDst, tPar, tRot)
+	local fAx1, fAx2, fThk, fHgh, tArc, iMod = tPar[1], tPar[2], tPar[3], tPar[4], tPar[5], tPar[6]
+	local tCoo, minArc, maxArc = {}, tArc[1], tArc[2]
+	for i, tTab in tDst do
+		local u, w, h, arc, iNum = 0, 0, 0, 0, tTab[1]
+		for j = 1, iNum do
+			if (iMod == 2) then
+				u = random3(minArc, maxArc)
+				tCoo =
+				{
+					cos(u) * fAx2 - random3(fThk),
+					random3(fHgh) - fHgh/2,
+					sin(u) * fAx1 - random3(fThk),
+				}
+			elseif (iMod == 1) then
+				u = random3(minArc, maxArc)
+				tCoo =
+				{
+					cos(u) * (fAx2 - random3(fThk)),
+					random3(fHgh) - fHgh/2,
+					sin(u) * sqrt((fAx2 - random3(fThk))^2 - fAx2^2 + fAx1^2),
+				}
+			elseif (iMod == 0) then
+				u = minArc + arc
+				tCoo =
+				{
+					cos(u) * (fAx2 + fThk/-2 + w),
+					fHgh/-2 + h,
+					sin(u) * (fAx1 + fThk/-2 + w),
+				}
+				arc, w, h = arc + (maxArc - minArc)/iNum, w + fThk/iNum, h + fHgh/iNum
+			end
+			appendShape(tPos, i, tTab, j, tCoo, tRot)
+		end
+	end
+end
+
+function globeAdd(tPos, tDst, tPar, xNull)
+	local lat, lon, u, X, Y = 0, 0, 0, 0, 0
+	local fRad, fLat, fLon, fThk, fHgh, tArc, iMod = tPar[1], tPar[2], tPar[3], tPar[4], tPar[5], tPar[6], tPar[7]
+	for i = 1, fLat do
+		lat, u = lat + 360/(fLat * 2 + 2), lat 
+		X, Y = cos(u) * fRad, sin(u) * fRad
+		ringAdd(vaddV(tPos, {0, X, 0,}), tDst, {Y, Y, fThk, fHgh, tArc, iMod,}, {0, 0, 0,})
+	end
+	for i = 1, fLon do
+		lon = lon + 360/fLon
+		ringAdd(tPos, tDst, {fRad, fRad, fThk, fHgh, tArc, iMod,}, {0, lon, 90,})
+	end
+end
+
+function shapeAdd(tPos, tDst, tPar, tRot)
+	local sLay = tPar[1]
+	for i, tTab in tDst do
+		for j = 1, tTab[1] do
+			local tCoo = {}
+			if (sLay == "Cuboid") then
+				tCoo = makeCuboid(tPar)
+			elseif (sLay == "Ellipsoid") then
+				tCoo = makeEllipsoid(tPar)
+			elseif (sLay == "Cylinder") then
+				tCoo = makeCylinder(tPar)
+			elseif (sLay == "Cone") then
+				tCoo = makeCone(tPar)
+			elseif (sLay == "Toroid") then
+				tCoo = makeToroid(tPar)
+			elseif (sLay == "Helicoid") then
+				tCoo = makeHelicoid(tPar)
+			elseif (sLay == "Paraboloid") then
+				tCoo = makeParaboloid(tPar)
+			elseif (sLay == "Hyperboloid") then
+				tCoo = makeHyperboloid(tPar)
+			elseif (sLay == "Astroid") then
+				tCoo = makeAstroid(tPar)
+			elseif (sLay == "Funnel") then
+				tCoo = makeFunnel(tPar)
+			elseif (sLay == "Dini") then
+				tCoo = makeDini(tPar)
+			elseif (sLay == "Corkscrew") then
+				tCoo = makeCorkscrew(tPar)
+			elseif (sLay == "Seashell") then
+				tCoo = makeSeashell(tPar)
+			elseif (sLay == "SineDisc") then
+				tCoo = makeSineDisc(tPar)
+			elseif (sLay == "SinePlane") then
+				tCoo = makeSinePlane(tPar)
+			elseif (sLay == "Moebius") then
+				tCoo = makeMoebius(tPar)
+			elseif (sLay == "Klein") then
+				tCoo = makeKlein(tPar)
+			elseif (sLay == "Klein8") then
+				tCoo = makeKlein8(tPar)
+			elseif (sLay == "Kuen") then
+				tCoo = makeKuen(tPar)
+			elseif (sLay == "Boy") then
+				tCoo = makeBoy(tPar)
+			elseif (sLay == "Lissajous3D") then
+				tCoo = makeLissajous3D(tPar)
+			elseif (sLay == "Rectangle") then
+				tCoo = makeRectangle(tPar)
+			elseif (sLay == "Ellipse") then
+				tCoo = makeEllipse(tPar)
+			elseif (sLay == "Triangle") then
+				-- to do
+			elseif (sLay == "Parabola") then
+				tCoo = makeParabola(tPar)
+			elseif (sLay == "Hyperbola") then
+				tCoo = makeHyperbola(tPar)
+			elseif (sLay == "Catenary") then
+				-- to do
+			elseif (sLay == "Hypotrochoid") then
+				tCoo = makeHypotrochoid(tPar)
+			elseif (sLay == "Epitrochoid") then
+				tCoo = makeEpitrochoid(tPar)
+			elseif (sLay == "Lissajous2D") then
+				tCoo = makeLissajous2D(tPar)
+			end
+			appendShape(tPos, i, tTab, j, tCoo, tRot)
+		end
+	end
+end
+
+function makeCuboid(tPar)
+	local t, p = random(), randomSign()
+	local l, w, h, L, W, H = randomSet2(-tPar[2], tPar[2], -tPar[3], tPar[3], -tPar[4], tPar[4], tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], tPar[4] - tPar[5], tPar[4])
+	if (t < 1/3) then
+		l = L * p
+	elseif (t < 2/3) then
+		w = W * p
+	elseif (t <= 1) then
+		h = H * p
+	end
+	return {l, h, w,}
+end
+
+function makeEllipsoid(tPar)
+	local L, W, H = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], tPar[4] - tPar[5], tPar[4])
+	local u, v = randomSet(180,360)
+	return {L * cos(v) * sin(u), H * sin(v) * sin(u), W * cos(u),}
+end
+
+function makeCylinder(tPar)
+	local L, W, h = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], -tPar[4], tPar[4])
+	local u, v = randomSet(180,360)
+	return {L * cos(v), h, W * sin(v),}
+end
+
+function makeCone(tPar)
+	local L, W, h = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], -tPar[4], tPar[4])
+	local v = random3(360)
+	return {(1 - h/c) * L * cos(v)/2, h, (1 - h/c) * W * sin(v)/2,}
+end
+
+function makeToroid(tPar)
+	local H, M = randomSet2(tPar[4] - tPar[5], tPar[4], tPar[6] - tPar[5], tPar[6])
+	local v, o = randomSet(360,360)
+	return {(tPar[2] + M * cos(v)) * cos(o), H * sin(v), (tPar[3] + M * cos(v)) * sin(o),}
+end
+
+function makeHelicoid(tPar)
+	local L, W = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3])
+	local t = random()
+	return {L * cos(t * tPar[6] * 360), tPar[4] * (2 * t - 1), W * sin(t * tPar[6] *  360),}
+end
+
+function makeParaboloid(tPar)
+	local L, W, h = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], -tPar[4], tPar[4])
+	local v = random3(360)
+	return {L * sqrt(h/1000) * cos(v), h, W * sqrt(h/1000) * sin(v),}
+end
+
+function makeHyperboloid(tPar)
+	local L, W, H = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], tPar[4] - tPar[5], tPar[4])
+	local t, v, p = random(), random3(360), randomSign()
+	return {L * sqrt(1 + (t * p)^2) * cos(v), H * (t * p), W * sqrt(1 + (t * p)^2) * sin(v),}
+end
+
+function makeAstroid(tPar)
+	local L, W, H = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], tPar[4] - tPar[5], tPar[4])
+	local v, o = randomSet(360,360)
+	return {L * (cos(o) * cos(v))^3, H * (sin(v))^3, W * (sin(o) * cos(v))^3,}
+end
+
+function makeFunnel(tPar)
+	local L, W, H = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], tPar[4] - tPar[5], tPar[4])
+	local t, v = random(), random3(360)
+	return {L * t * cos(v), H * log(t)/10, W * t * sin(v),}
+end
+
+function makeDini(tPar)
+	local L, W, H = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], tPar[4] - tPar[5], tPar[4])
+	local v, u = randomSet(360,180)
+	return {L * (cos(tPar[6] * v) * sin(u/2)), H * (cos(u/2) + log(tan(u/4)) + rad(tPar[6] * v)/(2 * PI)), W * (sin(tPar[6] * v) * sin(u/2)),}
+end
+
+function makeCorkscrew(tPar)
+	local L, W, H = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], tPar[4] - tPar[5], tPar[4])
+	local v, u = randomSet(360, 180)
+	return {L * cos(v) * cos(u), H * rad(v)/(2 * PI), W * sin(v) * cos(u),}
+end
+
+function makeSeashell(tPar)
+	local t, o = random(), random3(360)
+	return
+	{
+		(tPar[5]/tPar[6] + (1 - t) * (1 + cos(o))) * tPar[2] * cos(tPar[6] * t * 360),
+		tPar[4] * t^(1/2) * (2 * tPar[6] - 1) + tPar[3] * sin(o) * (1 - t),
+		(tPar[5]/tPar[6] + (1 - t) * (1 + cos(o))) * tPar[2] * sin(tPar[6] * t * 360),
+	}
+end
+
+function makeSineDisc(tPar)
+	local L, W, H = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], tPar[4] - tPar[5], tPar[4])
+	local t, v = random(), random3(360)
+	return {L * t * cos(v), H * sin(t * 360 * tPar[6]), W * t * sin(v),}
+end
+
+function makeSinePlane(tPar)
+	local s, t = random(), random()
+	return
+	{
+		tPar[2] * s * 2 - tPar[2],
+		tPar[4] * (sin(s * 360 * tPar[6]) + sin(t * 360 * tPar[6]))/2,
+		tPar[3] * t * 2 - tPar[3],
+	}
+end
+
+function makeMoebius(tPar)
+	local L, W, h = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], -tPar[4], tPar[4])
+	local v = random3(360)
+	return {L * cos(v) + h * cos(v/2) * cos(v), h * sin(v/2), W * sin(v) + h * cos(v/2) * sin(v),}
+end
+
+function makeLissajous3D(tPar)
+	local v, o, u = randomSet(360,360,180)
+	return
+	{
+		tPar[2] * sin(v * tPar[6])		+ tPar[3] * sin(u) * cos(o),
+		tPar[2] * sin(v * tPar[6] * tPar[4])	+ tPar[3] * sin(u) * sin(o),
+		tPar[2] * sin(v * tPar[6] * tPar[5])	+ tPar[3] * cos(u),
+	}
+end
+
+function makeKlein(tPar)
+	local u, v = randomSet(360,180)
+	return
+	{
+		cos(u) * (cos(u/2) * (sqrt(2) + cos(v)) + sin(u/2) * sin(v) * cos(v))	* tPar[2],
+		(-sin(u/2) * (sqrt(2) + cos(v)) + cos(u/2) * sin(v) * cos(v))		* tPar[4],
+		sin(u) * (cos(u/2) * (sqrt(2) + cos(v)) + sin(u/2) * sin(v) * cos(v))	* tPar[3],
+	}
+end
+
+function makeKlein8(tPar)
+	local u, v = randomSet(360,360)
+	return
+	{
+		(e + cos(u/2) * sin(v) - sin(u/2) * sin(v*2)) * cos(u)	* tPar[2],
+		(sin(u/2) * sin(v) + cos(u/2) * sin(v*2))		* tPar[3],
+		(e + cos(u/2) * sin(v) - sin(u/2) * sin(v*2)) * sin(u)	* tPar[4],
+	}
+end
+
+function makeKuen(tPar)
+	local u, v = randomSet(180,360)
+	return
+	{
+		2 * (cos(v) + rad(v) * sin(v)) * sin(u)/(1 + rad(v)^2 * sin(u)^2)	* tPar[2],
+		(log(tan(u/2)) + 2 * cos(u)/(1 + rad(v)^2 * sin(u)^2))		* tPar[3],
+		2 * (sin(v) - rad(v) * cos(v)) * sin(u)/(1 + rad(v)^2 * sin(u)^2)	* tPar[4],
+	}
+end
+
+function makeBoy(tPar)
+	local u, v = randomSet(360,180)
+	return
+	{
+		2/3 * (cos(u) * cos(2 * v) + sqrt(2) * sin(u) * cos(v)) * cos(u)/(sqrt(2) - sin(2 * u) * sin(3 * v))	* tPar[2],
+		sqrt(2) * cos(u)^2/(sqrt(2) - sin(2 * u) * sin(2 * v))							* tPar[3],
+		2/3 * (cos(u) * sin(2 * v) - sqrt(2) * sin(u) * sin(v)) * cos(u)/(sqrt(2) - sin(2 * u) * sin(3 * v))	* tPar[4],
+	}
+end
+
+function makeRectangle(tPar)
+	local L, W, l = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], -tPar[2], tPar[2])
+	local w, h = randomSet2(-tPar[3], tPar[3], -tPar[4], tPar[4])
+	local p, t = randomSign(), random()
+	if (t < 1/2) then
+		l = L * p
+	else
+		w = W * p
+	end
+	return {l, h, w,}
+end
+
+function makeEllipse(tPar)
+	local L, W, h, v = randomSet2(tPar[2] - tPar[5], tPar[2], tPar[3] - tPar[5], tPar[3], -tPar[4], tPar[4])
+	local v = random3(360)
+	return {L * cos(v), h, W * sin(v),}
+end
+
+function makeParabola(tPar)
+	local w, h, p = randomSet2(-tPar[3], tPar[3], -tPar[4], tPar[4])
+	local p = randomSign()
+	return
+	{
+		sqrt(4 * w * tPar[2]) * p + random3(-tPar[5]/2, tPar[5]/2),
+		h,
+		w + random3(-tPar[5]/2, tPar[5]/2),
+	}
+end
+
+function makeHyperbola(tPar)
+	local h, v = random3(-tPar[4], tPar[4]), random3(360)
+	return
+	{
+		tPar[2]/cos(v) + random3(-tPar[5]/2, tPar[5]/2),
+		h,
+		tPar[3] * tan(v) + random3(-tPar[5]/2, tPar[5]/2),
+	}
+end
+
+function makeHypotrochoid(tPar)
+	local v, o, u = randomSet(360,360,180)
+	return
+	{
+		(tPar[2] - tPar[3]) * cos(v * tPar[6]) + tPar[5] * cos((tPar[2] - tPar[3])/tPar[3] * v * tPar[6])	+ tPar[4] * sin(u) * cos(o),
+		0													+ tPar[4] * sin(u) * sin(o),
+		(tPar[2] - tPar[3]) * sin(v * tPar[6]) - tPar[5] * sin((tPar[2] - tPar[3])/tPar[3] * v * tPar[6])	+ tPar[4] * cos(u),
+	}
+end
+
+function makeEpitrochoid(tPar)
+	local v, o, u = randomSet(360,360,180)
+	return
+	{
+		(tPar[2] + tPar[3]) * cos(v * tPar[6]) - tPar[5] * cos((tPar[2] + tPar[3])/tPar[3] * v * tPar[6])	+ tPar[4] * sin(u) * cos(o),
+		0													+ tPar[4] * sin(u) * sin(o),
+		(tPar[2] + tPar[3]) * sin(v * tPar[6]) - tPar[5] * sin((tPar[2] + tPar[3])/tPar[3] * v * tPar[6])	+ tPar[4] * cos(u),
+	}
+end
+
+function makeLissajous2D(tPar)
+	local v, o, u = randomSet(360,360,180)
+	return
+	{
+		tPar[2] * sin(v * tPar[6] + tPar[3])	+ tPar[4] * sin(u) * cos(o),
+		0					+ tPar[4] * sin(u) * sin(o),
+		tPar[2] * sin(v * tPar[6] * tPar[5])	+ tPar[4] * cos(u),
+	}
+end
+
+function randomSet2(...)
+	local v = {}
+	for i = 2, getn(arg), 2 do
+		v[i/2] = random3(arg[i-1], arg[i])
+	end
+	if arg[10] then
+		return v[1], v[2], v[3], v[4], v[5]
+	elseif arg[8] then
+		return v[1], v[2], v[3], v[4]
+	elseif arg[6] then
+		return v[1], v[2], v[3]
+	elseif arg[4] then
+		return v[1], v[2]
+	else
+		return v[1]
+	end
+end
+
+function randomSet(...)
+	local v = {}
+	for i = 1, getn(arg) do
+		v[i] = random3(arg[i-1])
+	end
+	if arg[5] then
+		return v[1], v[2], v[3], v[4], v[5]
+	elseif arg[4] then
+		return v[1], v[2], v[3], v[4]
+	elseif arg[3] then
+		return v[1], v[2], v[3]
+	elseif arg[2] then
+		return v[1], v[2]
+	else
+		return v[1]
+	end
+end
+
+function spiralAdd(tPos, tDst, tPar, tRot)
+	local sLay, nRad, nArm, nRot, nAng, nHgh, nWid, nThk, tTim, iMod = tPar[1], tPar[2], tPar[3], tPar[4], tPar[5], tPar[6], tPar[7], tPar[8], tPar[9], tPar[10]
+	local tCoo, minTim, maxTim, v, t, s, l, w, h = {}, tTim[1], tTim[2], 360 * nRot, 0, 0, 0, 0, 0
+	for i, tTab in tDst do
+		local t_X, l_X, w_X, h_X, rotArm = minTim, nWid/-2, nWid/-2, nThk/-2, 0
+		local iNum = tTab[1]
+		for j = 1, iNum do
+			if (iMod == 1) then
+				v, t = v, random3(minTim, maxTim)
+				s = t
+				if (sLay == "Archimedes") then
+				--	s = 1 - t
+				end
+				l, w, h = random3(nWid) - nWid/2, random3(nWid) - nWid/2, random3(nThk) - nThk/2
+			elseif (iMod == 2) then
+				v, t = v, random3(minTim, maxTim)
+				s = t
+				if (sLay == "Archimedes") then
+				--	s = 1 - t
+				end
+				l, w, h = random3(0, nWid * s), random3(0, nWid * s), random3(nThk) - nThk/2
+			elseif (iMod == 0) then
+				v, t = v, t_X
+				l, w, h = l_X, w_X, h_X
+				t_X = t_X + (maxTim - minTim)/iNum
+				l_X, w_X, h_X = l_X + nWid/iNum, w_X + nWid/iNum, h_X + nThk/iNum
+			end
+			if (sLay == "Nautilus") then
+				-- exp(rad(v * t)/tan(nAng)) is the starter value
+				tCoo =
+				{
+					exp(rad(v * t)/tan(nAng)) * cos(v * t) * nRad + l,
+					h - nHgh * t + nHgh/2,
+					exp(rad(v * t)/tan(nAng)) * sin(v * t) * nRad + w,
+				}
+			elseif (sLay == "Archimedes") then
+				tCoo =
+				{
+					cos(v * t) * t * nRad + l,
+					h + nHgh * t - nHgh/2,
+					sin(v * t) * t * nRad + w,
+				}
+			end
+			for h = 1, nArm do
+				tCoo = vrotate(tCoo, {0, rotArm, 0,})
+				appendShape(tPos, i, tTab, j, tCoo, tRot)
+				rotArm = rotArm + (360/nArm)
+			end
+		end
+	end
+end
+
+function easyPatch(tPos, fRUs)
+	local tCoo, AstVal = {}, 100
+	-- number of asteroids, inner radius, outer radius
+	local easyPatchDist = {Asteroid_4 = {1, 0, 0,}, Asteroid_3 = {3, 400, 800,}, Asteroid_2 = {5, 800, 1600,},}
+	if (fRUs) then
+		AstVal = fRUs
+	end
+	for k, tTab in easyPatchDist do
+		for j = 1, tTab[1] do
+			local r, v, u = random3(tTab[2], tTab[3]), random3(180), random3(360)
+			tCoo =
+			{
+				tPos[1] + sqrt(r^2 - (r * cos(v))^2) * cos(u),
+				tPos[2] + r * cos(v),
+				tPos[3] + sqrt(r^2 - (r * cos(v))^2) * sin(u),
+			}
+			addAsteroid(k, tCoo, AstVal, 0, 0, 0, 0)
+		end
+	end
+end
+

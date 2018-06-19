@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html>
+	<head>
+		<title>Child Window</title>
+		<meta http-equiv="MSThemeCompatible" content="Yes"/>
+		<link rel="shortcut icon" href="missiondude.ico" type="image/x-icon" /> 
+		<link rel="icon" href="missiondude.ico" type="image/x-icon" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="../css/styledefault.css" title="Default"/>
+		<link rel="alternate stylesheet" type="text/css" href="../css/styleblue.css" title="Blue"/>
+		<script language="javascript" type="text/javascript" src="../jscript/childwindow.js"></script>
+	</head>
+	<body onload="initialize_child()" onunload="unload_child()">
+<!--TYPE SELECT PANEL-->
+		<div id="typeselect_pnl" class="panel">
+			<fieldset id="typeselect_fld" class="fset">
+				<legend class="leguns">Select a Type</legend>
+				<div id="typeselect" class="inpsel" desc="Select an object type."></div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Done" desc="Set the selected type and exit." onclick="pw.savetypeselect(1)"/>
+					<input class="inpbut" type="button" value="Cancel" desc="Exit without setting the type." onclick="pw.savetypeselect(0)"/>
+				</div>
+			</fieldset>
+		</div>
+<!--SUBTYPE SELECT PANEL-->
+		<div id="subtypeselect_pnl" class="panel">
+			<fieldset id="subtypeselect_fld" class="fset">
+				<legend class="leguns">Select a Subtype</legend>
+				<div id="subtypeselect" class="inpsel" desc="Select an object subtype."></div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Done" desc="Set the selected subtype and exit." onclick="pw.savesubtypeselect(1)"/>
+					<input class="inpbut" type="button" value="Cancel" desc="Exit without setting the subtype." onclick="pw.savesubtypeselect(0)"/>
+				</div>
+			</fieldset>
+		</div>
+<!--DISTRIBUTIONPROPERTY SELECT PANEL-->
+		<div id="distributionpropertyselect_pnl" class="panel">
+			<fieldset id="distributionpropertyselect_fld" class="fset">
+				<legend class="leguns">Select a Distribution</legend>
+				<div id="distributionpropertyselect" class="inpsel" desc="Select a distribution."></div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Done" desc="Set the selected distribution and exit." onclick="pw.savedistributionpropertyselect(1)"/>
+					<input class="inpbut" type="button" value="Cancel" desc="Exit without setting the distribution." onclick="pw.savedistributionpropertyselect(0)"/>
+				</div>
+			</fieldset>
+		</div>
+<!--SOBGROUPPROPERTY SELECT PANEL-->
+		<div id="sobgrouppropertyselect_pnl" class="panel">
+			<fieldset id="sobgrouppropertyselect_fld" class="fset">
+				<legend class="leguns">Select a SOBGroup</legend>
+				<div id="sobgrouppropertyselect" class="inpsel" desc="Select a sobgroup."></div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Done" desc="Set the selected sobgroup and exit." onclick="pw.savesobgrouppropertyselect(1)"/>
+					<input class="inpbut" type="button" value="Cancel" desc="Exit without setting the sobgroup." onclick="pw.togglechildwindow(0)"/>
+				</div>
+			</fieldset>
+		</div>
+<!--DISTRIBUTIONEDIT PANEL-->
+		<div id="distributionedit_pnl" class="panel">
+			<fieldset id="distributionedit_fld" class="fset">
+				<legend class="leguns">Edit a Distribution</legend>
+				<div>
+					<label>Label:</label>
+					<input id="distribution_result" class="inptxt" type="text" desc="Enter a new name for the distribution."/>
+				</div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Done" desc="Save the distribution and exit." onclick="pw.savedistribution()"/>
+					<input class="inpbut" type="button" value="Cancel" desc="Exit without saving the distribution." onclick="pw.canceldistribution()"/>
+				</div>
+			</fieldset>
+		</div>
+<!--SOBGROUPEDIT PANEL-->
+		<div id="sobgroupedit_pnl" class="panel">
+			<fieldset id="sobgroupedit_fld" class="fset">
+				<legend class="leguns">Edit a SOBGroup</legend>
+				<div>
+					<label>Label:</label>
+					<input id="sobgroup_result" class="inptxt" type="text" desc="Enter a new name for the sobgroup."/>
+				</div>
+				<div id="squadroneditselect" class="inpsel" desc="Select a squadron."></div>
+				<div id="squadronpoolselect" class="inpsel" desc="Select a squadron."></div>
+				<div class="butarea">
+					<input id="squadroneditmenu_0" class="inpbut_dis" disabled="true" type="button" value="Add" desc="Add the selected squadron." onclick="pw.addsquadron(0)"/>
+					<input id="squadroneditmenu_1" class="inpbut_dis" disabled="true" type="button" value="Remove" desc="Remove the selected squadron." onclick="pw.addsquadron(1)"/>
+					<input id="squadroneditmenu_2" class="inpbut_dis" disabled="true" type="button" value="+" style="width:25px;" desc="Move the selected squadron up in the list." accesskey="=" onclick="pw.movesquadron(0)"/>
+					<input id="squadroneditmenu_3" class="inpbut_dis" disabled="true" type="button" value="-" style="width:25px;" desc="Move the selected squadron down in the list." accesskey="-" onclick="pw.movesquadron(1)"/>
+				</div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Done" desc="Save the sobgroup and exit." onclick="pw.savesobgroup()"/>
+					<input class="inpbut" type="button" value="Cancel" desc="Exit without saving the sobgroup." onclick="pw.cancelsobgroup()"/>
+				</div>
+			</fieldset>
+		</div>
+<!--PATHEDIT PANEL-->
+		<div id="pathedit_pnl" class="panel">
+			<fieldset id="pathedit_fld" class="fset">
+				<legend class="leguns">Edit a Path</legend>
+				<div>
+					<label>Label:</label>
+					<input id="path_result" class="inptxt" type="text" desc="Enter a new name for the path."/>
+				</div>
+				<div id="pointeditselect" class="inpsel" desc="Select a point."></div>
+				<div id="pointpoolselect" class="inpsel" desc="Select a point."></div>
+				<div class="butarea">
+					<input id="pointeditmenu_0" class="inpbut_dis" disabled="true" type="button" value="Add" desc="Add the selected point." onclick="pw.addpoint(0)"/>
+					<input id="pointeditmenu_1" class="inpbut_dis" disabled="true" type="button" value="Remove" desc="Remove the selected point." onclick="pw.addpoint(1)"/>
+					<input id="pointeditmenu_2" class="inpbut_dis" disabled="true" type="button" value="+" style="width:25px;" desc="Move the selected point up in the list." accesskey="=" onclick="pw.movepoint(0)"/>
+					<input id="pointeditmenu_3" class="inpbut_dis" disabled="true" type="button" value="-" style="width:25px;" desc="Move the selected point down in the list." accesskey="-" onclick="pw.movepoint(1)"/>
+				</div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Done" desc="Save the path and exit." onclick="pw.savepath()"/>
+					<input class="inpbut" type="button" value="Cancel" desc="Exit without saving the path." onclick="pw.cancelpath()"/>
+				</div>
+			</fieldset>
+		</div>
+<!--PLAYEREDIT PANEL-->
+		<div id="playeredit_pnl" class="panel">
+			<fieldset id="playeredit_fld" class="fset">
+				<legend class="leguns">Edit a Player</legend>
+				<div>
+					<label>Label:</label>
+					<input id="player_result" class="inptxt" type="text" desc="Enter a new name for the player."/>
+				</div>
+				<div id="playereditlist"></div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Done" desc="Save the player and exit." onclick="pw.saveplayer()"/>
+					<input class="inpbut" type="button" value="Cancel" desc="Exit without saving the player." onclick="pw.cancelplayer()"/>
+				</div>
+			</fieldset>
+		</div>
+<!--OPTIONS PANEL-->
+		<div id="viewingoptions_pnl" class="panel">
+			<fieldset id="viewingoptions_fld" class="fset">
+				<legend class="leguns">Preview Options</legend>
+				<table cellpadding="0" cellspacing="0" style="width:100%;">
+					<tr>
+						<td style="width:50%;">
+							<div>
+								<label style="width:110px;" desc="Change the default zoom for the map.">Map Zoom:</label>
+								<input class="inpbut" type="button" value="+" style="width:25px;" desc="Increase the default zoom for the map." onclick="pw.zoommap(1)"/>
+								<input class="inpbut" type="button" value="-" style="width:25px;" desc="Decrease the default zoom for the map." onclick="pw.zoommap(0)"/>
+							</div>
+							<div>
+								<label style="width:110px;" desc="Change the size of the map text.">Text Size:</label>
+								<input class="inpbut" type="button" value="+" style="width:25px;" desc="Increase the size of the map text." onclick="pw.changemapfontsize(1)"/>
+								<input class="inpbut" type="button" value="-" style="width:25px;" desc="Decrease the size of the map text." onclick="pw.changemapfontsize(0)"/>
+							</div>
+							<div>
+								<label style="width:110px;" desc="Change the size of the map grid.">Grid Size:</label>
+								<input class="inpbut" type="button" value="+" style="width:25px;" desc="Increase the size of the map grid." onclick="pw.changemapgridsize(1)"/>
+								<input class="inpbut" type="button" value="-" style="width:25px;" desc="Decrease the size of the map grid." onclick="pw.changemapgridsize(0)"/>
+							</div>
+							<div>
+								<label style="width:100px;" desc="Turn 'drag-and-drop' on/off.">Drag & Drop:</label>
+								<input id="dragon" disabled="true" class="inpbut_dis" type="button" value="On" style="width:25px;" desc="Turn 'drag-and-drop' on." onclick="pw.toggledraganddrop(1)"/>
+								<input id="dragoff" class="inpbut" type="button" value="Off" style="width:25px;" desc="Turn 'drag-and-drop' off." onclick="pw.toggledraganddrop(0)"/>
+							</div>
+							<div>
+								<label style="width:110px;" desc="Scale objects when zooming the map.">Scale & Zoom:</label>
+								<input id="scaleon" class="inpbut" type="button" value="On" style="width:25px;" desc="Scale objects when zooming the map?" onclick="pw.togglescaleonzoom(1)"/>
+								<input id="scaleoff" disabled="true" class="inpbut_dis" type="button" value="Off" style="width:25px;" desc="Scale objects when zooming the map?" onclick="pw.togglescaleonzoom(0)"/>
+							</div>
+						</td>
+						<td style="width:50%;">
+							<div>
+								<label style="width:110px;" desc="Turn the snap-to-grid feature on/off.">Snap to Grid:</label>
+								<input id="snapon" disabled="true" class="inpbut_dis" type="button" value="On" style="width:25px;" desc="Turn the snap-to-grid feature on." onclick="pw.togglesnaptogrid(1)"/>
+								<input id="snapoff" class="inpbut" type="button" value="Off" style="width:25px;" desc="Turn the snap-to-grid feature off." onclick="pw.togglesnaptogrid(0)"/>
+							</div>
+							<div>
+								<label style="width:110px;" desc="Turn the map grid on/off.">Grid:</label>
+								<input id="gridon" disabled="true" class="inpbut_dis" type="button" value="On" style="width:25px;" desc="Turn the map grid on." onclick="pw.togglegrid(1)"/>
+								<input id="gridoff" class="inpbut" type="button" value="Off" style="width:25px;" desc="Turn the map grid off." onclick="pw.togglegrid(0)"/>
+							</div>
+							<div>
+								<label style="width:110px;" desc="Turn the map ruler on/off.">Ruler:</label>
+								<input id="ruleon" disabled="true" class="inpbut_dis" type="button" value="On" style="width:25px;" desc="Turn the map ruler on." onclick="pw.toggleruler(1)"/>
+								<input id="ruleoff" class="inpbut" type="button" value="Off" style="width:25px;" desc="Turn the map ruler off." onclick="pw.toggleruler(0)"/>
+							</div>
+							<div>
+								<label style="width:110px;" desc="Turn the axes on/off.">Axes:</label>
+								<input id="axeson" disabled="true" class="inpbut_dis" type="button" value="On" style="width:25px;" desc="Turn the axes on." onclick="pw.toggleaxes(1)"/>
+								<input id="axesoff" class="inpbut" type="button" value="Off" style="width:25px;" desc="Turn the axes off." onclick="pw.toggleaxes(0)"/>
+							</div>
+							<div>
+								<label style="width:110px;" desc="Turn the drop-shadow on/off.">Drop Shadow:</label>
+								<input id="dropon" class="inpbut" type="button" value="On" style="width:25px;" desc="Turn the drop-shadow on." onclick="pw.toggledropshadow(1)"/>
+								<input id="dropoff" disabled="true" class="inpbut_dis" type="button" value="Off" style="width:25px;" desc="Turn the drop-shadow off." onclick="pw.toggledropshadow(0)"/>
+							</div>
+							<div>
+								<label style="width:110px;" desc="Turn the background image on/off.">Photo BG:</label>
+								<input id="photoon" class="inpbut" type="button" value="On" style="width:25px;" desc="Turn the background image on." onclick="pw.togglebackground(1)"/>
+								<input id="photooff" disabled="true" class="inpbut_dis" type="button" value="Off" style="width:25px;" desc="Turn the background image off." onclick="pw.togglebackground(0)"/>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<div>
+					<label style="width:125px;" desc="Change the application stylesheet.">Visual Style:</label>
+					<input id="style_0" disabled="true" class="inpbut_dis" type="button" value="Default" style="width:75px;" desc="Change the application stylesheet." onclick="pw.togglestylesheet(this.value)"/>
+					<input id="style_1" class="inpbut" type="button" value="Blue" style="width:75px;" desc="Change the application stylesheet." onclick="pw.togglestylesheet(this.value)"/>
+				</div>
+				<div>
+					<label style="width:125px;" desc="Set the position of the background image.">BG Image Position:</label>
+					<span class="inpspan" style="width:15px;">l:</span><input id="imageleft" class="inptxt" value="" style="width:75px;" desc="Set the left position of the background image." onchange="pw.setunsavedvalues()"/>
+					<span class="inpspan" style="width:15px;">t:</span><input id="imagetop" class="inptxt" value="" style="width:75px;" desc="Set the top position of the background image." onchange="pw.setunsavedvalues()"/>
+				</div>
+				<div>
+					<label style="width:125px;" desc="Set the dimensions of the background image.">BG Image Dimensions:</label>
+					<span class="inpspan" style="width:15px;">w:</span><input id="imagewidth" class="inptxt" value="" style="width:75px;" desc="Set the width of the background image." onchange="pw.setunsavedvalues()"/>
+					<span class="inpspan" style="width:15px;">h:</span><input id="imageheight" class="inptxt" value="" style="width:75px;" desc="Set the height of the background image." onchange="pw.setunsavedvalues()"/>
+				</div>
+				<div>
+					<label style="width:125px;" desc="Set the maximum amount that objects may be jittered.">Jitter Amount:</label>
+					<input id="jitterx" class="inptxt" value="" style="width:60px;" desc="Set the amount of jitter along the x-axis." onchange="pw.setunsavedvalues()"/>
+					<input id="jittery" class="inptxt" value="" style="width:60px;" desc="Set the amount of jitter along the y-axis." onchange="pw.setunsavedvalues()"/>
+					<input id="jitterz" class="inptxt" value="" style="width:60px;" desc="Set the amount of jitter along the z-axis." onchange="pw.setunsavedvalues()"/>
+				</div>
+				<hr/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Save" desc="Save the current settings." onclick="pw.saveappsettings()"/>
+					<input class="inpbut" type="button" value="Restore" desc="Restore the previously-saved settings." onclick="pw.loadappsettings()"/>
+					<input class="inpbut" type="button" value="Defaults" desc="Load the default settings." onclick="pw.setdefaultappsettings()"/>
+					<input class="inpbut" type="button" value="Close" desc="Close this window." accesskey="o" onclick="pw.toggleviewoptions(0)"/>
+				</div>
+			</fieldset>
+		</div>
+	</body>
+</html>

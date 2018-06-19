@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html>
+	<head>
+		<title></title>
+		<hta:application id="HW2MD_app" applicationname="MissionDude" version="1.7.0" border="thick" caption="yes" icon="missiondude.ico" showintaskbar="yes" singleinstance="yes" windowstate="maximize" scroll="no" scrollflat="yes" innerborder="no" selection="no" sysmenu="yes" maximizebutton="yes" minimizebutton="yes" navigable="no" contextmenu="no" borderstyle="thin"/>
+		<link rel="shortcut icon" href="missiondude.ico" type="image/x-icon" /> 
+		<link rel="icon" href="missiondude.ico" type="image/x-icon" />
+		<meta http-equiv="MSThemeCompatible" content="Yes"/>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="source/css/styledefault.css" title="Default"/>
+		<link rel="alternate stylesheet" type="text/css" href="source/css/styleblue.css" title="Blue"/>
+		<script language="javascript" type="text/javascript" src="source/jscript/common.js"></script>
+		<script language="javascript" type="text/javascript" src="source/jscript/control.js"></script>
+		<script language="javascript" type="text/javascript" src="source/jscript/switch.js"></script>
+		<script language="javascript" type="text/javascript" src="source/jscript/make.js"></script>
+		<script language="javascript" type="text/javascript" src="source/jscript/define.js"></script>
+		<script language="javascript" type="text/javascript" src="source/jscript/data.js"></script>
+		<script language="javascript" type="text/javascript" src="source/jscript/mouse.js"></script>
+		<script language="javascript" type="text/javascript" src="source/jscript/file.js"></script>
+	</head>
+	<body onload="initialize()" onbeforeunload="unload_all()">
+		<table cellspacing="0" cellpadding="0"><tr><td>
+		<fieldset id="main_fld">
+			<legend>
+				<input id="0_0_but" disabled="true" class="legsel" type="button" value="Objects" accesskey="t" style="width:65px;" desc="Edit objects." onclick="togglepane(0, 0)"/>
+				<input id="0_1_but" type="button" class="legdes" value="Cont." accesskey="t" style="width:55px;" desc="Edit containers." onclick="togglepane(0, 1)"/>
+				<input id="0_2_but" class="legdes" type="button" value="Level" accesskey="t" style="width:55px;" desc="Edit level settings." onclick="togglepane(0, 2)"/>
+				<input id="0_3_but" class="legdes" type="button" value="Info" accesskey="t" style="width:50px;" desc="Edit level info." onclick="togglepane(0, 3)"/>
+			</legend>
+<!--OBJECTS-->
+			<div id="0_0_pnl" style="display:block;">
+				<div id="objectselect" class="inpsel" desc="Select an object."></div>
+				<div id="objectbutton" class="butarea">
+					<input id="objectmenu_0" class="inpbut" type="button" value="Add" style="width:50px;" desc="Add a new object." onclick="addobject(0)"/>
+					<input id="objectmenu_1" class="inpbut_dis" disabled="true" type="button" value="Clone" style="width:50px;" desc="Clone the selected object." onclick="addobject(2)"/>
+					<input id="objectmenu_2" class="inpbut_dis" disabled="true" type="button" value="Remove" style="width:70px;" desc="Remove the selected object." onclick="removeobject()"/>
+					<input id="objectmenu_3" class="inpbut_dis" disabled="true" type="button" value="+" style="width:25px;" desc="Move the selected object up in the list." accesskey="=" onclick="reorderobject(0)"/>
+					<input id="objectmenu_4" class="inpbut_dis" disabled="true" type="button" value="-" style="width:25px;" desc="Move the selected object down in the list." accesskey="-" onclick="reorderobject(1)"/>
+				</div>
+				<fieldset style="clear:left;">
+					<legend>
+						<input id="2_0_but" disabled="true" class="legsel" type="button" value="Properties" accesskey="p" style="width:100px;" desc="Edit basic properties." onclick="togglepane(2, 0)"/>
+						<input id="2_1_but" class="legsel" disabled="true" type="button" value="More..." accesskey="p" style="width:75px;" desc="Edit advanced properties." onclick="togglepane(2, 1)"/>
+					</legend>
+					<div id="2_0_pnl" style="display:block;">
+						<hr/>
+						<div>
+							<label>ID:</label>
+							<input id="param_Label_0" disabled="true" desc="String: the unique label which identifies this object to the editor." class="inptxt_dis" type="text" style="width:146px;" onchange="setunsavedvalues()"/>
+						</div>
+						<div>
+							<label>Amount:</label>
+							<input id="param_Amount_0" disabled="true" desc="Integer: the number of this type of object to spawn, here." class="inptxt_dis" type="text" style="width:42px;" onchange="setunsavedvalues()"/>
+						</div>
+						<hr/>
+						<div>
+							<label>Name:</label>
+							<input id="param_Name_0" disabled="true" desc="String: the name of the object which identifies this object to the game. May be duplicate values." class="inptxt_dis" type="text" style="width:146px;" onchange="setunsavedvalues()"/>
+						</div>
+						<div>
+							<label>Type:</label>
+							<input id="param_Type_0" disabled="true" desc="String: the type of object." class="inpbut2_dis" type="button" onclick="togglechildwindow(1, 'typeselect')" onchange="setunsavedvalues()"/>
+						</div>
+						<div>
+							<label>Subtype:</label>
+							<input id="param_Subtype_0" disabled="true" desc="String: the subtype of object." class="inpbut2_dis" type="button" onclick="togglechildwindow(1, 'subtypeselect')" onchange="setunsavedvalues()"/>
+						</div>
+						<hr/>
+						<div>
+							<label>Translation:</label>
+							<input id="param_Translation_0" disabled="true" desc="Float: the x-coordinate of the position." class="inptxt_dis" type="text" style="width:42px;" onchange="setunsavedvalues()"/>
+							<input id="param_Translation_1" disabled="true" desc="Float: the y-coordinate of the position." class="inptxt_dis" type="text" style="width:42px;" onchange="setunsavedvalues()"/>
+							<input id="param_Translation_2" disabled="true" desc="Float: the z-coordinate of the position." class="inptxt_dis" type="text" style="width:42px;" onchange="setunsavedvalues()"/>
+						</div>
+						<div>
+							<label>Rotation:</label>
+							<input id="param_Rotation_0" disabled="true" desc="Float: the angle of rotation around the x-axis." class="inptxt_dis" type="text" style="width:42px;" onchange="setunsavedvalues()"/>
+							<input id="param_Rotation_1" disabled="true" desc="Float: the angle of rotation around the y-axis." class="inptxt_dis" type="text" style="width:42px;" onchange="setunsavedvalues()"/>
+							<input id="param_Rotation_2" disabled="true" desc="Float: the angle of rotation around the z-axis." class="inptxt_dis" type="text" style="width:42px;" onchange="setunsavedvalues()"/>
+						</div>
+					</div>
+					<div id="2_1_pnl" style="display:none;">
+						<hr/>
+						<div id="morepropertieslist"></div>
+					</div>
+					<div class="butarea">
+						<hr/>
+						<input id="propertymenu_0" class="inpbut_dis" disabled="true" type="button" value="Save" style="width:50px;" desc="Save the current object's properties." onclick="saveallproperties()"/>
+						<input id="propertymenu_1" class="inpbut_dis" disabled="true" type="button" value="Reset" style="width:50px;" desc="Reset the current object's properties." onclick="resetallproperties()"/>
+						<input id="propertymenu_2" class="inpbut_dis" disabled="true" type="button" value="Defaults" style="width:75px;" desc="Set the current object's properties to their defaults." onclick="setdefaultallproperties()"/>
+					</div>
+				</fieldset>
+			</div>
+<!--CONTAINERS-->
+			<div id="0_1_pnl" style="display:none;">
+				<fieldset>
+					<legend class="leguns">Distributions</legend>
+					<div id="distributionselect" class="inpsel" desc="Select a distribution."></div>
+					<div class="butarea">
+						<input id="distributionmenu_0" class="inpbut" type="button" value="New" style="width:50px;" desc="Add a new distribution." onclick="adddistribution()"/>
+						<input id="distributionmenu_1" class="inpbut" type="button" value="Delete" style="width:70px;" desc="Remove the selected distribution." onclick="removedistribution()"/>
+						<input id="distributionmenu_2" class="inpbut" type="button" value="Edit" style="width:50px;" desc="Edit the selected distribution." onclick="editdistribution()"/>
+						<input id="distributionmenu_3" class="inpbut_dis" disabled="true" type="button" value="+" style="width:25px;" desc="Move the selected distribution up in the list." onclick="movedistribution(0)"/>
+						<input id="distributionmenu_4" class="inpbut_dis" disabled="true" type="button" value="-" style="width:25px;" desc="Move the selected distribution down in the list." onclick="movedistribution(1)"/>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="leguns">SOBGroups</legend>
+					<div id="sobgroupselect" class="inpsel" desc="Select a sobgroup."></div>
+					<div class="butarea">
+						<input id="sobgroupmenu_0" class="inpbut" type="button" value="New" style="width:50px;" desc="Add a new sobgroup." onclick="addsobgroup()"/>
+						<input id="sobgroupmenu_1" class="inpbut_dis" disabled="true" type="button" value="Delete" style="width:70px;" desc="Remove the selected sobgroup." onclick="removesobgroup()"/>
+						<input id="sobgroupmenu_2" class="inpbut_dis" disabled="true" type="button" value="Edit" style="width:50px;" desc="Edit the selected sobgroup." onclick="editsobgroup()"/>
+						<input id="sobgroupmenu_3" class="inpbut_dis" disabled="true" type="button" value="+" style="width:25px;" desc="Move the selected sobgroup up in the list." onclick="movesobgroup(0)"/>
+						<input id="sobgroupmenu_4" class="inpbut_dis" disabled="true" type="button" value="-" style="width:25px;" desc="Move the selected sobgroup down in the list." onclick="movesobgroup(1)"/>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="leguns">Paths</legend>
+					<div id="pathselect" class="inpsel" desc="Select a path."></div>
+					<div class="butarea">
+						<input id="pathmenu_0" class="inpbut" type="button" value="New" style="width:50px;" desc="Add a new path." onclick="addpath()"/>
+						<input id="pathmenu_1" class="inpbut_dis" disabled="true" type="button" value="Delete" style="width:70px;" desc="Remove the selected path." onclick="removepath()"/>
+						<input id="pathmenu_2" class="inpbut_dis" disabled="true" type="button" value="Edit" style="width:50px;" desc="Edit the selected path." onclick="editpath()"/>
+						<input id="pathmenu_3" class="inpbut_dis" disabled="true" type="button" value="+" style="width:25px;" desc="Move the selected path up in the list." onclick="movepath(0)"/>
+						<input id="pathmenu_4" class="inpbut_dis" disabled="true" type="button" value="-" style="width:25px;" desc="Move the selected path down in the list." onclick="movepath(1)"/>
+					</div>
+				</fieldset>
+			</div>
+<!--LEVELSETTINGS-->
+			<div id="0_2_pnl" style="display:none;">
+				<fieldset>
+					<legend class="leguns">Players</legend>
+					<div id="playerselect" class="inpsel" desc="Select a player."></div>
+					<div id="playerbutton" class="butarea">
+						<input id="playermenu_0" class="inpbut" type="button" value="Add" style="width:50px;" desc="Add a new player." onclick="addplayer()"/>
+						<input id="playermenu_1" class="inpbut_dis" disabled="true" type="button" value="Remove" style="width:70px;" desc="Remove the selected player." onclick="removeplayer()"/>
+						<input id="playermenu_2" class="inpbut_dis" disabled="true" type="button" value="Edit" style="width:50px;" desc="Edit the selected player." onclick="editplayer()"/>
+						<input id="playermenu_3" class="inpbut_dis" disabled="true" type="button" value="+" style="width:25px;" desc="Move the selected player up in the list." accesskey="=" onclick="moveplayer(0)"/>
+						<input id="playermenu_4" class="inpbut_dis" disabled="true" type="button" value="-" style="width:25px;" desc="Move the selected player down in the list." accesskey="-" onclick="moveplayer(1)"/>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="leguns">Level Settings</legend>
+					<div id="levelsettingselect" class="inpsel" desc="Select a level setting."></div>
+					<hr/>
+					<div id="levelsettinglist"></div>
+					<hr/>
+					<div class="butarea">
+						<input class="inpbut" type="button" value="Save" style="width:50px;" desc="Save the current level settings." onclick="savelevelsettings()"/>
+						<input class="inpbut" type="button" value="Reset" style="width:50px;" desc="" onclick="resetlevelsettings()"/>
+						<input class="inpbut" type="button" value="Defaults" style="width:75px;" desc="Set the current level settings to their defaults." onclick="setdefaultlevelsettings()"/>
+					</div>
+				</fieldset>
+			</div>
+<!--INFO-->
+			<div id="0_3_pnl" style="display:none;">
+				<fieldset>
+					<legend class="leguns">Level Name</legend>
+					<div>
+						<input id="leveldescription" class="inptxt" value="" style="width:226px;" desc="Set the text description displayed in Homeworld 2's level selection menu." onchange="setunsavedvalues()"/>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="leguns">Author</legend>
+					<div>
+						<input id="levelauthor" class="inptxt" value="" style="width:226px;" desc="Set the name for the map author." onchange="setunsavedvalues()"/>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="leguns">Comments</legend>
+					<textarea id="levelcomments" class="inptxt" desc="Add comments to the level." onchange="setunsavedvalues()"></textarea>
+				</fieldset>
+				<br/>
+				<div class="butarea">
+					<input class="inpbut" type="button" value="Save" style="width:50px;" desc="Save the current level settings." onclick="savemapinfo()"/>
+					<input class="inpbut" type="button" value="Reset" style="width:50px;" desc="" onclick="resetmapinfo()"/>
+					<input class="inpbut" type="button" value="Defaults" style="width:75px;" desc="Set the current level settings to their defaults." onclick="setdefaultmapinfo()"/>
+				</div>
+			</div>
+		</fieldset>
+		</td><td>
+<!--MAP VIEWS-->
+		<fieldset id="view_fld">
+			<legend>
+				<input id="1_0_but" disabled="true" class="legsel" type="button" value="Top View" accesskey="v" desc="View the map from the top." onclick="togglepane(1, 0)"/>
+				<input id="1_1_but" class="legdes" type="button" value="Rear View" accesskey="v" desc="View the map from the rear." onclick="togglepane(1, 1)"/>
+				<input id="1_2_but" class="legdes" type="button" value="Left View" accesskey="v" desc="View the map from the left." onclick="togglepane(1, 2)"/>
+			</legend>
+			<div id="1_0_pnl" style="display:block;">
+				<script language="javascript" type="text/javascript">
+document.write('<embed id="embed_0" type="image/svg+xml" src="source/xml/map.svg" style="width:' + AppSettings.mapwidth + 'px;height:' + AppSettings.mapheight + 'px;" wmode="' + embedmode + '"/>')
+				</script>
+			</div>
+			<div id="1_1_pnl" style="display:none;">
+				<script language="javascript" type="text/javascript">
+document.write('<embed id="embed_1" type="image/svg+xml" src="source/xml/map.svg" style="width:' + AppSettings.mapwidth + 'px;height:' + AppSettings.mapheight + 'px;" wmode="' + embedmode + '"/>')
+				</script>
+			</div>
+			<div id="1_2_pnl" style="display:none;">
+				<script language="javascript" type="text/javascript">
+document.write('<embed id="embed_2" type="image/svg+xml" src="source/xml/map.svg" style="width:' + AppSettings.mapwidth + 'px;height:' + AppSettings.mapheight + 'px;" wmode="' + embedmode + '"/>')
+				</script>
+			</div>
+			<div class="butarea" style="float:left;">
+				<input id="spc_1" class="inpbut" type="button" value="Capture" accesskey="c" style="width:65px;" desc="Special command: Capture coordinates. (Hold SHIFT, then click on map.)" onclick="togglespecial(1)"/>
+				<input id="spc_2" class="inpbut" type="button" value="Target" accesskey="c" style="width:60px;" desc="Special command: Target coordinates. (Hold SHIFT, then click on map.)" onclick="togglespecial(2)"/>
+				<input id="spc_3" class="inpbut" type="button" value="Jitter" accesskey="c" style="width:60px;" desc="Special command: Jitter coordinates. (Hold SHIFT, then click on map.)" onclick="togglespecial(3)"/>
+				<input id="spc_0" disabled="true" class="inpbut_dis" type="button" value="Off" accesskey="c" style="width:50px;" desc="Stop all special commands." onclick="togglespecial(0)"/>
+			</div>
+			<div class="butarea" style="float:right;">
+				<input class="inpbut" type="button" value="Options" style="width:75px;" accesskey="o" desc="Edit viewing settings." onclick="toggleviewoptions(1)"/>
+				<input class="inpbut" type="button" value="Legend" style="width:75px;" accesskey="g" desc="Toggle the map legend." onclick="togglelegend()"/>
+			</div>
+		</fieldset>
+		</td></tr><tr><td colspan="2">
+<!--MAIN MENU-->
+		<fieldset id="menu_fld">
+			<legend class="leguns">Main Menu</legend>
+			<div id="status" class="butarea" style="float:left;">Status text...</div>
+			<div class="butarea" style="float:right;">
+				<input id="mainmenu_0" class="inpbut" type="button" value="Help" accesskey="h" style="width:50px;" desc="Show help text." onclick="togglehelpwindow(1)"/>
+				<input id="mainmenu_1" class="inpbut" type="button" value="New" accesskey="n" style="width:50px;" desc="Begin making a new map." onclick="newfile()"/>
+				<input id="mainmenu_2" class="inpbut" type="button" value="Load" accesskey="l" style="width:50px;" desc="Load an exisiting map." onclick="loadfile()"/>
+				<input id="mainmenu_3" class="inpbut" disabled="true" type="button" value="Save" accesskey="s" style="width:50px;" desc="Save the current map." onclick="savefile()"/>
+				<input id="mainmenu_4" class="inpbut" type="button" value="Import" accesskey="i" style="width:75px;" desc="Import an existing Homeworld 2 level file." onclick="importfile()"/>
+				<input id="mainmenu_5" class="inpbut" type="button" value="Export" accesskey="e" style="width:75px;" desc="Export the map to Homeworld 2's level file format." onclick="exportfile()"/>
+				<input id="mainmenu_6" class="inpbut" type="button" value="Compile" accesskey="f" style="width:75px;" desc="Compile an exported map." onclick="compilefile()"/>
+			</div>
+		</fieldset>
+		</td></tr></table>
+	</body>
+</html>

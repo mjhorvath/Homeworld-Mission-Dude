@@ -1,0 +1,403 @@
+-- Created using MissionDude 1.7.0 by Mikail
+AppVersion = "1.7.0"
+LevelAuthor = "Mikail"
+CreatedDate = "4/13/2008 1:9:10"
+UpdatedDate = "10/06/2013 00:10:10"
+LevelComments = "This map is meant to test Mission Dude\\\'s object, sobgroup and path handling capabilities.\\r\\n"
+levelDesc = "Squadron test"
+maxPlayers = 2
+
+player = {}
+player[0] = {id = 0, name = "Player #2", resources = 3000, raceID = 1, startPos = 1,}
+player[1] = {id = 1, name = "Player #1", resources = 3000, raceID = 1, startPos = 1,}
+
+Distributions = {}
+Distributions["Main"] =
+{
+	{10,"Squadron #1","Squadron","MySquadron1","vgr_weaponplatform_missile",{3911,0,-6578},0,{0,0,0},0,0,},
+	{1,"Squadron #2","Squadron","MySquadron2","vgr_weaponplatform_missile",{11444,0,-3833},0,{0,0,0},0,0,},
+	{1,"Squadron #3","Squadron","MySquadron3","vgr_weaponplatform_missile",{7722,0,8944},0,{0,0,0},0,0,},
+	{1,"Squadron #4","Squadron","MySquadron4","vgr_weaponplatform_missile",{944,0,11333},0,{0,0,0},0,0,},
+	{1,"Squadron #5","Squadron","MySquadron5","vgr_weaponplatform_missile",{-11556,0,3056},0,{0,0,0},0,0,},
+	{1,"Squadron #6","Squadron","MySquadron6","vgr_weaponplatform_missile",{-6556,0,-8167},0,{0,0,0},0,0,},
+	{1,"Squadron #7","Squadron","MySquadron7","vgr_weaponplatform_missile",{7289,0,-5733},0,{0,0,0},0,0,},
+	{1,"Squadron #8","Squadron","MySquadron8","meg_asteroid",{-6444,0,4722},0,{0,0,0},0,0,},
+	{1,"Squadron #9","Squadron","MySquadron9","vgr_weaponplatform_missile",{-4833,0,-778},0,{0,0,0},0,0,},
+	{1,"Squadron #10","Squadron","MySquadron10","vgr_weaponplatform_missile",{4000,0,-889},0,{0,0,0},0,0,},
+	{1,"Squadron #11","Squadron","MySquadron11","vgr_weaponplatform_missile",{5778,0,3611},0,{0,0,0},0,0,},
+	{1,"Squadron #12","Squadron","MySquadron12","vgr_weaponplatform_missile",{2111,0,5500},0,{0,0,0},0,0,},
+	{10,"Squadron #13","Squadron","MySquadron13","vgr_weaponplatform_missile",{-167,0,-3389},0,{0,0,0},0,0,},
+	{10,"Squadron #14","Squadron","MySquadron14","vgr_weaponplatform_missile",{1833,0,-7333},0,{0,0,0},0,0,},
+	{10,"Squadron #15","Squadron","MySquadron15","meg_asteroid",{7056,0,-3611},0,{0,0,0},0,0,},
+	{10,"Sqaudron #16","Squadron","MySquadron16","vgr_weaponplatform_missile",{3889,0,556},0,{0,0,0},0,0,},
+	{10,"Point #1","Point","MyPoint1",{944,0,-778},{0,0,0},},
+	{1,"Point #2","Point","MyPoint2",{5667,0,-6556},{0,0,0},},
+	{1,"Point #3","Point","MyPoint3",{9111,0,-722},{0,0,0},},
+	{1,"Point #4","Point","MyPoint4",{10722,0,3556},{0,0,0},},
+	{1,"Point #5","Point","MyPoint5",{778,0,8722},{0,0,0},},
+	{1,"Point #6","Point","MyPoint6",{-10667,0,8944},{0,0,0},},
+	{1,"Point #7","Point","MyPoint7",{-8611,0,-2500},{0,0,0},},
+	{1,"Point #8","Point","MyPoint8",{-8889,0,-7667},{0,0,0},},
+	{1,"Point #9","Point","MyPoint9",{-2444,0,-9111},{0,0,0},},
+	{1,"Point #10","Point","MyPoint10",{5056,0,-10833},{0,0,0},},
+	{1,"Point #11","Point","MyPoint11",{-2167,0,-4611},{0,0,0},},
+	{1,"Point #12","Point","MyPoint12",{-1167,0,2333},{0,0,0},},
+	{10,"Point #13","Point","MyPoint13",{1389,0,4556},{0,0,0},},
+	{10,"Point #14","Point","MyPoint14",{3667,0,7333},{0,0,0},},
+	{10,"Point #15","Point","MyPoint15",{1611,0,2111},{0,0,0},},
+	{10,"Point #16","Point","MyPoint16",{-1167,0,-2333},{0,0,0},},
+	{1,"StartPoint #1","StartPoint",nil,{5889,0,5444},{0,0,0},},
+	{1,"StartPoint #2","StartPoint",nil,{-4444,0,-6278},{0,0,0},},
+	{1,"Rv. Squadron #1","RvSquadron","vgr_weaponplatform_missile",{-7056,0,1389},1,0,0,0,0,},
+	{1,"Rv. Squadron #2","RvSquadron","vgr_weaponplatform_missile",{8889,0,4500},1,0,0,0,0,},
+	{1,"Rv. Squadron #3","RvSquadron","vgr_weaponplatform_missile",{-2889,0,8222},1,0,0,0,0,},
+	{1,"Rv. Squadron #4","RvSquadron","vgr_weaponplatform_missile",{5444,0,9278},1,0,0,0,0,},
+}
+
+SOBGroups =
+{
+	["Sobgroup #1"] =
+	{
+		{"Squadron #1",10,0,0,},
+		{"Squadron #2",1,0,0,},
+		{"Squadron #3",1,0,0,},
+		{"Squadron #4",1,0,0,},
+		{"Rv. Squadron #1",1,1,1,},
+		{"Rv. Squadron #3",1,1,1,},
+	},
+	["Sobgroup #2"] =
+	{
+		{"Rv. Squadron #2",1,1,1,},
+		{"Rv. Squadron #4",1,1,1,},
+	},
+}
+
+function DetermChunk()
+	literalAdd(Distributions["Main"])
+	doAllSOBGroups(SOBGroups)
+	setWorldBoundsInner({0,0,0},{100000,100000,100000})
+	setWorldBoundsOuter({0,0,0},{100000,100000,100000})
+	-- No way to use a table here like you can with sobgroups.
+	addPath("Path #1","Point #1_1","Point #1_2","Point #1_3","Point #1_4","Point #1_5","Point #1_6","Point #1_7","Point #1_8","Point #1_9","Point #1_10","Point #5")
+end
+
+function NonDetermChunk()
+	fogSetActive(0)
+	fogAddInterpolator("fogStart",1,1)
+	fogSetColour(0.427734,0.228516,0.136719,1)
+	fogSetDensity(0.15)
+	fogSetStart(10)
+	fogSetEnd(20000)
+	fogSetType("linear")
+	setFXWind({1,1,1})
+	loadBackground("m01")
+	setDefaultMusic("Data:sound\\music\\battle\\battle_01")
+	setDustCloudAmbient({0.5,0.5,0.5,1})
+	setNebulaAmbient({0.5,0.5,0.5,1})
+	setGlareIntensity(0)
+	setLevelShadowColour(0,0,0,1)
+	setSensorsManagerCameraDistances(1000,100000)
+	randomMusic(0)
+	randomBackground(0)
+end
+
+iStartPoints, iPoints, iSpheres, iCameras, iSquadrons, iAsteroids, iSalvage, iPebbles, iClouds, iDustClouds, iNebulas, iDirLights, iRvResources, iRvSquadrons = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+function appendShape(tPos, i, tPar, j, tCoo, tRot)
+	-- tPar[1] is the amount
+	-- tPar[2] is the unique label (new)
+	-- tPar[3] is the object type
+	tCoo = vaddV(vrotate(tCoo, tRot), tPos)
+	if (tPar[2+1] == "Point") then
+		--addPoint(<sPointName>, <tPosition>, <tRotation>)
+		addPoint(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1])
+		iPoints = iPoints + 1
+	elseif (tPar[2+1] == "StartPoint") then
+		--addPoint(<sPointName>, <tPosition>, <tRotation>)
+		addPoint("StartPos" .. iStartPoints, vaddV(tCoo, tPar[4+1]), tPar[5+1])
+		iStartPoints = iStartPoints + 1					
+	elseif (tPar[2+1] == "Sphere") then
+		--addSphere(<sSphereName>, <tPosition>, <fRadius>)
+		addSphere(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1])
+		iSpheres = iSpheres + 1
+	elseif (tPar[2+1] == "Camera") then
+		--addCamera(<sCameraName>, <tTarget>, <tOrigin>)
+		addCamera(tPar[3+1], tPar[5+1], vaddV(tCoo, tPar[4+1]))
+		iCameras = iCameras + 1
+	elseif (tPar[2+1] == "Squadron") then
+		--addSquadron(<sSquadronName>, <sSquadronType>, <tPosition>, <iPlayerIndex>, <tRotation>, <iNumberShips>, <bHyperspace>)
+		addSquadron(tPar[3+1], tPar[4+1], vaddV(tCoo, tPar[5+1]), tPar[6+1], tPar[7+1], tPar[8+1], tPar[9+1])
+		iSquadrons = iSquadrons + 1
+	elseif (tPar[2+1] == "Asteroid") then
+		--addAsteroid(<sAsteroidType>, <tPosition>, <fRU>, ?, ?, ?, ?)
+		addAsteroid(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1], tPar[6+1], tPar[7+1], tPar[8+1], tPar[9+1])
+		iAsteroids = iAsteroids + 1
+	elseif (tPar[2+1] == "Salvage") then
+		--addSalvage(<sChunkType>, <tPosition>, <fRU>, ?, ?, ?, ?)
+		addSalvage(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1], tPar[6+1], tPar[7+1], tPar[8+1], tPar[9+1])
+		iSalvage = iSalvage + 1
+	elseif (tPar[2+1] == "Pebble") then
+		--addPebble(<sPebbleType>, <tPosition>, ?, ?, ?)
+		addPebble(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1], tPar[6+1], tPar[7+1])
+		iPebbles = iPebbles + 1
+	elseif (tPar[2+1] == "Cloud") then
+		--addCloud(<sObjName>, <sCloudType>, <tPosition>, <tColor>, ?, <fSize>)
+		addCloud(tPar[3+1], tPar[4+1], vaddV(tCoo, tPar[5+1]), tPar[6+1], tPar[7+1], tPar[8+1])
+		iClouds = iClouds + 1
+	elseif (tPar[2+1] == "DustCloud") then
+		--addDustCloud(<sObjName>, <sDustCloudType>, <tPosition>, <tColor>, ?, <fSize>)
+		addDustCloud(tPar[3+1], tPar[4+1], vaddV(tCoo, tPar[5+1]), tPar[6+1], tPar[7+1], tPar[8+1])
+		iDustClouds = iDustClouds + 1
+	elseif (tPar[2+1] == "Nebula") then
+		--addNebula(<sNebulaName>, <sNebulaType>, <tPosition>, <tColor>, ?, <fSize>)
+		addNebula(tPar[3+1], tPar[4+1], vaddV(tCoo, tPar[5+1]), tPar[6+1], tPar[7+1], tPar[8+1])
+		iNebulas = iNebulas + 1
+	elseif (tPar[2+1] == "DirLight") then
+		--createDirLight(<sLightName>, <tPosition>, <tColour>)
+		createDirLight(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1])
+		--setLightSpecular(<sLightName>, <tSpecular>)
+		setLightSpecular(tPar[3+1], tPar[6+1])
+		iDirLights = iDirLights + 1
+	elseif (tPar[2+1] == "RvSquadron") then
+		local sobgroupname = ""
+		for i, iCount in SOBGroups do
+			for j = 1, getn(iCount) do
+				if (tPar[2] == iCount[j][1]) then
+					sobgroupname = i
+					break
+				end
+			end
+			if (sobgroupname ~= "") then
+				break
+			end
+		end
+		--addReactiveFleetSlot(<sSobGroupName>, <iPlayerIndex>, ?, <tPosition>, ?, ?, ?, <sShipType>)
+		addReactiveFleetSlot(sobgroupname, tPar[6+1], tPar[7+1], vaddV(tCoo, tPar[4+1]), tPar[8+1], tPar[9+1], tPar[10+1], tPar[3+1])
+		iRvSquadrons = iRvSquadrons + 1
+	elseif (tPar[2+1] == "RvResource") then
+		--addReactiveFleetResourceSlot(<sResourceType>, <tPos>, ?, ?, ?)
+		addReactiveFleetResourceSlot(tPar[3+1], vaddV(tCoo, tPar[4+1]), tPar[5+1], tPar[6+1], tPar[7+1])
+		iRvResources = iRvResources + 1
+	elseif (tPar[2+1] == "Coordinate") then
+		tinsert(tPar[3], tCoo)
+	elseif (tPar[2+1] == "Function") then
+		if (tPar[7+1] == nil) then
+			tPar[7+1] = {0,0,0,}
+		end
+		local nfour = tPar[4+1]
+		if tPar[3+1] ~= literalAdd then
+			nfour = vaddV(tCoo, tPar[4+1])
+		end
+		tPar[3+1](nfour, tPar[5+1], tPar[6+1], vaddV(tRot, tPar[7+1]))
+	end
+end
+
+function addSOBGroup(sSobName, ...)
+	createSOBGroup(sSobName)
+	for i = 1, getn(arg) do
+		addToSOBGroup(arg[i], sSobName)
+	end
+end
+
+function doAllSOBGroups(ttable)
+	for sobgname, sobgarray in ttable do
+		createSOBGroup(sobgname)
+		for j = 1, getn(sobgarray) do
+			local thisitem = sobgarray[j]
+			if (thisitem[4] == 0) then
+				addToSOBGroup(thisitem[0], sobgname)
+			end
+		end
+	end
+end
+
+-- Damn. Can't use the "call" or "dostring" functions here... Useless.
+function doAllPaths(ttable)
+	for pathname, patharray in ttable do
+		for j = 1, getn(patharray) do
+			local thispoint = patharray[j]
+			if thispoint[2] == 1 then
+--				addToSOBGroup(thisship[1], sobgname)
+			else
+				for k = 1, thispoint[2] do
+--					addToSOBGroup(thisship[1] .. "_" .. k, sobgname)
+				end
+			end
+		end
+	end
+end
+
+function literalAdd(tDst)
+	for i, tTab in tDst do
+		for j = 1, tTab[1] do
+			appendShape({0, 0, 0,}, i, tTab, j, {0, 0, 0,}, {0, 0, 0,})
+		end
+	end
+end
+
+function randomMusic(iMod, tTab, iLen, sDir)
+	local ranNum, musDir, musTrk = 0, "", ""
+	local musTab =
+	{
+		"amb_01", "amb_02", "amb_03", "amb_04", "amb_05", "amb_06", "amb_07", "amb_08", "amb_09", "amb_10", "amb_11", "amb_12", "amb_13", "amb_14",
+		"battle_01", "battle_04", "battle_04_alt", "battle_06", "battle_keeper", "battle_movers", "battle_planetkillers", "battle_sajuuk", "bentus_arrival",
+	}
+	if ((iMod == 4) or (iMod == 5)) then
+		for k = 1, iLen do
+			musTab[k + 23] = tTab[k]
+		end
+	end
+	if (iMod == 1) then
+		ranNum = random(1, 14)
+	elseif (iMod == 2) then
+		ranNum = random(15, 23)
+	elseif (iMod == 3) then
+		ranNum = random(1, 23)
+	elseif (iMod == 4) then
+		ranNum = random(24, 23 + iLen)
+	elseif (iMod == 5) then
+		ranNum = random(1, 23 + iLen)
+	end
+	if (ranNum <= 14) then
+		musDir = "data:sound\\music\\ambient\\"
+	elseif (ranNum <= 23) then
+		musDir = "data:sound\\music\\battle\\"
+	elseif (ranNum <= (23 + iLen)) then
+		musDir = sDir
+	end
+	if (iMod ~= 0) then
+		setDefaultMusic(musDir .. musTab[ranNum])
+	end
+end
+
+function randomBackground(iMod, tTab, iLen)
+	local ranNum = 0
+	local backgroundTable =
+	{
+		"m01", "m02", "m03", "m04", "m05", "m06", "m07", "m08", "m09", "m10", "m11", "m12", "m13", "m14", "m15",
+		"planet", "quick", "singlesun", "tanis", "taniswstars", "black", "white",
+	}
+	if ((iMod == 4) or (iMod == 5)) then
+		for k = 1, iLen do
+			backgroundTable[k + 22] = tTab[k]
+		end
+	end
+	if (iMod == 1) then
+		ranNum = random(1, 15)
+	elseif (iMod == 2) then
+		ranNum = random(16, 22)
+	elseif (iMod == 3) then
+		ranNum = random(1, 22)
+	elseif (iMod == 4) then
+		ranNum = random(23, 22 + iLen)
+	elseif (iMod == 5) then
+		ranNum = random(1, 23 + iLen)
+	end
+	if (iMod ~= 0) then
+		loadBackground(backgroundTable[ranNum])
+	end
+end
+
+function randomSign()
+	if (random() > 0.5) then
+		return 1
+	else
+		return -1
+	end
+end
+
+function randomBit()
+	if (random() > 0.5) then
+		return 1
+	else
+		return 0
+	end
+end
+
+function random2(fVal1, fVal2)
+	if (fVal2) then
+		if ((fVal2 - fVal1) == 0) then
+			return fVal2
+		else
+			return random(fVal1, fVal2)
+		end
+	elseif (fVal1) then
+		if (fVal1 == 0) then
+			return 0
+		else
+			return random(fVal1)
+		end
+	else
+		return random()
+	end
+end
+
+function random3(fVal1, fVal2)
+	if (fVal2) then
+		return fVal1 + random() * (fVal2 - fVal1)
+	elseif (fVal1) then
+		return random() * fVal1
+	else
+		return random()
+	end
+end
+
+function vaddV(tVec1, tVec2)
+	local tmpVec = {}
+	for i, tTab in tVec2 do
+		tmpVec[i] = tVec1[i] + tTab
+	end
+	return tmpVec
+end
+
+if not getn then
+	function getn(tTable)
+		local nCount = 0
+		for i, iCount in tTable do
+			if i ~= "n" then
+				nCount = nCount + 1
+			end
+		end
+		return nCount
+	end
+end
+
+if not tinsert then
+	function tinsert(tTable, Arg1, Arg2)
+		if (Arg2) then
+			local TempTable = {}
+			for i = Arg1, getn(tTable) do
+				TempTable[i + 1] = tTable[i]
+			end
+			for i = Arg1, getn(tTable) do
+				tTable[i + 1] = TempTable[i + 1]
+			end
+			tTable[Arg1] = Arg2
+		else
+			tTable[getn(tTable) + 1] = Arg1
+		end
+	end
+end
+
+function vrotate(tVec, tAng)
+	tVec =
+	{
+		tVec[1] * cos(tAng[3]) - tVec[2] * sin(tAng[3]),
+		tVec[1] * sin(tAng[3]) + tVec[2] * cos(tAng[3]),
+		tVec[3],
+	}
+	tVec =
+	{
+		tVec[1],
+		tVec[2] * cos(tAng[1]) - tVec[3] * sin(tAng[1]),
+		tVec[2] * sin(tAng[1]) + tVec[3] * cos(tAng[1]),
+	}
+	tVec =
+	{
+		tVec[1] * cos(tAng[2]) + tVec[3] * sin(tAng[2]),
+		tVec[2],
+		-1 * tVec[1] * sin(tAng[2]) + tVec[3] * cos(tAng[2]),
+	}
+	return tVec
+end
+

@@ -1,0 +1,107 @@
+LevelAuthor = "Mikail"
+LevelComments = "This map is meant to test Mission Dude\\\'s object, sobgroup and path handling capabilities.\\r\\n"
+LevelDescription = "Squadron test"
+CreatedDate = "4/13/2008 1:9:10"
+UpdatedDate = "10/05/2013 01:22:01"
+AppVersion = "1.7.0"
+Distributions =
+{
+	"Main":
+	[
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[3911,0,-6578],Rotation:[0,0,0],Label:["Squadron #1"],Name:["MySquadron1"],Amount:[10],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[11444,0,-3833],Rotation:[0,0,0],Label:["Squadron #2"],Name:["MySquadron2"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[7722,0,8944],Rotation:[0,0,0],Label:["Squadron #3"],Name:["MySquadron3"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[944,0,11333],Rotation:[0,0,0],Label:["Squadron #4"],Name:["MySquadron4"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[-11556,0,3056],Rotation:[0,0,0],Label:["Squadron #5"],Name:["MySquadron5"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[-6556,0,-8167],Rotation:[0,0,0],Label:["Squadron #6"],Name:["MySquadron6"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[7289,0,-5733],Rotation:[0,0,0],Label:["Squadron #7"],Name:["MySquadron7"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["meg_asteroid"],Translation:[-6444,0,4722],Rotation:[0,0,0],Label:["Squadron #8"],Name:["MySquadron8"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[-4833,0,-778],Rotation:[0,0,0],Label:["Squadron #9"],Name:["MySquadron9"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[4000,0,-889],Rotation:[0,0,0],Label:["Squadron #10"],Name:["MySquadron10"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[5778,0,3611],Rotation:[0,0,0],Label:["Squadron #11"],Name:["MySquadron11"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[2111,0,5500],Rotation:[0,0,0],Label:["Squadron #12"],Name:["MySquadron12"],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[-167,0,-3389],Rotation:[0,0,0],Label:["Squadron #13"],Name:["MySquadron13"],Amount:[10],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[1833,0,-7333],Rotation:[0,0,0],Label:["Squadron #14"],Name:["MySquadron14"],Amount:[10],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["meg_asteroid"],Translation:[7056,0,-3611],Rotation:[0,0,0],Label:["Squadron #15"],Name:["MySquadron15"],Amount:[10],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[3889,0,556],Rotation:[0,0,0],Label:["Sqaudron #16"],Name:["MySquadron16"],Amount:[10],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["Point"],Subtype:[null],Translation:[944,0,-778],Rotation:[0,0,0],Label:["Point #1"],Name:["MyPoint1"],Amount:[10]},
+		{Type:["Point"],Subtype:[null],Translation:[5667,0,-6556],Rotation:[0,0,0],Label:["Point #2"],Name:["MyPoint2"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[9111,0,-722],Rotation:[0,0,0],Label:["Point #3"],Name:["MyPoint3"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[10722,0,3556],Rotation:[0,0,0],Label:["Point #4"],Name:["MyPoint4"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[778,0,8722],Rotation:[0,0,0],Label:["Point #5"],Name:["MyPoint5"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[-10667,0,8944],Rotation:[0,0,0],Label:["Point #6"],Name:["MyPoint6"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[-8611,0,-2500],Rotation:[0,0,0],Label:["Point #7"],Name:["MyPoint7"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[-8889,0,-7667],Rotation:[0,0,0],Label:["Point #8"],Name:["MyPoint8"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[-2444,0,-9111],Rotation:[0,0,0],Label:["Point #9"],Name:["MyPoint9"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[5056,0,-10833],Rotation:[0,0,0],Label:["Point #10"],Name:["MyPoint10"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[-2167,0,-4611],Rotation:[0,0,0],Label:["Point #11"],Name:["MyPoint11"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[-1167,0,2333],Rotation:[0,0,0],Label:["Point #12"],Name:["MyPoint12"],Amount:[1]},
+		{Type:["Point"],Subtype:[null],Translation:[1389,0,4556],Rotation:[0,0,0],Label:["Point #13"],Name:["MyPoint13"],Amount:[10]},
+		{Type:["Point"],Subtype:[null],Translation:[3667,0,7333],Rotation:[0,0,0],Label:["Point #14"],Name:["MyPoint14"],Amount:[10]},
+		{Type:["Point"],Subtype:[null],Translation:[1611,0,2111],Rotation:[0,0,0],Label:["Point #15"],Name:["MyPoint15"],Amount:[10]},
+		{Type:["Point"],Subtype:[null],Translation:[-1167,0,-2333],Rotation:[0,0,0],Label:["Point #16"],Name:["MyPoint16"],Amount:[10]},
+		{Type:["StartPoint"],Subtype:[null],Translation:[5889,0,5444],Rotation:[0,0,0],Label:["StartPoint #1"],Name:[null],Amount:[1]},
+		{Type:["StartPoint"],Subtype:[null],Translation:[-4444,0,-6278],Rotation:[0,0,0],Label:["StartPoint #2"],Name:[null],Amount:[1]},
+		{Type:["RvSquadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[-7056,0,1389],Rotation:["","",""],Label:["Rv. Squadron #1"],Name:[""],Amount:[1],Player:[1],Unknown1:[0],Unknown2:[0],Unknown3:[0],Unknown4:[0]},
+		{Type:["RvSquadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[8889,0,4500],Rotation:[null,null,null],Label:["Rv. Squadron #2"],Name:[null],Amount:[1],Player:[1],Unknown1:[0],Unknown2:[0],Unknown3:[0],Unknown4:[0]},
+		{Type:["RvSquadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[-2889,0,8222],Rotation:["","",""],Label:["Rv. Squadron #3"],Name:[""],Amount:[1],Player:[1],Unknown1:[0],Unknown2:[0],Unknown3:[0],Unknown4:[0]},
+		{Type:["RvSquadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[5444,0,9278],Rotation:[null,null,null],Label:["Rv. Squadron #4"],Name:[null],Amount:[1],Player:[1],Unknown1:[0],Unknown2:[0],Unknown3:[0],Unknown4:[0]}
+	]
+}
+Paths =
+{
+	"Path #1":
+	[
+		["Point #1",10],
+		["Point #5",1],
+		["Point #7",1],
+		["Point #10",1],
+		["Point #5",1],
+		["Point #11",1],
+		["Point #5",1]
+	]
+}
+SOBGroups =
+{
+	"Sobgroup #1":
+	[
+		["Squadron #1",10,0,0],
+		["Squadron #2",1,0,0],
+		["Squadron #3",1,0,0],
+		["Squadron #4",1,0,0],
+		["Rv. Squadron #1",1,1,1],
+		["Rv. Squadron #3",1,1,1]
+	],
+	"Sobgroup #2":
+	[
+		["Rv. Squadron #2",1,1,1],
+		["Rv. Squadron #4",1,1,1]
+	]
+}
+LevelSettings =
+{
+	setWorldBoundsInner:{Position:[0,0,0],Size:[100000,100000,100000]},
+	setWorldBoundsOuter:{Position:[0,0,0],Size:[100000,100000,100000]},
+	fogSetActive:{Enable:[0]},
+	loadBackground:{Path:["m01"]},
+	setDefaultMusic:{Folder:["battle"],TrackName:["battle_01"]},
+	setDustCloudAmbient:{AmbientColor:[0.5,0.5,0.5,1]},
+	setGlareIntensity:{Intensity:[0]},
+	setLevelShadowColour:{R:[0],G:[0],B:[0],A:[1]},
+	setNebulaAmbient:{AmbientColor:[0.5,0.5,0.5,1]},
+	setSensorsManagerCameraDistances:{MinDistance:[1000],MaxDistance:[100000]},
+	randomMusic:{Mode:[0]},
+	randomBackground:{Mode:[0]},
+	fogAddInterpolator:{Buffer:["fogStart"],Length:[1],Target:[1]},
+	fogSetColour:{R:[0.427734],G:[0.228516],B:[0.136719],A:[1]},
+	fogSetDensity:{Density:[0.15]},
+	fogSetEnd:{End:[20000]},
+	fogSetStart:{Start:[10]},
+	fogSetType:{Type:["linear"]},
+	setFXWind:{Vector:[1,1,1]}
+}
+Players =
+{
+	"Player #2":{RaceID:[1],StartingRUs:[3000],StartPos:[1]},
+	"Player #1":{RaceID:[1],StartingRUs:[3000],StartPos:[1]}
+}

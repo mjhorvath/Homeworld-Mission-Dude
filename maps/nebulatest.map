@@ -1,0 +1,58 @@
+LevelAuthor = "Mikail"
+LevelComments = "This map is meant to demonstrate MissionDude\'s nebula rendering capabilities."
+LevelDescription = "Nebula test"
+CreatedDate = "04/25/2008 12:32:26"
+UpdatedDate = "05/25/2008 13:52:33"
+AppVersion = "1.5.5"
+Distributions =
+{
+	"Main":
+	[
+		{Type:["DustCloud"],Subtype:["DustCloud_0"],Translation:[10000,0,1056],Rotation:[0,0,0],Label:["DustCloud #1"],Name:["DustCloud #1"],Amount:[3],Color:[1,1,1,1],Unknown1:[0],Radius:[5000]},
+		{Type:["DustCloud"],Subtype:["DustCloud_0"],Translation:[6444,0,-7778],Rotation:[0,0,0],Label:["DustCloud #2"],Name:["DustCloud #2"],Amount:[1],Color:[1,1,1,1],Unknown1:[0],Radius:[5000]},
+		{Type:["DustCloud"],Subtype:["DustCloud_0"],Translation:[4778,0,8778],Rotation:[0,0,0],Label:["DustCloud #3"],Name:["DustCloud #3"],Amount:[1],Color:[1,1,1,1],Unknown1:[0],Radius:[5000]},
+		{Type:["Nebula"],Subtype:["M05_DustCloud_Nebula"],Translation:[-6833,0,7500],Rotation:[0,0,0],Label:["Nebula #1"],Name:["Nebula #1"],Amount:[1],Color:[1,1,1,1],Unknown1:[0],Radius:[5000]},
+		{Type:["Nebula"],Subtype:["M05_DustCloud_Nebula"],Translation:[-9944,0,-1111],Rotation:[0,0,0],Label:["Nebula #2"],Name:["Nebula #2"],Amount:[3],Color:[1,1,1,1],Unknown1:[0],Radius:[5000]},
+		{Type:["Nebula"],Subtype:["M05_DustCloud_Nebula"],Translation:[-4778,0,-8944],Rotation:[0,0,0],Label:["Nebula #3"],Name:["Nebula #3"],Amount:[1],Color:[1,1,1,1],Unknown1:[0],Radius:[5000]},
+		{Type:["StartPoint"],Subtype:[""],Translation:[-889,0,7222],Rotation:[0,0,0],Label:["StartPoint #1"],Name:["StartPoint #1"],Amount:[1]},
+		{Type:["StartPoint"],Subtype:[""],Translation:[778,0,-7056],Rotation:[0,0,0],Label:["StartPoint #2"],Name:["StartPoint #2"],Amount:[1]},
+		{Type:["Literal"],Subtype:[""],Translation:[0,0,0],Rotation:[0,0,0],Label:["Literal #1"],Name:[""],Amount:[1],Distribution:["Distribution #2"]}
+	],
+	"Distribution #2":
+	[
+		{Type:["Asteroid"],Subtype:["Asteroid_1"],Translation:[0,0,0],Rotation:[0,0,0],Label:["Point #1"],Name:[""],Amount:[100],RUValue:[100],Unknown1:[0],Unknown2:[0],Unknown3:[0],Unknown4:[0]}
+	]
+}
+Paths =
+{
+}
+SOBGroups =
+{
+}
+LevelSettings =
+{
+	setWorldBoundsInner:{Position:[0,0,0],Size:[100000,100000,100000]},
+	setWorldBoundsOuter:{Position:[0,0,0],Size:[100000,100000,100000]},
+	fogSetActive:{Enable:[0]},
+	loadBackground:{Path:["m01"]},
+	setDefaultMusic:{Folder:["battle"],TrackName:["battle_01"]},
+	setDustCloudAmbient:{AmbientColor:[0.5,0.5,0.5,1]},
+	setGlareIntensity:{Intensity:[0]},
+	setLevelShadowColour:{R:[0],G:[0],B:[0],A:[1]},
+	setNebulaAmbient:{AmbientColor:[0.5,0.5,0.5,1]},
+	setSensorsManagerCameraDistances:{MinDistance:[1000],MaxDistance:[100000]},
+	randomMusic:{Mode:[0]},
+	randomBackground:{Mode:[0]},
+	fogAddInterpolator:{Buffer:["fogStart"],Length:[1],Target:[1]},
+	fogSetColour:{R:[0.427734],G:[0.228516],B:[0.136719],A:[1]},
+	fogSetDensity:{Density:[0.15]},
+	fogSetEnd:{End:[20000]},
+	fogSetStart:{Start:[10]},
+	fogSetType:{Type:["linear"]},
+	setFXWind:{Vector:[1,1,1]}
+}
+Players =
+{
+	"Player #1":{RaceID:[1],StartingRUs:[3000],StartPos:[1]},
+	"Player #2":{RaceID:[1],StartingRUs:[3000],StartPos:[1]}
+}

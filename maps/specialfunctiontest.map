@@ -1,0 +1,80 @@
+LevelAuthor = "Mikail"
+LevelComments = "This map is intended to demonstrate the different special functions.\r\n"
+LevelDescription = "Special function test"
+CreatedDate = "04/23/2008 05:58:46"
+UpdatedDate = "10/06/2013 03:02:43"
+AppVersion = "1.7.0"
+Distributions =
+{
+	"Main":
+	[
+		{Type:["StartPoint"],Subtype:[null],Translation:[7000,0,-6500],Rotation:[0,0,0],Label:["StartPoint #1"],Name:[null],Amount:[1]},
+		{Type:["StartPoint"],Subtype:[null],Translation:[-4611,0,7778],Rotation:[0,0,0],Label:["StartPoint #2"],Name:[null],Amount:[1]},
+		{Type:["Branch"],Subtype:[null],Translation:[0,0,0],Rotation:[0,45,0],Label:["Branch #1"],Name:[null],Amount:[1],Distribution:["Distribution #3"],Divisions:[2,2],Intervals:[2,2],Frequency:[6,6],Beginning:[2,2],Ending:[2,2],Radii:[100,500],Lengths:[5000,10000],Thicknesses:[10,100],Angles:[0,30],Mode:[2]},
+		{Type:["Spline"],Subtype:[null],Translation:[0,0,0],Rotation:[0,0,0],Label:["Spline #1"],Name:[null],Amount:[1],Distribution:["Distribution #3"],Point1A:[-5000,0,0],Point1B:[-5000,0,5000],Point2A:[5000,0,0],Point2B:[5000,0,-5000],Radii:[1000,1000],Thicknesses:[100,100]},
+		{Type:["Ring"],Subtype:[null],Translation:[0,0,0],Rotation:[0,0,0],Label:["Ring #1"],Name:[null],Amount:[1],Distribution:["Distribution #2"],Axis1:[20000],Axis2:[50000],Thickness:[1000],Height:[100],Arc:[0,360],Mode:[1]},
+		{Type:["Globe"],Subtype:[null],Translation:[0,0,0],Rotation:[0,0,0],Label:["Globe #1"],Name:[null],Amount:[1],Distribution:["Distribution #2"],Radius:[2000],Latitude:[6],Longitude:[6],Thickness:[100],Height:[100],Arc:[0,360],Mode:[1]},
+		{Type:["Shape"],Subtype:["Cylinder"],Translation:[0,0,0],Rotation:[0,0,0],Label:["Shape #1"],Name:[null],Amount:[1],Distribution:["Distribution #2"],ParamA:[1000],ParamB:[1000],ParamC:[20000],ParamD:[100],ParamE:[0]},
+		{Type:["Spiral"],Subtype:["Nautilus"],Translation:[0,0,0],Rotation:[0,0,0],Label:["Spiral #1"],Name:[null],Amount:[1],Distribution:["Distribution #2"],Radius:[20000],Arms:[4],Revolutions:[2],Angle:[15],Height:[100],Width:[1000],Thickness:[100],TValues:[0,1],Mode:[1]},
+		{Type:["EasyPatch"],Subtype:[null],Translation:[0,0,0],Rotation:[0,0,0],Label:["EasyPatch #1"],Name:[null],Amount:[1],RUValue:[100]},
+		{Type:["Literal"],Subtype:[null],Translation:[0,0,0],Rotation:[0,0,0],Label:["Literal #1"],Name:[null],Amount:[1],Distribution:["Distribution #3"]}
+	],
+	"Distribution #2":
+	[
+		{Type:["Pebble"],Subtype:["Pebble_0"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Pebble #1"],Name:[null],Amount:[10],Unknown1:[0],Unknown2:[0],Unknown3:[0]},
+		{Type:["Point"],Subtype:[null],Translation:[0,0,0],Rotation:[0,0,0],Label:["Point #1"],Name:[null],Amount:[1]},
+		{Type:["Asteroid"],Subtype:["Asteroid_1"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Asteroid #1"],Name:[null],Amount:[1],RUValue:[100],Unknown1:[0],Unknown2:[0],Unknown3:[0],Unknown4:[0]},
+		{Type:["Camera"],Subtype:[null],Translation:[0,0,0],Rotation:[null,null,null],Label:["Camera #1"],Name:[null],Amount:[1],Target:[0,0,0],Origin:[0,0,0]},
+		{Type:["Cloud"],Subtype:["Cloud_0"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Cloud #1"],Name:[null],Amount:[1],Color:[1,1,1,1],Unknown1:[0],Radius:[1000]},
+		{Type:["DustCloud"],Subtype:["DustCloud_0"],Translation:[0,0,0],Rotation:[null,null,null],Label:["DustCloud #1"],Name:[null],Amount:[1],Color:[1,1,1,1],Unknown1:[0],Radius:[1000]},
+		{Type:["Nebula"],Subtype:["M05_DustCloud_Nebula"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Nebula #1"],Name:[null],Amount:[1],Color:[1,1,1,1],Unknown1:[0],Radius:[1000]},
+		{Type:["Salvage"],Subtype:["Slv_Chunk_Lrg01"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Salvage #1"],Name:[null],Amount:[1],RUValue:[100],Unknown1:[0],Unknown2:[0],Unknown3:[0],Unknown4:[0]},
+		{Type:["Sphere"],Subtype:[null],Translation:[0,0,0],Rotation:[null,null,null],Label:["Sphere #1"],Name:[null],Amount:[1],Radius:[1000]},
+		{Type:["Squadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[0,0,0],Rotation:[0,0,0],Label:["Squadron #1"],Name:[null],Amount:[1],Player:[0],Unknown1:[0],Hyperspace:[0]},
+		{Type:["DirLight"],Subtype:[null],Translation:[0,0,0],Rotation:[null,null,null],Label:["DirLight #1"],Name:[null],Amount:[1],Color:[1,1,1],Specular:[1,1,1]},
+		{Type:["RvSquadron"],Subtype:["vgr_weaponplatform_missile"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Rv. Squadron #1"],Name:[null],Amount:[1],Player:[0],Unknown1:[0],Unknown2:[0],Unknown3:[0],Unknown4:[0]},
+		{Type:["RvResource"],Subtype:["Asteroid_1"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Rv. Asteroid #1"],Name:[null],Amount:[1],Unknown1:[0],Unknown2:[0],Unknown3:[0]}
+	],
+	"Distribution #3":
+	[
+		{Type:["Pebble"],Subtype:["Pebble_0"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Pebble #2"],Name:[null],Amount:[100],Unknown1:[0],Unknown2:[0],Unknown3:[0]}
+	]
+}
+Paths =
+{
+}
+SOBGroups =
+{
+	"Sobgroup #1":
+	[
+		["Rv. Squadron #1",1,0,1],
+		["Squadron #1",1,0,0]
+	]
+}
+LevelSettings =
+{
+	setWorldBoundsInner:{Position:[0,0,0],Size:[100000,100000,100000]},
+	setWorldBoundsOuter:{Position:[0,0,0],Size:[100000,100000,100000]},
+	fogSetActive:{Enable:[0]},
+	loadBackground:{Path:["m01"]},
+	setDefaultMusic:{Folder:["battle"],TrackName:["battle_01"]},
+	setDustCloudAmbient:{AmbientColor:[0.5,0.5,0.5,1]},
+	setGlareIntensity:{Intensity:[0]},
+	setLevelShadowColour:{R:[0],G:[0],B:[0],A:[1]},
+	setNebulaAmbient:{AmbientColor:[0.5,0.5,0.5,1]},
+	setSensorsManagerCameraDistances:{MinDistance:[1000],MaxDistance:[100000]},
+	randomMusic:{Mode:[0]},
+	randomBackground:{Mode:[0]},
+	fogAddInterpolator:{Buffer:["fogStart"],Length:[1],Target:[1]},
+	fogSetColour:{R:[0.427734],G:[0.228516],B:[0.136719],A:[1]},
+	fogSetDensity:{Density:[0.15]},
+	fogSetEnd:{End:[20000]},
+	fogSetStart:{Start:[10]},
+	fogSetType:{Type:["linear"]},
+	setFXWind:{Vector:[1,1,1]}
+}
+Players =
+{
+	"Player #1":{RaceID:[1],StartingRUs:[3000],StartPos:[1]},
+	"Player #2":{RaceID:[1],StartingRUs:[3000],StartPos:[1]}
+}

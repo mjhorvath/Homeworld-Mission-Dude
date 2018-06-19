@@ -1,0 +1,57 @@
+LevelAuthor = "Author"
+LevelComments = ""
+LevelDescription = "Nesting test"
+CreatedDate = "04/25/2008 12:32:26"
+UpdatedDate = "10/06/2013 02:16:05"
+AppVersion = "1.7.0"
+Distributions =
+{
+	"Main":
+	[
+		{Type:["Branch"],Subtype:[null],Translation:[0,0,0],Rotation:[0,0,0],Label:["Branch #1"],Name:[null],Amount:[1],Distribution:["Distribution_2"],Divisions:[2,2],Intervals:[2,2],Frequency:[6,6],Beginning:[2,2],Ending:[2,2],Radii:[100,1000],Lengths:[1000,5000],Thicknesses:[10,100],Angles:[0,30],Mode:[2]},
+		{Type:["Branch"],Subtype:[null],Translation:[3356,0,-7756],Rotation:[0,0,0],Label:["Branch #1_b"],Name:[null],Amount:[1],Distribution:["Distribution_2"],Divisions:[2,2],Intervals:[2,2],Frequency:[6,6],Beginning:[2,2],Ending:[2,2],Radii:[100,1000],Lengths:[1000,5000],Thicknesses:[10,100],Angles:[0,30],Mode:[2]},
+		{Type:["StartPoint"],Subtype:[null],Translation:[-12378,0,-7400],Rotation:[0,0,0],Label:["StartPoint #1"],Name:[null],Amount:[1]},
+		{Type:["StartPoint"],Subtype:[null],Translation:[12022,0,6200],Rotation:[0,0,0],Label:["StartPoint #2"],Name:[null],Amount:[1]}
+	],
+	"Distribution_2":
+	[
+		{Type:["Branch"],Subtype:[null],Translation:[0,0,0],Rotation:[0,0,0],Label:["Branch #2"],Name:[null],Amount:[1],Distribution:["Distribution_3"],Divisions:[2,2],Intervals:[2,2],Frequency:[6,6],Beginning:[2,2],Ending:[2,2],Radii:[100,1000],Lengths:[1000,5000],Thicknesses:[10,100],Angles:[0,30],Mode:[2]}
+	],
+	"Distribution_3":
+	[
+		{Type:["Pebble"],Subtype:["Pebble_0"],Translation:[0,0,0],Rotation:[null,null,null],Label:["Pebble #1"],Name:[null],Amount:[10],Unknown1:[0],Unknown2:[0],Unknown3:[0]}
+	]
+}
+Paths =
+{
+}
+SOBGroups =
+{
+}
+LevelSettings =
+{
+	setWorldBoundsInner:{Position:[0,0,0],Size:[100000,100000,100000]},
+	setWorldBoundsOuter:{Position:[0,0,0],Size:[100000,100000,100000]},
+	fogSetActive:{Enable:[0]},
+	loadBackground:{Path:["m01"]},
+	setDefaultMusic:{Folder:["battle"],TrackName:["battle_01"]},
+	setDustCloudAmbient:{AmbientColor:[0.5,0.5,0.5,1]},
+	setGlareIntensity:{Intensity:[0]},
+	setLevelShadowColour:{R:[0],G:[0],B:[0],A:[1]},
+	setNebulaAmbient:{AmbientColor:[0.5,0.5,0.5,1]},
+	setSensorsManagerCameraDistances:{MinDistance:[1000],MaxDistance:[100000]},
+	randomMusic:{Mode:[0]},
+	randomBackground:{Mode:[0]},
+	fogAddInterpolator:{Buffer:["fogStart"],Length:[1],Target:[1]},
+	fogSetColour:{R:[0.427734],G:[0.228516],B:[0.136719],A:[1]},
+	fogSetDensity:{Density:[0.15]},
+	fogSetEnd:{End:[20000]},
+	fogSetStart:{Start:[10]},
+	fogSetType:{Type:["linear"]},
+	setFXWind:{Vector:[1,1,1]}
+}
+Players =
+{
+	"Player #1":{RaceID:[1],StartingRUs:[3000],StartPos:[1]},
+	"Player #2":{RaceID:[1],StartingRUs:[3000],StartPos:[1]}
+}

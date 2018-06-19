@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet href="../css/stylesvg.css" type="text/css"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-200 -150 400 300" width="800" height="600" enable-background="new">
+	<defs>
+		<pattern id="grid_pttn" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+			<path id="grid_sub" class="grid" d="M0,0 L10,0 L10,10 L0,10 Z M10,10 L20,10 L20,20 L10,20 Z"/>
+		</pattern>
+		<filter id="dropShadow" x="0%" y="0%" width="150%" height="150%">
+			<feOffset in="SourceAlpha" dx="2" dy="2" result="offset"/>
+			<feGaussianBlur in="offset" stdDeviation="1" result="blur"/>
+			<feMerge>
+				<feMergeNode in="blur"/>
+				<feMergeNode in="SourceGraphic"/>
+			</feMerge>
+		</filter>
+		<filter id="falseColor" x="0%" y="0%" width="100%" height="100%">
+			<feComponentTransfer in="BackgroundImage" result="opposite">
+				<feFuncR type="linear" slope="-1" intercept="1"/>
+				<feFuncG type="linear" slope="-1" intercept="1"/>
+				<feFuncB type="linear" slope="-1" intercept="1"/>
+			</feComponentTransfer>
+			<feComposite in2="SourceGraphic" in="opposite" operator="in"/>
+		</filter>
+		<filter id="falseColorDesaturate" x="0%" y="0%" width="100%" height="100%">
+			<feComponentTransfer in="BackgroundImage" result="opposite">
+				<feFuncR type="linear" slope="-1" intercept="1"/>
+				<feFuncG type="linear" slope="-1" intercept="1"/>
+				<feFuncB type="linear" slope="-1" intercept="1"/>
+			</feComponentTransfer>
+			<feColorMatrix type="saturate" in="opposite" values="0" result="desaturate"/>
+			<feComposite in2="SourceGraphic" in="desaturate" operator="in"/>
+		</filter>
+		<filter id="switchColor" x="0%" y="0%" width="100%" height="100%">
+			<feComponentTransfer in="BackgroundImage" result="opposite">
+				<feFuncR type="linear" slope="-1" intercept="1"/>
+				<feFuncG type="linear" slope="-1" intercept="1"/>
+				<feFuncB type="linear" slope="-1" intercept="1"/>
+			</feComponentTransfer>
+			<feColorMatrix type="saturate" in="opposite" values="0" result="desaturate"/>
+			<feColorMatrix in="desaturate" type="matrix" result="contrast" values=
+				"10 10 10 0 -20
+				10 10 10 0 -20
+				10 10 10 0 -20
+				0 0 0 0 1"
+			/>
+			<feComposite in2="SourceGraphic" in="contrast" operator="in"/>
+		</filter>
+		<filter id="switchColor2" x="0%" y="0%" width="100%" height="100%">
+			<feComponentTransfer in="BackgroundImage" result="opposite">
+				<feFuncR type="linear" slope="-1" intercept="1"/>
+				<feFuncG type="linear" slope="-1" intercept="1"/>
+				<feFuncB type="linear" slope="-1" intercept="1"/>
+			</feComponentTransfer>
+			<feColorMatrix type="saturate" in="opposite" values="0" result="desaturate"/>
+			<feColorMatrix in="desaturate" type="matrix" result="contrast" values=
+				"10 10 10 0 -20
+				10 10 10 0 -20
+				10 10 10 0 -20
+				0 0 0 0 1"
+			/>
+			<feComposite in2="SourceGraphic" in="contrast" operator="in"/>
+		</filter>
+		<filter id="switchColor3" x="0%" y="0%" width="100%" height="100%">
+			<feComponentTransfer in="BackgroundImage" result="sub">
+				<feFuncR type="linear" slope="1" intercept="-0.5"/>
+				<feFuncG type="linear" slope="1" intercept="-0.5"/>
+				<feFuncB type="linear" slope="1" intercept="-0.5"/>
+			</feComponentTransfer>
+			<feColorMatrix in="sub" type="matrix" result="contrast" values=
+				"100 100 100 0 0
+				100 100 100 0 0
+				100 100 100 0 0
+				0 0 0 0 1"
+			/>
+			<feComponentTransfer in="contrast" result="opposite">
+				<feFuncR type="linear" slope="-1" intercept="1"/>
+				<feFuncG type="linear" slope="-1" intercept="1"/>
+				<feFuncB type="linear" slope="-1" intercept="1"/>
+			</feComponentTransfer>
+			<feComposite in2="SourceGraphic" in="opposite" operator="in"/>
+		</filter>
+		<filter id="specBubble" x="0%" y="0%" width="125%" height="125%">
+			<feGaussianBlur in="SourceAlpha" stdDeviation="1" result="blur"/>
+			<feComponentTransfer in="SourceAlpha" result="DarkAlpha">
+				<feFuncR type="linear" slope="0.25" intercept="0"/>
+				<feFuncG type="linear" slope="0.25" intercept="0"/>
+				<feFuncB type="linear" slope="0.25" intercept="0"/>
+			</feComponentTransfer>
+			<feGaussianBlur in="DarkAlpha" stdDeviation="1" result="darkblur"/>
+			<feOffset in="blur" dx="2" dy="2" result="offsetBlurredAlpha"/>
+			<feSpecularLighting in="darkblur" surfaceScale="5" specularConstant="0.9" specularExponent="20" lightColor="white" result="specularOut">
+				<feDistantLight azimuth="-120" elevation="30"/>
+			</feSpecularLighting>
+			<feComposite in="specularOut" in2="DarkAlpha" operator="in" result="specularOut"/>
+			<feComposite in="SourceGraphic" in2="specularOut" operator="arithmetic" k1="0" k2="1" k3="3" k4="0" result="litPaint"/>
+			<feMerge>
+				<feMergeNode in="offsetBlurredAlpha"/>
+				<feMergeNode in="litPaint"/>
+			</feMerge>
+		</filter>
+		<path id="Asteroid_proto" class="yelline drag" d="M4.33,-3.5 L-4.33,-3.5 L0,4 Z"/>
+		<path id="Camera_proto" class="blusold drag" d="M4,0 A4,4 0 1,1 -4,0 L-3.5,0 A3.5,3.5 0 1,0 3.5,0 M4,0 A4,4 0 1,0 -4,0 L-3.5,0 A3.5,3.5 0 1,1 3.5,0 L4,0 M2,0 A2,2 0 1,1 -2,0 A2,2 0 1,1 2,0"/>
+		<path id="Cloud_proto" class="gryline drag" d="M-4.268,-1.768 A2.5,2.5 0 1,1 0.732,-1.768 A2.5,2.5 0 1,1 -4.268,-1.768 M-0.732,-1.768 A2.5,2.5 0 1,1 4.268,-1.768 A2.5,2.5 0 1,1 -0.732,-1.768 M-0.732,1.768 A2.5,2.5 0 1,1 4.268,1.768 A2.5,2.5 0 1,1 -0.732,1.768 M-4.268,1.768 A2.5,2.5 0 1,1 0.732,1.768 A2.5,2.5 0 1,1 -4.268,1.768"/>
+		<circle id="Cloud_area" class="gryarea" cx="0" cy="0" r="0"/>
+		<path id="DustCloud_proto" class="marline drag" d="M-4.268,-1.768 A2.5,2.5 0 1,1 0.732,-1.768 A2.5,2.5 0 1,1 -4.268,-1.768 M-0.732,-1.768 A2.5,2.5 0 1,1 4.268,-1.768 A2.5,2.5 0 1,1 -0.732,-1.768 M-0.732,1.768 A2.5,2.5 0 1,1 4.268,1.768 A2.5,2.5 0 1,1 -0.732,1.768 M-4.268,1.768 A2.5,2.5 0 1,1 0.732,1.768 A2.5,2.5 0 1,1 -4.268,1.768"/>
+		<circle id="DustCloud_area" class="mararea" cx="0" cy="0" r="0"/>
+		<path id="Nebula_proto" class="orgline drag" d="M-4.268,-1.768 A2.5,2.5 0 1,1 0.732,-1.768 A2.5,2.5 0 1,1 -4.268,-1.768 M-0.732,-1.768 A2.5,2.5 0 1,1 4.268,-1.768 A2.5,2.5 0 1,1 -0.732,-1.768 M-0.732,1.768 A2.5,2.5 0 1,1 4.268,1.768 A2.5,2.5 0 1,1 -0.732,1.768 M-4.268,1.768 A2.5,2.5 0 1,1 0.732,1.768 A2.5,2.5 0 1,1 -4.268,1.768"/>
+		<circle id="Nebula_area" class="orgarea" cx="0" cy="0" r="0"/>
+		<path id="Point_proto" class="blusold drag" d="M-4,-4 A5.6568,0.5 45 1,1 4,4 A5.6568,0.5 45 1,1 -4,-4 M-4,4 A5.6568,0.5 135 1,1 4,-4 A5.6568,0.5 135 1,1 -4,4 M2,0 A2,2 0 1,1 -2,0 A2,2 0 1,1 2,0"/>
+		<path id="Point_rote" class="blurote" d="M-3,5.2 A6,6 0 0,0 3,5.2 L0,12 Z"/>
+		<path id="Pebble_proto" class="gryline drag" d="M2.167,-1.75 L-2.167,-1.75 L0,2 Z" style="fill:#808080;"/>
+		<path id="Salvage_proto" class="gryline drag" d="M4.33,-3.5 L-4.33,-3.5 L0,4 Z"/>
+		<path id="Sphere_proto" class="bluline drag" d="M-4,0 A4,2 0 1,1 4,0 A4,2 0 1,1 -4,0 M0,-4 A2,4 0 1,1 0,4 A2,4 0 1,1 0,-4 M-4,0 A4,4 0 1,1 4,0 A4,4 0 1,1 -4,0" style="stroke-width:0.5;"/>
+		<circle id="Sphere_area" class="bluarea" cx="0" cy="0" r="0"/>
+		<path id="Squadron_proto" class="grnline drag" d="M4.33,3.5 L-4.33,3.5 L0,-4 Z"/>
+		<path id="Megalith_proto" class="marline drag" d="M4.33,3.5 L-4.33,3.5 L0,-4 Z"/>
+<!--		<path id="Missile_proto" class="redline drag" d="M4.33,3.5 L-4.33,3.5 L0,-4 Z"/>-->
+		<path id="DirLight_proto" class="yelline drag" d="M0,3 L0,4 M0,-3 L0,-4 M3,0 L4,0 M-3,0 L-4,0 M2,2 L3,3 M-2,-2 L-3,-3 M-2,2 L-3,3 M2,-2 L3,-3 M-1.25,0 A1.25,1.25 0 1,1 1.25,0 A1.25,1.25 0 1,1 -1.25,0"/>
+<!--		<path id="AmbientLight_proto" class="yelline drag" d="M0,3 L0,4 M0,-3 L0,-4 M3,0 L4,0 M-3,0 L-4,0 M2,2 L3,3 M-2,-2 L-3,-3 M-2,2 L-3,3 M2,-2 L3,-3 M-1.25,0 A1.25,1.25 0 1,1 1.25,0 A1.25,1.25 0 1,1 -1.25,0"/>-->
+		<path id="RvSquadron_proto" class="redline drag" d="M4.33,3.5 L-4.33,3.5 L0,-4 Z"/>
+		<path id="RvAsteroid_proto" class="redline drag" d="M4.33,-3.5 L-4.33,-3.5 L0,4 Z"/>
+<!--		<path id="AmbientSound_proto" class="bluline drag" d="M0,-4 a4,4 0 0,1 4,4 M0,-2.5 a2.5,2.5 0 0,1 2.5,2.5 M-4,0 a4,4 0 0,0 4,4 M-2.5,0 a2.5,2.5 0 0,0 2.5,2.5 M-1.25,0 A1.25,1.25 0 1,1 1.25,0 A1.25,1.25 0 1,1 -1.25,0" style="stroke-width:0.5;"/>-->
+<!--		<path id="Coordinate_proto" class="redsold drag" d="M4,0 A4,4 0 1,1 -4,0 L-3.5,0 A3.5,3.5 0 1,0 3.5,0 M4,0 A4,4 0 1,0 -4,0 L-3.5,0 A3.5,3.5 0 1,1 3.5,0 L4,0 M2,0 A2,2 0 1,1 -2,0 A2,2 0 1,1 2,0"/>-->
+		<path id="Function_proto" class="magsold drag" d="M -0.546875,-5.1171875 L -0.546875,-4.2207031 L -1.578125,-4.2207031 C -1.9648468,-4.2206949 -2.2334012,-4.14257 -2.3837891,-3.9863281 C -2.5341822,-3.8300703 -2.6093774,-3.5488206 -2.609375,-3.1425781 L -2.609375,-2.5625 L -0.83398438,-2.5625 L -0.83398438,-1.7246094 L -2.609375,-1.7246094 L -2.609375,4 L -3.6933594,4 L -3.6933594,-1.7246094 L -4.7246094,-1.7246094 L -4.7246094,-2.5625 L -3.6933594,-2.5625 L -3.6933594,-3.0195312 C -3.6933607,-3.7499923 -3.523439,-4.2822183 -3.1835938,-4.6162109 C -2.8437522,-4.9501864 -2.3046902,-5.1171784 -1.5664062,-5.1171875 L -0.546875,-5.1171875 z M 5.8046875,-2.5625 L 3.4316406,0.63085938 L 5.9277344,4 L 4.65625,4 L 2.7460938,1.421875 L 0.8359375,4 L -0.43554688,4 L 2.1132812,0.56640625 L -0.21875,-2.5625 L 1.0527344,-2.5625 L 2.7929688,-0.22460938 L 4.5332031,-2.5625 L 5.8046875,-2.5625 z"/>
+		<path id="StartPoint_proto" class="grnsold drag" d="M-4,-4 A5.6568,0.5 45 1,1 4,4 A5.6568,0.5 45 1,1 -4,-4 M-4,4 A5.6568,0.5 135 1,1 4,-4 A5.6568,0.5 135 1,1 -4,4 M2,0 A2,2 0 1,1 -2,0 A2,2 0 1,1 2,0"/>
+<!--		<path id="PiePlate_proto" class="cynline drag" d="M-4,0 L4,0 M0,4 L0,-4 M-4,0 A4,4 0 1,1 4,0 A4,4 0 1,1 -4,0"/>-->
+	</defs>
+	<rect id="background" x="-10000" y="-10000" width="20000" height="20000"/>
+	<rect id="grid" x="-10000" y="-10000" width="20000" height="20000"/>
+	<image id="image0" class="bitmap" x="0px" y="0px" width="0" height="0" xlink:href="image1.jpg" style="display:none;"/>
+	<image id="image1" class="bitmap" x="0px" y="0px" width="0" height="0" xlink:href="image2.jpg" style="display:none;"/>
+	<image id="image2" class="bitmap" x="0px" y="0px" width="0" height="0" xlink:href="image3.jpg" style="display:none;"/>
+	<g id="rule">
+		<text class="rulsold text">
+			<tspan id="ta1" x="+100" y="0">-10000</tspan>
+			<tspan id="tb1" x="-100" y="0">+10000</tspan>
+			<tspan id="tc1" x="0" y="+100">-10000</tspan>
+			<tspan id="td1" x="0" y="-100">+10000</tspan>
+			<tspan id="ta2" x="+200" y="0">-20000</tspan>
+			<tspan id="tb2" x="-200" y="0">+20000</tspan>
+			<tspan id="tc2" x="0" y="+200">-20000</tspan>
+			<tspan id="td2" x="0" y="-200">+20000</tspan>
+			<tspan id="ta3" x="+300" y="0">-30000</tspan>
+			<tspan id="tb3" x="-300" y="0">+30000</tspan>
+			<tspan id="tc3" x="0" y="+300">-30000</tspan>
+			<tspan id="td3" x="0" y="-300">+30000</tspan>
+			<tspan id="ta4" x="+400" y="0">-40000</tspan>
+			<tspan id="tb4" x="-400" y="0">+40000</tspan>
+			<tspan id="tc4" x="0" y="+400">-40000</tspan>
+			<tspan id="td4" x="0" y="-400">+40000</tspan>
+			<tspan id="ta5" x="+500" y="0">-50000</tspan>
+			<tspan id="tb5" x="-500" y="0">+50000</tspan>
+			<tspan id="tc5" x="0" y="+500">-50000</tspan>
+			<tspan id="td5" x="0" y="-500">+50000</tspan>
+			<tspan id="ta6" x="+600" y="0">-60000</tspan>
+			<tspan id="tb6" x="-600" y="0">+60000</tspan>
+			<tspan id="tc6" x="0" y="+600">-60000</tspan>
+			<tspan id="td6" x="0" y="-600">+60000</tspan>
+			<tspan id="ta7" x="+700" y="0">-70000</tspan>
+			<tspan id="tb7" x="-700" y="0">+70000</tspan>
+			<tspan id="tc7" x="0" y="+700">-70000</tspan>
+			<tspan id="td7" x="0" y="-700">+70000</tspan>
+			<tspan id="ta8" x="+800" y="0">-80000</tspan>
+			<tspan id="tb8" x="-800" y="0">+80000</tspan>
+			<tspan id="tc8" x="0" y="+800">-80000</tspan>
+			<tspan id="td8" x="0" y="-800">+80000</tspan>
+			<tspan id="ta9" x="+900" y="0">-90000</tspan>
+			<tspan id="tb9" x="-900" y="0">+90000</tspan>
+			<tspan id="tc9" x="0" y="+900">-90000</tspan>
+			<tspan id="td9" x="0" y="-900">+90000</tspan>
+			<tspan id="ta10" x="+1000" y="0">-100000</tspan>
+			<tspan id="tb10" x="-1000" y="0">+100000</tspan>
+			<tspan id="tc10" x="0" y="+1000">-100000</tspan>
+			<tspan id="td10" x="0" y="-1000">+100000</tspan>
+
+			<tspan id="ta11" x="+1100" y="0">-110000</tspan>
+			<tspan id="tb11" x="-1100" y="0">+110000</tspan>
+			<tspan id="tc11" x="0" y="+1100">-110000</tspan>
+			<tspan id="td11" x="0" y="-1100">+110000</tspan>
+			<tspan id="ta12" x="+1200" y="0">-120000</tspan>
+			<tspan id="tb12" x="-1200" y="0">+120000</tspan>
+			<tspan id="tc12" x="0" y="+1200">-120000</tspan>
+			<tspan id="td12" x="0" y="-1200">+120000</tspan>
+			<tspan id="ta13" x="+1300" y="0">-130000</tspan>
+			<tspan id="tb13" x="-1300" y="0">+130000</tspan>
+			<tspan id="tc13" x="0" y="+1300">-130000</tspan>
+			<tspan id="td13" x="0" y="-1300">+130000</tspan>
+			<tspan id="ta14" x="+1400" y="0">-140000</tspan>
+			<tspan id="tb14" x="-1400" y="0">+140000</tspan>
+			<tspan id="tc14" x="0" y="+1400">-140000</tspan>
+			<tspan id="td14" x="0" y="-1400">+140000</tspan>
+			<tspan id="ta15" x="+1500" y="0">-150000</tspan>
+			<tspan id="tb15" x="-1500" y="0">+150000</tspan>
+			<tspan id="tc15" x="0" y="+1500">-150000</tspan>
+			<tspan id="td15" x="0" y="-1500">+150000</tspan>
+			<tspan id="ta16" x="+1600" y="0">-160000</tspan>
+			<tspan id="tb16" x="-1600" y="0">+160000</tspan>
+			<tspan id="tc16" x="0" y="+1600">-160000</tspan>
+			<tspan id="td16" x="0" y="-1600">+160000</tspan>
+			<tspan id="ta17" x="+1700" y="0">-170000</tspan>
+			<tspan id="tb17" x="-1700" y="0">+170000</tspan>
+			<tspan id="tc17" x="0" y="+1700">-170000</tspan>
+			<tspan id="td17" x="0" y="-1700">+170000</tspan>
+			<tspan id="ta18" x="+1800" y="0">-180000</tspan>
+			<tspan id="tb18" x="-1800" y="0">+180000</tspan>
+			<tspan id="tc18" x="0" y="+1800">-180000</tspan>
+			<tspan id="td18" x="0" y="-1800">+180000</tspan>
+			<tspan id="ta19" x="+1900" y="0">-190000</tspan>
+			<tspan id="tb19" x="-1900" y="0">+190000</tspan>
+			<tspan id="tc19" x="0" y="+1900">-190000</tspan>
+			<tspan id="td19" x="0" y="-1900">+190000</tspan>
+			<tspan id="ta20" x="+2000" y="0">-200000</tspan>
+			<tspan id="tb20" x="-2000" y="0">+200000</tspan>
+			<tspan id="tc20" x="0" y="+2000">-200000</tspan>
+			<tspan id="td20" x="0" y="-2000">+200000</tspan>
+		</text>
+		<g class="rulline">
+			<path id="rulepath" d="M0,0 L+1000,0 M0,0 L-1000,0 M0,0 L0,+1000 M0,0 L0,-1000"/>
+			<circle class="rulecirc" id="c1" cx="0" cy="0" r="100"/>
+			<circle class="rulecirc" id="c2" cx="0" cy="0" r="200"/>
+			<circle class="rulecirc" id="c3" cx="0" cy="0" r="300"/>
+			<circle class="rulecirc" id="c4" cx="0" cy="0" r="400"/>
+			<circle class="rulecirc" id="c5" cx="0" cy="0" r="500"/>
+			<circle class="rulecirc" id="c6" cx="0" cy="0" r="600"/>
+			<circle class="rulecirc" id="c7" cx="0" cy="0" r="700"/>
+			<circle class="rulecirc" id="c8" cx="0" cy="0" r="800"/>
+			<circle class="rulecirc" id="c9" cx="0" cy="0" r="900"/>
+			<circle class="rulecirc" id="c10" cx="0" cy="0" r="1000"/>
+			<circle class="rulecirc" id="c11" cx="0" cy="0" r="1100"/>
+			<circle class="rulecirc" id="c12" cx="0" cy="0" r="1200"/>
+			<circle class="rulecirc" id="c13" cx="0" cy="0" r="1300"/>
+			<circle class="rulecirc" id="c14" cx="0" cy="0" r="1400"/>
+			<circle class="rulecirc" id="c15" cx="0" cy="0" r="1500"/>
+			<circle class="rulecirc" id="c16" cx="0" cy="0" r="1600"/>
+			<circle class="rulecirc" id="c17" cx="0" cy="0" r="1700"/>
+			<circle class="rulecirc" id="c18" cx="0" cy="0" r="1800"/>
+			<circle class="rulecirc" id="c19" cx="0" cy="0" r="1900"/>
+			<circle class="rulecirc" id="c20" cx="0" cy="0" r="2000"/>
+<!--
+			<circle class="rulecirc" id="c21" cx="0" cy="0" r="2100"/>
+			<circle class="rulecirc" id="c22" cx="0" cy="0" r="2200"/>
+			<circle class="rulecirc" id="c23" cx="0" cy="0" r="2300"/>
+			<circle class="rulecirc" id="c24" cx="0" cy="0" r="2400"/>
+			<circle class="rulecirc" id="c25" cx="0" cy="0" r="2500"/>
+			<circle class="rulecirc" id="c26" cx="0" cy="0" r="2600"/>
+			<circle class="rulecirc" id="c27" cx="0" cy="0" r="2700"/>
+			<circle class="rulecirc" id="c28" cx="0" cy="0" r="2800"/>
+			<circle class="rulecirc" id="c29" cx="0" cy="0" r="2900"/>
+			<circle class="rulecirc" id="c30" cx="0" cy="0" r="3000"/>
+			<circle class="rulecirc" id="c31" cx="0" cy="0" r="3100"/>
+			<circle class="rulecirc" id="c32" cx="0" cy="0" r="3200"/>
+			<circle class="rulecirc" id="c33" cx="0" cy="0" r="3300"/>
+			<circle class="rulecirc" id="c34" cx="0" cy="0" r="3400"/>
+			<circle class="rulecirc" id="c35" cx="0" cy="0" r="3500"/>
+			<circle class="rulecirc" id="c36" cx="0" cy="0" r="3600"/>
+			<circle class="rulecirc" id="c37" cx="0" cy="0" r="3700"/>
+			<circle class="rulecirc" id="c38" cx="0" cy="0" r="3800"/>
+			<circle class="rulecirc" id="c39" cx="0" cy="0" r="3900"/>
+			<circle class="rulecirc" id="c40" cx="0" cy="0" r="4000"/>
+			<circle class="rulecirc" id="c41" cx="0" cy="0" r="4100"/>
+			<circle class="rulecirc" id="c42" cx="0" cy="0" r="4200"/>
+			<circle class="rulecirc" id="c43" cx="0" cy="0" r="4300"/>
+			<circle class="rulecirc" id="c44" cx="0" cy="0" r="4400"/>
+			<circle class="rulecirc" id="c45" cx="0" cy="0" r="4500"/>
+			<circle class="rulecirc" id="c46" cx="0" cy="0" r="4600"/>
+			<circle class="rulecirc" id="c47" cx="0" cy="0" r="4700"/>
+			<circle class="rulecirc" id="c48" cx="0" cy="0" r="4800"/>
+			<circle class="rulecirc" id="c49" cx="0" cy="0" r="4900"/>
+			<circle class="rulecirc" id="c50" cx="0" cy="0" r="5000"/>
+			<circle class="rulecirc" id="c51" cx="0" cy="0" r="5100"/>
+			<circle class="rulecirc" id="c52" cx="0" cy="0" r="5200"/>
+			<circle class="rulecirc" id="c53" cx="0" cy="0" r="5300"/>
+			<circle class="rulecirc" id="c54" cx="0" cy="0" r="5400"/>
+			<circle class="rulecirc" id="c55" cx="0" cy="0" r="5500"/>
+			<circle class="rulecirc" id="c56" cx="0" cy="0" r="5600"/>
+			<circle class="rulecirc" id="c57" cx="0" cy="0" r="5700"/>
+			<circle class="rulecirc" id="c58" cx="0" cy="0" r="5800"/>
+			<circle class="rulecirc" id="c59" cx="0" cy="0" r="5900"/>
+			<circle class="rulecirc" id="c60" cx="0" cy="0" r="6000"/>
+			<circle class="rulecirc" id="c61" cx="0" cy="0" r="6100"/>
+			<circle class="rulecirc" id="c62" cx="0" cy="0" r="6200"/>
+			<circle class="rulecirc" id="c63" cx="0" cy="0" r="6300"/>
+			<circle class="rulecirc" id="c64" cx="0" cy="0" r="6400"/>
+			<circle class="rulecirc" id="c65" cx="0" cy="0" r="6500"/>
+			<circle class="rulecirc" id="c66" cx="0" cy="0" r="6600"/>
+			<circle class="rulecirc" id="c67" cx="0" cy="0" r="6700"/>
+			<circle class="rulecirc" id="c68" cx="0" cy="0" r="6800"/>
+			<circle class="rulecirc" id="c69" cx="0" cy="0" r="6900"/>
+			<circle class="rulecirc" id="c70" cx="0" cy="0" r="7000"/>
+			<circle class="rulecirc" id="c71" cx="0" cy="0" r="7100"/>
+			<circle class="rulecirc" id="c72" cx="0" cy="0" r="7200"/>
+			<circle class="rulecirc" id="c73" cx="0" cy="0" r="7300"/>
+			<circle class="rulecirc" id="c74" cx="0" cy="0" r="7400"/>
+			<circle class="rulecirc" id="c75" cx="0" cy="0" r="7500"/>
+			<circle class="rulecirc" id="c76" cx="0" cy="0" r="7600"/>
+			<circle class="rulecirc" id="c77" cx="0" cy="0" r="7700"/>
+			<circle class="rulecirc" id="c78" cx="0" cy="0" r="7800"/>
+			<circle class="rulecirc" id="c79" cx="0" cy="0" r="7900"/>
+			<circle class="rulecirc" id="c80" cx="0" cy="0" r="8000"/>
+			<circle class="rulecirc" id="c81" cx="0" cy="0" r="8100"/>
+			<circle class="rulecirc" id="c82" cx="0" cy="0" r="8200"/>
+			<circle class="rulecirc" id="c83" cx="0" cy="0" r="8300"/>
+			<circle class="rulecirc" id="c84" cx="0" cy="0" r="8400"/>
+			<circle class="rulecirc" id="c85" cx="0" cy="0" r="8500"/>
+			<circle class="rulecirc" id="c86" cx="0" cy="0" r="8600"/>
+			<circle class="rulecirc" id="c87" cx="0" cy="0" r="8700"/>
+			<circle class="rulecirc" id="c88" cx="0" cy="0" r="8800"/>
+			<circle class="rulecirc" id="c89" cx="0" cy="0" r="8900"/>
+			<circle class="rulecirc" id="c90" cx="0" cy="0" r="9000"/>
+			<circle class="rulecirc" id="c91" cx="0" cy="0" r="9100"/>
+			<circle class="rulecirc" id="c92" cx="0" cy="0" r="9200"/>
+			<circle class="rulecirc" id="c93" cx="0" cy="0" r="9300"/>
+			<circle class="rulecirc" id="c94" cx="0" cy="0" r="9400"/>
+			<circle class="rulecirc" id="c95" cx="0" cy="0" r="9500"/>
+			<circle class="rulecirc" id="c96" cx="0" cy="0" r="9600"/>
+			<circle class="rulecirc" id="c97" cx="0" cy="0" r="9700"/>
+			<circle class="rulecirc" id="c98" cx="0" cy="0" r="9800"/>
+			<circle class="rulecirc" id="c99" cx="0" cy="0" r="9900"/>
+			<circle class="rulecirc" id="c100" cx="0" cy="0" r="10000"/>
+-->
+		</g>
+	</g>
+	<g id="axes">
+		<g id="axes0">
+			<path class="redline" id="px0" d="M0,0 L-200,0"/>
+			<path class="bluline" id="py0" d="M0,0 L0,-200"/>
+			<text class="redsold" id="tx0" x="-180" y="10">x</text>
+			<text class="blusold" id="ty0" x="10" y="-180">z</text>
+		</g>
+		<g id="axes1">
+			<path class="redline" id="px1" d="M0,0 L-200,0"/>
+			<path class="grnline" id="py1" d="M0,0 L0,-200"/>
+			<text class="redsold" id="tx1" x="-180" y="10">x</text>
+			<text class="grnsold" id="ty1" x="10" y="-180">y</text>
+		</g>
+		<g id="axes2">
+			<path class="bluline" id="px2" d="M0,0 L-200,0"/>
+			<path class="grnline" id="py2" d="M0,0 L0,-200"/>
+			<text class="blusold" id="tx2" x="-180" y="10">z</text>
+			<text class="grnsold" id="ty2" x="10" y="-180">y</text>
+		</g>
+	</g>
+	<rect id="movebox" x="-10000" y="-10000" width="20000" height="20000"/>
+	<g id="backlayer"></g>
+	<g id="frontlayer"></g>
+	<g id="selectbox">
+		<rect id="selectframe" x="-5.5" y="-5.5" width="11" height="11"/>
+		<text id="selecttext" class="text" x="6" y="4">select</text>
+	</g>
+	<g id="highlightbox">
+		<rect id="highlightframe" x="-5.5" y="-5.5" width="11" height="11"/>
+		<text id="highlighttext" class="text" x="6" y="4">highlight</text>
+	</g>
+	<g id="legend">
+		<g id="legendicons" transform="translate(7 7)">
+			<use x="0" y="000" xlink:href="#Camera_proto"/>
+			<use x="0" y="015" xlink:href="#AmbientSound_proto"/>
+			<use x="0" y="030" xlink:href="#Sphere_proto"/>
+			<use x="0" y="045" xlink:href="#Point_proto"/>
+			<use x="0" y="060" xlink:href="#StartPoint_proto"/>
+			<use x="0" y="075" xlink:href="#Squadron_proto"/>
+			<use x="0" y="090" xlink:href="#Megalith_proto"/>
+			<use x="0" y="105" xlink:href="#RvSquadron_proto"/>
+			<use x="0" y="120" xlink:href="#Asteroid_proto"/>
+			<use x="0" y="135" xlink:href="#RvAsteroid_proto"/>
+			<use x="0" y="150" xlink:href="#Salvage_proto"/>
+			<use x="0" y="165" xlink:href="#Pebble_proto"/>
+			<use x="0" y="180" xlink:href="#Cloud_proto"/>
+			<use x="0" y="195" xlink:href="#DustCloud_proto"/>
+			<use x="0" y="210" xlink:href="#Nebula_proto"/>
+			<use x="0" y="225" xlink:href="#DirLight_proto"/>
+			<use x="0" y="240" xlink:href="#PiePlate_proto"/>
+			<use x="0" y="255" xlink:href="#Function_proto"/>
+<!--			<use x="0" y="180" xlink:href="#Missile_proto"/>-->
+<!--			<use x="0" y="190" xlink:href="#Coordinate_proto"/>-->
+<!--			<use x="0" y="270" xlink:href="#Point_proto"/>-->
+<!--			<use x="0" y="285" xlink:href="#Point_rote"/>-->
+		</g>
+		<text id="legendtext" class="text" transform="translate(7 7)">
+			<tspan x="6" y="004">Camera</tspan>
+			<tspan x="6" dy="15">AmbSound</tspan>
+			<tspan x="6" dy="15">Sphere</tspan>
+			<tspan x="6" dy="15">Point</tspan>
+			<tspan x="6" dy="15">StartPoint</tspan>
+			<tspan x="6" dy="15">Squadron</tspan>
+			<tspan x="6" dy="15">Megalith</tspan>
+			<tspan x="6" dy="15">Rv. Squadron</tspan>
+			<tspan x="6" dy="15">Asteroid</tspan>
+			<tspan x="6" dy="15">Rv. Asteroid</tspan>
+			<tspan x="6" dy="15">Salvage</tspan>
+			<tspan x="6" dy="15">Pebble</tspan>
+			<tspan x="6" dy="15">Cloud</tspan>
+			<tspan x="6" dy="15">DustCloud</tspan>
+			<tspan x="6" dy="15">Nebula</tspan>
+			<tspan x="6" dy="15">DirLight</tspan>
+			<tspan x="6" dy="15">PiePlate</tspan>
+			<tspan x="6" dy="15">Function</tspan>
+<!--			<tspan x="6" dy="15">Missile</tspan>-->
+<!--			<tspan x="6" dy="15">Coordinate</tspan>-->
+			<tspan x="6" dy="15">ALT = Pan Camera</tspan>
+			<tspan x="6" dy="15">CTRL = Zoom In</tspan>
+			<tspan x="6" dy="15">CTRL + SHIFT = Zoom Out</tspan>
+			<tspan x="6" dy="15">RMB = Options</tspan>
+		</text>
+	</g>
+	<g id="statusbox" class="smalltxt">
+		<text id="statustext" x="0" y="0">
+			<tspan x="-240" y="-1" stroke="#ff0000">X: </tspan>
+			<tspan id="status_x" x="-160" y="-1" text-anchor="end">0</tspan>
+			<tspan x="-160" y="-1" stroke="#00ff00">Y: </tspan>
+			<tspan id="status_y" x="-80" y="-1" text-anchor="end">0</tspan>
+			<tspan x="-80" y="-1" stroke="#0000ff">Z: </tspan>
+			<tspan id="status_z" x="-5" y="-1" text-anchor="end">0</tspan>
+		</text>
+	</g>
+</svg>

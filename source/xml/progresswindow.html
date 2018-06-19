@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html>
+	<head>
+		<title>Child Window</title>
+		<meta http-equiv="MSThemeCompatible" content="Yes"/>
+		<link rel="shortcut icon" href="missiondude.ico" type="image/x-icon" /> 
+		<link rel="icon" href="missiondude.ico" type="image/x-icon" />
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="../css/styledefault.css" title="Default"/>
+		<link rel="alternate stylesheet" type="text/css" href="../css/styleblue.css" title="Blue"/>
+		<script language="javascript" type="text/javascript" src="../jscript/childwindow.js"></script>
+	</head>
+	<body onload="initialize_child()" onunload="unload_child()">
+<!--progress PANEL-->
+		<div id="progress_pnl" class="panel" style="display:block;">
+			<fieldset id="progress_fld" class="fset">
+				<legend class="leguns">Progress</legend>
+				<table style="width:100%;height:34px;"><tr style="vertical-align:middle;"><td style="width:100%;height:100%;text-align:center;">
+				<div style="width:250px;height:17px;text-align:left;"><div id="progress_embed" style="width:0px;height:17px;background:#0000c0;"></div></div>
+				</td></tr></table>
+			</fieldset>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+In order for this program to work properly, it requires the following things:
+
+* Adobe SVG Viewer, latest version
+  https://www.adobe.com/devnet/svg/adobe-svg-viewer-download-area.html
+* "cjDialogs.dll"
+  I can no longer find this on the Web, so I have included it with this program.
+  I do not have the source for this library. I do not remember what the license 
+  was originally. Some sort of "free for for noncommercial use" license 
+  presumably.
+* "Lua4.exe" and "Luac4.exe"
+  https://sourceforge.net/projects/luabinaries/
+  These go into the "source/lua" directory.
+* A version of the MS Windows operating system that supports HTML Applications 
+  (HTA) and Windows Scripting Host (WSH). I have not tested on Windows 8/8.1/10 
+  but I know the program works on Windows 7.

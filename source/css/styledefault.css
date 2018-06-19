@@ -1,0 +1,69 @@
+*		{cursor:default;font:10pt Arial;}
+a		{cursor:hand;}
+body		{margin:0px;padding:8px;}
+fieldset	{padding:3px;display:block;}
+embed		{width:720px;height:540px;}
+legend		{}
+hr		{margin:0px 3px 0px 3px;clear:all;}
+label		{width:80px;clear:left;}
+tr		{vertical-align:top;}
+iframe		{width:100%;height:100%;}
+h4,b,strong	{font-weight:bold;}
+i,em		{font-style:italic;}
+#main_fld	{}
+#view_fld	{}
+#menu_fld	{}
+#status		{}
+#objectselect									{width:246px;height:246px;}
+#distributionselect,#sobgroupselect,#pathselect					{width:232px;height:116px;}
+#levelsettingselect								{width:232px;height:174px;}
+#playerselect									{width:232px;height:116px;}
+#levelcomments									{width:226px;height:116px;margin:2px;overflow:auto;float:none;}
+#typeselect,#subtypeselect,#distributionpropertyselect,#sobgrouppropertyselect	{width:360px;height:150px;}
+#deletefileselect,#importfileselect,#exportfileselect,#savefileselect,#loadfileselect,#compilefileselect		{width:360px;height:120px;}
+#pointeditselect,#pointpoolselect,#squadroneditselect,#squadronpoolselect	{width:180px;height:200px;float:left;overflow:auto;}
+#help_pnl									{width:800px;height:600px;}
+#help_fld									{height:588px;}
+#progress_pnl									{height:75px}
+#progress_fld									{height:63px;}
+#pathedit_pnl,#sobgroupedit_pnl							{height:350px;}
+#pathedit_fld,#sobgroupedit_fld							{height:338px;}
+#viewingoptions_pnl								{height:420px;}
+#viewingoptions_fld								{height:408px;}
+#distributionedit_pnl								{height:150px;}
+#distributionedit_fld								{height:138px;}
+/*#levelsettinglist								{height:120px;}*/
+embed,hr,.inpsel	{border:inset 1px;}
+/*embed,hr,.inpsel	{border:solid 1px Highlight;}*/
+.legsel		{}
+.legdes		{}
+.leguns		{}
+.inptxt		{cursor:text;}
+.inptxt_dis	{}
+.inpbut		{}
+.inpbut2	{}
+.inpbut_dis	{}
+.inpbut2_dis	{}
+.inpdes		{width:10px;}
+.inpsel		{background:Window;color:WindowText;}
+.selsel		{background:Highlight;color:HighlightText;}
+.selovr		{background:Highlight;color:HighlightText;}
+.selout		{}
+.panel		{width:400px;height:250px;}
+.fset		{height:238px;}
+.help		{height:500px;padding:4px;}
+.butarea	{float:bottom;}
+fieldset,label,.inptxt,.inptxt_dis,.butarea,.inpbut2,.inpbut2_dis,.inpdes,.inpspan		{margin:2px;}
+embed,.inpsel											{margin:3px;}
+label,.legsel,.legdes,.leguns,.inptxt,.inptxt_dis,.inpbut,.inpbut_dis,.inpbut2,.inpbut2_dis,.inpdes,.inpspan	{float:left;}
+.legsel,.legdes,.inpbut,.inpbut_dis,.inpbut2,.inpbut2_dis					{height:23px;font-weight:bold;}
+.legsel,.legdes,.inpbut,.inpbut_dis								{text-align:center;}
+label,.inptxt,.inptxt_dis,.selsel,.selovr,.selout,.leguns,.inpdes,.inpspan			{height:17px;}
+.selsel,.selovr,.selout										{padding:0px 2px 0px 2px;overflow:hidden;}
+.inpbut,.inpbut_dis,.inpbut2,.inpbut2_dis,.legsel						{padding:0px;}
+body,.panel											{background:ThreeDFace;color:WindowText;}
+.help,.inpsel											{overflow:auto;}
+label												{overflow:hidden;}
+.panel,.help											{display:none;}
+.inpbut2,.inpbut2_dis										{padding:0px 1px 0px 1px;}
+.inptxt,.inptxt_dis,.inpbut2,.inpbut2_dis							{width:152px;text-align:left;}

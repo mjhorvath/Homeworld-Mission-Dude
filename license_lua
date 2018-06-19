@@ -1,0 +1,5 @@
+I release the Lua 4 code in the "source/lua" folder into the Public Domain.
+Please mention me in your own program or mod if you end up using it. Thanks.
+
+This does not apply to "Lua4.exe" and "Luac4.exe" of course. Refer to the file 
+"license_lua_binaries" for those two programs.
