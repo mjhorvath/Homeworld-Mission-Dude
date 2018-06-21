@@ -1,6 +1,6 @@
-MissionDude v1.7.0 by Mikali
+MissionDude v1.7.1 by Mikali
 Created: 2006/11/05
-Updated: 2013/10/06
+Updated: 2018/06/20
 Homepage:	http://isometricland.net/homeworld/homeworld.php
 Discussion:	http://forums.relicnews.com/showthread.php?t=120414
 
@@ -23,12 +23,12 @@ See the program help files for additional information.
 
 LICENSES
 
-MissionDude is licensed under the LGPL v2.1. This includes any JavaScript, 
-HTML, HTA, WSH or CSS scripts included in the "source" folder code. I release 
-the Lua 4 scripts located in the "source/lua" folder into the Public Domain. 
-But please give me credit in your own mod or program if you end up using them. 
-I do not recall what the software license was for "cjDialogs.dll", however. I 
-cannot find the file on the Web any more.
+MissionDude is licensed under the GPLv3. This includes any JavaScript, HTML, 
+HTA, WSH or CSS scripts included in the "source" folder. I release the Lua 4 
+scripts located in the "source/lua" folder into the Public Domain. But please 
+give me credit in your own mod or program if you end up using them. I do not 
+recall what the software license was for "cjDialogs.dll", however, as I cannot 
+find the file on the Web any more. It was created by cj at the Kixtart forums.
 
 
 ================================================================================

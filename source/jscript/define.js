@@ -1,25 +1,17 @@
-// Copyright (C) 2009  Michael Horvath
-
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2.1 of the License, or (at your option) any later version.
-
-// This library is distributed in the hope that it will be useful,
+// Copyright (C) 2018  Michael Horvath
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// Lesser General Public License for more details.
-
-// You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-
-// a value of null means the parameter is inapplicable and is null
-// a value of 1 means the parameter is applicable and is a float
-// a value of 2 means the parameter is applicable and is a string
-// a value of 3 means the parameter is applicable and is a integer
-// a value of 4 means the parameter is applicable and is a button
-// a value of 5 means the parameter is applicable and is a boolian value
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 var defaultobject = {Type:['Point'],Subtype:[''],Translation:[0,0,0],Rotation:[0,0,0],Label:[''],Amount:[1],Name:['']}
 var nullobject = {Type:[''],Subtype:[''],Translation:[0,0,0],Rotation:[0,0,0],Label:[''],Amount:[0]}
