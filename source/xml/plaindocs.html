@@ -1,0 +1,506 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html>
+	<head>
+		<title>MissionDude Docs</title>
+	</head>
+	<body>
+		<div id="help_pnl" class="panel">
+			<fieldset id="help_fld" class="fset">
+				<legend class="leguns">MissionDude Docs</legend>
+				<div class="help" id="help_pg0" style="display:block;">
+<h4>How the Maps Work</h4>
+<p>This editor uses a principle of populating a map with objects stored in containers&mdash;called &quot;distributions&quot;&mdash;that is carried over from the original <i>Homeworld</i> and <i>Homeworld: Cataclysm</i>. Distributions are an efficient means of storing data and making changes to large numbers of objects, simply and easily.</p>
+<p>Distributions exist in the form of tables (or arrays) of information. All map objects are stored in such tables. The tables contain all the information (in the form of parameters) necessary to recreate the map objects. These tables can also contain objects that reference other tables, thereby making it possible to nest objects within each other. Distribution tables are declared at the head of the &quot;DetermChunk&quot; portion of a level file, and are referenced later by the map populating functions.</p>
+<p>The map populating functions (such as the &quot;shapeAdd&quot; function) count the number and types of objects within a distribution and place the objects on the map according to an algorithm. Any coordinates specified in the objects' properties are calculated <em>in addition</em> to the results of the algorithm.</p>
+<h4>Prior Reading</h4>
+<p>If you've never created a map before, I recommend reading Malignus's <a target="_blank" href="http://hw2wiki.net/wiki/index.php?title=MappingTutorial">mapping tutorial</a> before proceeding any further. It provides a general overview of how to create a map, as well specific information regarding the relevant SCAR functions.</p>
+				</div> 
+				<div class="help" id="help_pg1">
+<h4>Quick Start</h4>
+<p>To just add objects without worrying about the other complicated features:</p>
+<ol>
+<li>Click the "Add" button below the objects list. This will add the most generic type of object: the Point.</li>
+<li>Change the type of object by clicking on the button next to the "Type" field.</li>
+<li>Drag the object around the map using the mouse.</li>
+<li>Click the "Capture" button below the map.</li>
+<li>Hold the SHIFT key and click a bunch of times in different places on the map.</li>
+</ol>
+<p>To use the custom shape functions to place objects dynamically based on various mathematical functions:</p>
+<ol>
+<li>Create a new distribution in the "Containers" tab. (It's been abbreviated "Cont." in the recent versions.)</li>
+<li>Switch to the new distribution and add objects (asteroids, clouds, ships, etc.) to the center of the map.</li>
+<li>You can increase the number of each object to more than 1 in the "Amount" field. That way you don't have click until your fingers are sore.</li>
+<li>Switch back to the Main distribution.</li>
+<li>Add one of the custom objects ("Shape", "Spline", "Branch", etc.).</li>
+<li>Make sure the custom object references the distribution you created in Step 1. You do this on the "More..." tab of the object properties pane.</li>
+</ol>
+<h4>Adding New Objects</h4>
+<p>If you want to add new types of objects (in a mod for instance), and are willing to do some code diving, you can simply open "define.js" in a text editor and modify the "subtypetable" table. You can find the file in the "\source\jscript" subfolder. It shouldn't be too hard; just don't mess around with the other tables!</p>
+				</div> 
+				<div class="help" id="help_pg2">
+<h4>Important Things to Remember</h4>
+<p>
+<ul>
+<li>If you have the Adobe SVG browser plugin installed, you can zoom in on the map by pressing the CTRL key and clicking on the map with the mouse. Use CTRL + SHIFT to zoom out. Holding the ALT key while dragging the mouse will move the map. Right-clicking on the map will bring up a list of additional options. Other browser plugins have not been tested and may work differently.</li>
+<li>You can import any (uncompiled) <i>HW2</i> level, but the application is optimized for importing levels generated using version 1.4 or later of MissionDude.</li>
+<li>Each map MUST have one distribution named &quot;Main&quot;. This is the top-level distribution. All objects stored in this distribution are added to the map as entered. Each distribution uses a local coordinate system, so if distributions are nested, then the coordinates from one distribution are added to the coordinates of the other distribution.</li>
+<li>Object labels are followed by one or more numbers contained within square brackets. The first number always refers to the number of objects being added to the map. Squadrons have two additional numbers: the owner player index, and a boolean flag telling whether the squadron is a normal squadron or a &quot;reactive&quot; squadron (0 is normal, 1 is reactive).</li>
+<li>Make sure to save all objects after editing their properties! (You will be warned if you don't do this.)</li>
+<li>Use the &quot;Capture&quot; button to clone the selected object at the mouse's current coordinates.</li>
+<li>Maps created using this editor probably won't work over multiplayer (from experience they usually cause de-syncs). The solution for this is to manually configure the starting points using a text editor.</li>
+<li>Objects stored in distributions that later get referenced by the special shape functions should generally all be positioned at the origin of the distribution's local coordinate system. The special functions will later modify the objects' positions dynamically, so there's no need to adjust them. You can experiment by disregarding this tip, however.</li>
+<li>You can compile an exported &quot;.level&quot; file so that it (in theory) takes less time to download and runs faster. Compiled levels by default are generated with the &quot;.levelc&quot; extension. You'll have to rename them back to &quot;.level&quot; in order for them to work in <i>HW2</i>. Note also that compiled levels cannot be later imported back into MissionDude.</li>
+<li>Squadron and point names do not increment properly if the distributions they belong to are referenced more than once within the same map. Make sure to reference a distribution that contains any &quot;named&quot; objects (e.g., squadrons, points and spheres) only once if you intend to later add them to sobgroups or paths, or intend to check other objects' positions using volumes in a gamerule.</li>
+<li>Players are indexed according to the order in which they appear in the &quot;Players&quot; dialog, beginning with zero at the top. Similarly, start points are indexed according to the order in which they get added to the map. For multiplayer maps, players should have matching start points sharing the same index. For singleplayer maps, this is typically not necessary, though a single point named &quot;PlayerStartPoint&quot; may be required for the first player.<br/>The label for each player (e.g., &quot;Player #1&quot;, &quot;Player #2&quot;, etc.) is an independant means of tracking the player, but is typically ignored by the game.</li>
+<li>Objects in the &quot;Main&quot; distribution should generally not have an &quot;Amount&quot; value greater than one (unless you want the objects to overlap).</li>
+<li>To decrease the size of exported level files, use Lua's &quot;dofilepath&quot; function to read in a single, external copy of &quot;MapFunctions.lua&quot;, instead of storing separate copies within each level file.</li>
+<li>All objects need to have unique labels. Be careful to check whether two objects use the same label. Object labels ending in an underscore and followed by some digits may be considered the same as labels without the underscore and digits. The program uses underscores and digits internally to track objects and values, so take special care not to interfere with this.</li>
+<li>You can change the visual style of the application from its default state to &quot;blue&quot; in the &quot;Options&quot; dialog.</li>
+<li>Reactive Squadrons are used only for singleplayer campaigns. They require a &quot;player&lt;X&gt;reinforce.lua&quot; file associated with the mission scripts in order to work. Reactive Squadrons must always be added to a sobgroup, and may never be added to more than one sobgroup.</li>
+<li>The window zoom feature (CTRL + = and CTRL + -) of Internet Explorer 7 is a bit buggy. It doesn't always fire the &quot;window.onresize&quot; event. As a result, you may witness odd results when using this feature. You can try pressing the F5 key to fix this. Remember to save your work first!</li>
+<li>The &quot;Scale on Zoom&quot; option can be set to control whether map objects get scaled when the map is zoomed. Disabling this option speeds up the redraw speed when zooming, but slows it down when dragging.</li>
+<li>You can place a background image over the map. Simply place three images, named &quot;image1.png&quot;, &quot;image2.png&quot; and &quot;image3.png&quot;, representing the three map views, in your &quot;MissionDude\maps\&quot; folder. You can change the position and dimensions of the images in the &quot;Options&quot; dialog.</li>
+</ul>
+				</div>
+				<div class="help" id="help_pg3">
+<a name="top"></a>
+<h4>Special Functions Reference</h4>
+<h5>&quot;DetermChunk&quot; functions (these go in the &quot;DetermChunk&quot; portion of the level file):</h5>
+<ul>
+<li><a href="#easyPatch">easyPatch</a>: Creates a resource patch with minimal effort.</li>
+<li><a href="#shapeAdd">shapeAdd</a>: Creates one of several available mathematical shapes.</li>
+<li><a href="#branchAdd">branchAdd</a>: Creates a branching tree.</li>
+<li><a href="#splineAdd">splineAdd</a>: Creates a spline-shaped tube using two end points and two control points.</li>
+<li><a href="#ringAdd">ringAdd</a>: Creates an elliptical ring.</li>
+<li><a href="#globeAdd">globeAdd</a>: Creates a series of rings in the shape of a sphere, like the lattitudinal and longitudinal lines of a globe.</li>
+<li><a href="#spiralAdd">spiralAdd</a>: Creates a Nautilus (equiangular) or Archimedes spiral.</li>
+<li><a href="#literalAdd">literalAdd</a>: Plots all objects' positions exactly as entered.</li>
+</ul>
+<h5>&quot;NonDetermChunk&quot; functions (these go in the &quot;NonDetermChunk&quot; portion of the level file):</h5>
+<ul>
+<li><a href="#randomBackground">randomBackground</a>: Randomly selects the level background.</li>
+<li><a href="#randomMusic">randomMusic</a>: Randomly selects the level music.</li>
+</ul>
+<hr/>
+<p>
+<a name="easyPatch"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="2">easyPatch</td></tr>
+<tr><td>Description:</td>	<td colspan="2">Creates a resource patch with minimal effort.</td></tr>
+<tr><td>Syntax:</td>	<td colspan="2">easyPatch(&lt;tPos&gt;, &lt;fRUs&gt;)</td></tr>
+<tr><td>Arguments:</td>	<td>&lt;tPos&gt;:</td>	<td>the shape's center coordinates.</td></tr>
+<tr><td></td>		<td>&lt;fRUs&gt;:</td>	<td>(optional) the percent of the default RU to retain.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="shapeAdd"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="3">shapeAdd</td></tr>
+<tr><td>Description:</td>	<td colspan="3">Creates one of several available shapes.</td></tr>
+<tr><td>Syntax:</td>	<td colspan="3">shapeAdd(&lt;tPos&gt;, &lt;tDst&gt;, {&lt;sLay&gt;, &lt;fA&gt;, &lt;fB&gt;, ...}, &lt;tRot&gt;)</td></tr>
+<tr><td>Arguments:</td>	<td>&lt;tPos&gt;:</td>	<td colspan="2">a table containing the shape's center coordinates.</td></tr>
+<tr><td></td>		<td>&lt;tDst&gt;:</td>	<td colspan="2">the distribution table used to populate the shape.</td></tr>
+<tr><td></td>		<td>&lt;tPar&gt;:</td>	<td colspan="2">a table containing the following six parameters: &lt;sLay&gt;, &lt;fA&gt;, &lt;fB&gt;, &lt;fC&gt;, &lt;fD&gt; and &lt;fE&gt;. The last five vary depending on &lt;sLay&gt;.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;sLay&gt;:</td>	<td colspan="2">the type of shape to generate. (string)</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Cylinder&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Cone&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Ellipsoid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Cuboid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Toroid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the width of the tube.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>equals the height of the tube.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Helicoid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the width. (Thickness is not supported in this case.)</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is the number of revolutions.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Paraboloid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1 at a height of 1000 units.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2 at a height of 1000 units.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Hyperboloid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Astroid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Funnel&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals roughly the inverse of the length of axis 3 for large numbers of objects.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Dini&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the distance between each twist.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is the number of twists.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Corkscrew&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the height of the screw.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Seashell&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1 of the tube.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2 of the tube.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the vertical separation between revolutions.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the radius of the center gap.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>equals the number of revolutions.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;SineDisc&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the maximum height of the wave.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>equals the frequency of the wave pattern.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;SinePlane&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the maximum height of the wave.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>equals the frequency of the wave pattern.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Moebius&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals half the width of the strip.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Klein&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the scaling along the x-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the scaling along the z-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the scaling along the y-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Klein8&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the scaling along the x-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the scaling along the z-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the scaling along the y-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Boy&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the scaling along the x-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the scaling along the z-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the scaling along the y-axis.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is an integer greater than 2.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Lissajous3D&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of the bounding cube.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the radius of the sphere sweep.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the speed of the second arc relative to the first.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the speed of the third arc relative to the first.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>equals the number of revolutions.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Rectangle&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Ellipse&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the length of axis 3.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Parabola&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the distance between the vertex and the focus.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the height.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Hyperbola&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the distance from the origin to one of the foci.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the thickness.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>is always zero.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Hypotrochoid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the radius of the greater circle.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the radius of the lesser circle.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the radius of the sphere sweep.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the distance from the center of the lesser circle.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>equals the number of revolutions.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Epitrochoid&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the radius of the greater circle.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the radius of the lesser circle.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the radius of the sphere sweep.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the distance from the center of the lesser circle.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>equals the number of revolutions.</td></tr>
+<tr><td colspan="2"></td>			<td colspan="2">If &lt;sLay&gt; is &quot;Lissajous2D&quot;:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fA&gt;:</td>	<td>equals the length of the bounding square.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fB&gt;:</td>	<td>equals the phase shift.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fC&gt;:</td>	<td>equals the radius of the sphere sweep.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fD&gt;:</td>	<td>equals the speed of the second arc relative to the first.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fE&gt;:</td>	<td>equals the number of revolutions.</td></tr>
+<tr><td></td>		<td>&lt;tRot&gt;:</td>	<td colspan="2">a table containing the X, Y and Z Euler rotation angles, in degrees, for the entire object.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="branchAdd"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="3">branchAdd</td></tr>
+<tr><td>Description:</td>	<td colspan="3">Creates a branching tree.</td></tr>
+<tr><td>Syntax:</td>	<td colspan="3">branchAdd(&lt;tPos&gt;, &lt;tDst&gt;, {&lt;tDiv&gt;, &lt;tInt&gt;, &lt;tFrq&gt;, &lt;tBeg&gt;, &lt;tEnd&gt;, &lt;tRad&gt;, &lt;tLen&gt;, &lt;tThk&gt;, &lt;tAng&gt;, &lt;iMod&gt;,}, &lt;tRot&gt;, ...)</td></tr>
+<tr><td>Arguments:</td>	<td>&lt;tPos&gt;:</td>	<td colspan="2">a table containing the shape's center coordinates.</td></tr>
+<tr><td></td>		<td>&lt;tDst&gt;:</td>	<td colspan="2">the distribution table used to populate the shape.</td></tr>
+<tr><td></td>		<td>&lt;tPar&gt;:</td>	<td colspan="2">a table containing the following ten parameters:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tDiv&gt;:</td>	<td>a table containing the minimum and maximum number of new shoots that are generated each time the tree divides.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tInt&gt;:</td>	<td>a table containing the minimum and maximum number of segments between instances of division.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tFrq&gt;:</td>	<td>a table containing the minimum and maximum number of times the tree divides.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tBeg&gt;:</td>	<td>a table containing the minimum and maximum number of segments added to the beginning of the tree.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tEnd&gt;:</td>	<td>a table containing the minimum and maximum number of segments added to the end of the tree (at the end of each branch). (Note: this value needs to be greater than zero in order for the last division to be noticable.)</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tRad&gt;:</td>	<td>a table containing the the minimum and maximum radius of a segment.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tLen&gt;:</td>	<td>a table containing the minimum and maximum length of a segment.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tThk&gt;:</td>	<td>a table containing the minimum and maximum thickness, as percentages of the radius, of a segment.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tAng&gt;:</td>	<td>a table containing the minimum and maximum angle of deviation between segments.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;iMod&gt;:</td>	<td>0 is non-random mode, 1 is random placement with steadily decreasing length and radius, 2 is random placement with random length and radius, 3 is a bug-ridden method using splines.</td></tr>
+<tr><td></td>		<td>&lt;tRot&gt;:</td>	<td colspan="2">a table containing the X, Y and Z rotation angles (degrees) for the entire object.</td></tr>
+<tr><td></td>		<td colspan="3">The remaining arguments are used internally by the function and should not be modified.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="splineAdd"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="3">splineAdd</td></tr>
+<tr><td>Description:</td>	<td colspan="3">Creates a spline-shaped tube connecting any two points using two control points.</td></tr>
+<tr><td>Syntax:</td>	<td colspan="3">splineAdd(&lt;tPos&gt;, &lt;tDst&gt;, {&lt;tP1A&gt;, &lt;tP1B&gt;, &lt;tP2A&gt;, &lt;tP2B&gt;, &lt;tRad&gt;,}, &lt;tRot&gt;)</td></tr>
+<tr><td>Arguments:</td>	<td>&lt;tPos&gt;:</td>	<td colspan="2">a table containing the shape's center coordinates.</td></tr>
+<tr><td></td>		<td>&lt;tDst&gt;:</td>	<td colspan="2">the distribution table used to populate the shape.</td></tr>
+<tr><td></td>		<td>&lt;tPar&gt;:</td>	<td colspan="2">a table containing the following six parameters:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tP1A&gt;:</td>	<td>a table containing the coordinates of the starting point.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tP1B&gt;:</td>	<td>a table containing the coordinates of the first control point.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tP2A&gt;:</td>	<td>a table containing the coordinates of the ending point.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tP2B&gt;:</td>	<td>a table containing the coordinates of the second control point.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tRad&gt;:</td>	<td>a table containing the initial and final radii of the tube.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tThk&gt;:</td>	<td>a table containing the minimum and maximum thickness, as percentages of the radius, of the tube.</td></tr>
+<tr><td></td>		<td>&lt;tRot&gt;:</td>	<td colspan="2">a table containing the X, Y and Z rotation angles (degrees) for the entire object.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="ringAdd"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="3">ringAdd</td></tr>
+<tr><td>Description:</td>	<td colspan="3">Creates an elliptical ring.</td></tr>
+<tr><td>Syntax:</td>	<td colspan="3">ringAdd(&lt;tPos&gt;, &lt;tDst&gt;, {&lt;fAx1&gt;, &lt;fAx2&gt;, &lt;fThk&gt;, &lt;fHgh&gt;, &lt;tArc&gt;, &lt;iMod&gt;,}, &lt;tRot&gt;)</td></tr>
+<tr><td>Arguments:</td>	<td>&lt;tPos&gt;:</td>	<td colspan="2">a table containing the shape's center coordinates.</td></tr>
+<tr><td></td>		<td>&lt;tDst&gt;:</td>	<td colspan="2">the distribution table used to populate the shape.</td></tr>
+<tr><td></td>		<td>&lt;tPar&gt;:</td>	<td colspan="2">a table containing the following six parameters:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fAx1&gt;:</td>	<td>the length of axis 1.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fAx2&gt;:</td>	<td>the length of axis 2.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fThk&gt;:</td>	<td>the distance from the outer radius to the inner radius (varies according to &lt;iMod&gt;).</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fHgh&gt;:</td>	<td>the height of the ring, relative to the plane.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tArc&gt;:</td>	<td>a table containing the beginning and ending degrees of the arc.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;iMod&gt;:</td>	<td>if 0, then non-random mode. If 1, then random mode w/ gradual width. If 2, then random mode w/ even width.</td></tr>
+<tr><td></td>		<td>&lt;tRot&gt;:</td>	<td colspan="2">a table containing the X, Y and Z rotation angles (degrees) for the entire object.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="globeAdd"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="3">globeAdd</td></tr>
+<tr><td>Description:</td>	<td colspan="3">Creates a series of rings in the shape of a sphere, like the latitudinal and longitudinal lines of a globe.</td></tr>
+<tr><td>Syntax:</td>		<td colspan="3">globeAdd(&lt;tPos&gt;, &lt;tDst&gt;, {&lt;fRad&gt;, &lt;fLat&gt;, &lt;fLon&gt;, &lt;fThk&gt;, &lt;fHgh&gt;, &lt;tArc&gt;, &lt;iMod&gt;,}, &lt;xNull&gt;)</td></tr>
+<tr><td>Arguments:</td>		<td>&lt;tPos&gt;:</td>	<td colspan="2">a table containing the shape's center coordinates.</td></tr>
+<tr><td></td>			<td>&lt;tPar&gt;:</td>	<td colspan="2">a table containing the following seven parameters:</td></tr>
+<tr><td colspan="2"></td>				<td>&lt;fRad&gt;:</td>	<td>the radius of the sphere.</td></tr>
+<tr><td colspan="2"></td>				<td>&lt;fLat&gt;:</td>	<td>the number of latitudinal rings.</td></tr>
+<tr><td colspan="2"></td>				<td>&lt;fLon&gt;:</td>	<td>the number of longitudinal rings.</td></tr>
+<tr><td colspan="2"></td>				<td>&lt;fThk&gt;:</td>	<td>see the description for the &quot;ringAdd&quot; function.</td></tr>
+<tr><td colspan="2"></td>				<td>&lt;fHgh&gt;:</td>	<td>see the description for the &quot;ringAdd&quot; function.</td></tr>
+<tr><td colspan="2"></td>				<td>&lt;tArc&gt;:</td>	<td>see the description for the &quot;ringAdd&quot; function.</td></tr>
+<tr><td colspan="2"></td>				<td>&lt;iMod&gt;:</td>	<td>see the description for the &quot;ringAdd&quot; function.</td></tr>
+<tr><td></td>			<td>&lt;xNull&gt;:</td>	<td colspan="2">this argument is ignored and is used only to adhere to function call standards.</td></tr>
+<tr><td>Note:</td>		<td colspan="3">Beware that objects may overlap where the longitudinal rings intersect at the poles.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="spiralAdd"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="3">spiralAdd</td></tr>
+<tr><td>Description:</td>	<td colspan="3">Creates a spiral.</td></tr>
+<tr><td>Suntax:</td>	<td colspan="3">spiralAdd(&lt;tPos&gt;, &lt;tDst&gt;, {&lt;sLay&gt;, &lt;nRad&gt;, &lt;nArm&gt;, &lt;nRot&gt;, &lt;nAng&gt;, &lt;nHgh&gt;, &lt;nWid&gt;, &lt;nThk&gt;, &lt;tTim&gt;, &lt;iMod&gt;,}, &lt;tRot&gt;)</td></tr>
+<tr><td>Arguments:</td>	<td>&lt;tPos&gt;:</td>	<td colspan="2">a table containing the shape's center coordinates.</td></tr>
+<tr><td></td>		<td>&lt;tDst&gt;:</td>	<td colspan="2">the distribution table used to populate the shape.</td></tr>
+<tr><td></td>		<td>&lt;tPar&gt;:</td>	<td colspan="2">a table containing the following ten parameters:</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;sLay&gt;:</td>	<td>may be either &quot;Nautilus&quot; or &quot;Archimedes&quot;.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fRad&gt;:</td>	<td>depending on &lt;fAng&gt;, this is either the minimum or maximum radius of the spiral.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;iArm&gt;:</td>	<td>the number of arms the spiral will have.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fRot&gt;:</td>	<td>the number of times the spiral will rotate around the origin.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fAng&gt;:</td>	<td>the angle (degrees) of deviation (90' and 270' makes a circle).</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fHgh&gt;:</td>	<td>the height of the spiral above the plane.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fWid&gt;:</td>	<td>the width of the spiral arms.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;fThk&gt;:</td>	<td>the thickness of the spiral arms.</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;tTim&gt;:</td>	<td>a table containing the minimum and maximum values for &quot;t&quot; (time, percent) at which the curve is sampled. (must be a float between 0 and 1)</td></tr>
+<tr><td colspan="2"></td>			<td>&lt;iMod&gt;:</td>	<td>0 is non-random, 1 is random, 2 is random-mode with tapering width.</td></tr>
+<tr><td></td>		<td>&lt;tRot&gt;:</td>	<td colspan="2">a table containing the X, Y and Z rotation angles (degrees) for the entire object.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="literalAdd"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="2">literalAdd</td></tr>
+<tr><td>Description:</td>	<td colspan="2">Adds the contents of a distribution table to the map without changing any values.</td></tr>
+<tr><td>Syntax:</td>		<td colspan="2">literalAdd(&lt;tDst&gt;)</td></tr>
+<tr><td>Arguments:</td>		<td>&lt;tDst&gt;:</td>	<td>the distribution table used to populate the shape.</td></tr>
+<tr><td>Note:</td>		<td colspan="2">This function is the one used to process the "Main" distribution.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="randomBackground"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="2">randomBackground</td></tr>
+<tr><td>Description:</td>	<td colspan="2">Randomly selects the level background.</td></tr>
+<tr><td>Syntax:</td>		<td colspan="2">randomBackground(&lt;iMod&gt;, &lt;tTab&gt;, &lt;iLen&gt;)</td></tr>
+<tr><td>Arguments:</td>		<td>&lt;iMod&gt;:</td>	<td>may be 0, 1, 2, 3, 4 or 5.</td></tr>
+<tr><td></td>			<td colspan="2">If &lt;iMod&gt; is 0, then this function has been disabled.</td></tr>
+<tr><td></td>			<td colspan="2">If &lt;iMod&gt; is 1, then the level background is selected from only the mission backgrounds.</td></tr>
+<tr><td></td>			<td colspan="2">If &lt;iMod&gt; is 2, then the level background is selected from only the other backgrounds.</td></tr>
+<tr><td></td>			<td colspan="2">If &lt;iMod&gt; is 3, then the level background is selected from both the mission and other backgrounds.</td></tr>
+<tr><td></td>			<td colspan="2">If &lt;iMod&gt; is 4, then the level background is selected from only &lt;tTab&gt;.</td></tr>
+<tr><td></td>			<td colspan="2">If &lt;iMod&gt; is 5, then the level background is selected from all of the above.</td></tr>
+<tr><td></td>			<td>&lt;tTab&gt;:</td>	<td>(optional) a table containing the names of the custom backgrounds.</td></tr>
+<tr><td></td>			<td>&lt;iLen&gt;:</td>	<td>(optional) the length of &lt;tTab&gt;.</td></tr>
+<tr><td>Note:</td>		<td colspan="2">This function must be called from within the &quot;NonDetermChunk&quot; portion of a &quot;.level&quot; file.</td></tr>
+</table>
+</p>
+<hr/>
+<p>
+<a name="randomMusic"></a><a href="#top">Top</a>
+</p>
+<p>
+<table>
+<tr><td>Name:</td>		<td colspan="2">randomMusic</td></tr>
+<tr><td>Description:</td>	<td colspan="2">Randomly selects the level music.</td></tr>
+<tr><td>Syntax:</td>		<td colspan="2">randomMusic(&lt;iMod&gt;, &lt;tTab&gt;, &lt;iLen&gt;, &lt;sDir&gt;)</td></tr>
+<tr><td>Arguments:</td>		<td>&lt;iMod&gt;:</td>	<td>may be 0, 1, 2, 3, 4 or 5.</td></tr>
+<td></td>			<td colspan="2">If &lt;iMod&gt; is 0, then this function is disabled.</td></tr>
+<td></td>			<td colspan="2">If &lt;iMod&gt; is 1, then the level music is selected from only the ambient tracks.</td></tr>
+<td></td>			<td colspan="2">If &lt;iMod&gt; is 2, then the level music is selected from only the battle tracks.</td></tr>
+<td></td>			<td colspan="2">If &lt;iMod&gt; is 3, then the level music is selected from both the ambient and battle tracks.</td></tr>
+<td></td>			<td colspan="2">If &lt;iMod&gt; is 4, then the level music is selected from only &lt;tTab&gt;.</td></tr>
+<td></td>			<td colspan="2">If &lt;iMod&gt; is 5, then the level music is selected from all of the above.</td></tr>
+<td></td>			<td>&lt;tTab&gt;:</td>	<td>a table containing the names of the custom audio tracks. (table, optional)</td></tr>
+<td></td>			<td>&lt;iLen&gt;:</td>	<td>the length of &lt;tTab&gt;. (number, optional)</td></tr>
+<td></td>			<td>&lt;sDir&gt;:</td>	<td>the directory where the extra files can be found. Must have a trailing slash. (string, optional)</td></tr>
+<tr><td>Note:</td>		<td colspan="2">This function must be called from within the &quot;NonDetermChunk&quot; portion of a &quot;.level&quot; file.</td></tr>
+</table>
+</p>
+				</div>
+				<div class="help" id="help_pg4">
+<h4>Program Hotkeys</h4>
+<p>
+<table>
+<tr><td>Alt + T</td><td>Switch between objects, containers and level settings.</td></tr>
+<tr><td>Alt + P</td><td>Switch between properties.</td></tr>
+<tr><td>Alt + V</td><td>Switch between map views.</td></tr>
+<tr><td>Alt + H</td><td>View help.</td></tr>
+<tr><td>Alt + N</td><td>New map.</td></tr>
+<tr><td>Alt + L</td><td>Load map.</td></tr>
+<tr><td>Alt + S</td><td>Save map.</td></tr>
+<tr><td>Alt + D</td><td>Delete map.</td></tr>
+<tr><td>Alt + E</td><td>Export map.</td></tr>
+<tr><td>Alt + I</td><td>Import map.</td></tr>
+<tr><td>Alt + F</td><td>Compile map.</td></tr>
+<tr><td>Alt + O</td><td>View options.</td></tr>
+<tr><td>Alt + G</td><td>Toggle map legend.</td></tr>
+<tr><td>Alt + C</td><td>Toggle point-capturing.</td></tr>
+<tr><td>Alt + -</td><td>Move the selected object down in the list.</td></tr>
+<tr><td>Alt + =</td><td>Move the selected object up in the list.</td></tr>
+<tr><td>Tab</td><td>Switch to the next dialog.</td></tr>
+<tr><td>Shift + Alt + Key</td><td>Reverse direction of switching.</td></tr>
+<tr><td>Ctrl + -</td><td>Zoom the entire window out. (Sometimes buggy due to IE7 quirk.)</td></tr>
+<tr><td>Ctrl + =</td><td>Zoom the entire window in. (Sometimes buggy due to IE7 quirk.)</td></tr>
+<tr><td>Ctrl + Mousewheel</td><td>Zoom the entire window in or out. (Sometimes buggy due to IE7 quirk.)</td></tr>
+<tr><td>Ctrl + 0</td><td>Set the entire window to its default zoom state. (Sometimes buggy due to IE7 quirk.)</td></tr>
+<tr><td>Ctrl + Left-click</td><td>Zoom in on the map.</td></tr>
+<tr><td>Ctrl + Left-click + Drag</td><td>Zoom map in on a specific area of the map.</td></tr>
+<tr><td>Shift + Ctrl + Left-click</td><td>Zoom out of the map.</td></tr>
+<tr><td>Alt + Left-click + Drag</td><td>Pan map.</td></tr>
+<tr><td>Alt + F4</td><td>Exit the program without saving.</td></tr>
+</table>
+</p>
+				</div>
+				<div class="help" id="help_pg5">
+<h4>About this program</h4>
+<p>This program was written by me, Michael Horvath (Mikail on the RelicNews forums). Visit my homepage, <a target="_blank" href="http://www.geocities.com/Area51/Quadrant/3864/homeworld.htm">here</a>. You can reach me via email from this website. The discussion thread for this program can be found <a target="_blank" href="http://forums.relicnews.com/showthread.php?t=120414">here</a>.</p>
+<h4>Credits</h4>
+<ul>
+<li>The excellent SVG tutorials at <a target="_blank" href="http://www.carto.net/">carto:net</a> and <a target="_blank" href="http://www.kevlindev.com/">KevLinDev</a>.</li>
+<li>JScript performance tips by Peter Gurevich at <a target="_blank" href="http://blogs.msdn.com/ie/archive/2006/08/28/728654.aspx">IE Blog</a>.</li>
+<li>The JavaScript memory leak tutorial at <a target="_blank" href="http://www.javascriptkit.com/javatutors/closuresleak/index.shtml">JavaScript Kit</a>.</li>
+<li>Malignus, for getting me started with his <a target="_blank" href="http://hw2wiki.net/wiki/index.php?title=MappingTutorial">mapping tutorial</a>.</li>
+<li>MathWorld and Wikipedia for many of the mathematical functions used in the scripts.</li>
+<li>The <a target="_blank" href="http://www.peachpit.com/articles/article.aspx?p=31567">sample chapter</a> of <i>Optimizing JavaScript for Execution Speed</i>, by Andrew B. King.</li>
+<li>Some of the SVG filters are modified versions of ones originally written by Adobe.</li>
+<li>cj at the <a target="_blank" href="http://www.kixtart.org/forums/ubbthreads.php?ubb=cfrm">KiXtart forums</a> for providing &quot;cjDialogs.dll&quot;.</li>
+<li>JMScomp and maxdamage for bug reports and feature suggestions.</li>
+<li>cybersam for bug reports.</li>
+</ul>
+<h4>Software License</h4>
+<p>Copyright (C) 2009  Michael Horvath</p>
+<p>This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA</p>
+				</div>
+			</fieldset>
+		</div>
+	</body>
+</html>
