@@ -14,7 +14,7 @@ installation and usage instructions, as well as an update history. I have
 confirmed the program works in Windows 7, but do not know if it works in 
 Windows 8/8.1/10.
 
-I uploaded a video to YouTube describing how to install the program:
+I uploaded a video to YouTube showing how to install the program on Windows 7:
 
 https://www.youtube.com/watch?v=dQttG-z4Y8E
 
